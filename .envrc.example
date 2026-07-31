@@ -1,0 +1,5 @@
+# Copy to .envrc and customize, then run: direnv allow
+# Never commit .envrc — only this example.
+
+# export GITHUB_TOKEN="$(op read 'op://Private/github-pat/token')"
+# export ANTHROPIC_API_KEY="$(op read 'op://Private/anthropic-api/key')"

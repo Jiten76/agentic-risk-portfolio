@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>agentic-risk-portfolio</title>
+<style>
+  :root{
+    --bg:#14110d; --surface:#1b1714; --text:#E8DFD3; --dim:rgba(232,223,211,.7);
+    --mut:rgba(232,223,211,.45); --line:rgba(214,196,162,.22); --accent:#C9A26B;
+    --red:#e5484d; --red-soft:rgba(229,72,77,.09);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);
+    font:15px/1.5 -apple-system,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0 0;gap:12px;flex-wrap:wrap}
+  .mark{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:13px;color:var(--text);letter-spacing:.03em}
+  .cat{font-size:14px;color:var(--mut)}
+  .gh{font-size:13.5px;color:var(--mut);text-decoration:none}
+  .gh:hover{color:var(--accent)}
+
+  .grid{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-top:34px;align-items:start}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .tile{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:22px 24px;
+    text-decoration:none;color:var(--text);display:block}
+  a.tile:hover{border-color:var(--accent)}
+  .lbl{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.14em;color:var(--mut);text-transform:uppercase}
+  .big{font-family:ui-monospace,monospace;font-weight:700;font-size:56px;line-height:1.05;margin-top:10px;color:var(--red)}
+  .big a{color:inherit;text-decoration:none}
+  .big a:hover{text-decoration:underline;text-decoration-thickness:3px}
+  .big small{font-size:20px;font-weight:400;color:var(--dim)}
+  .sub{margin-top:10px;font-size:14.5px;color:var(--dim)}
+  .go{margin-top:12px;font-size:14px;color:var(--accent);font-weight:600;display:block;text-decoration:none}
+  .go:hover{text-decoration:underline}
+
+  .stack{display:grid;gap:14px}
+  .num{font-family:ui-monospace,monospace;font-weight:700;font-size:34px;margin-top:8px;line-height:1;color:var(--text)}
+  .unit{margin-top:6px;font-size:14px;color:var(--dim)}
+
+  .alert{margin-top:14px;border:1px solid rgba(229,72,77,.4);background:var(--red-soft);
+    border-radius:12px;padding:16px 22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .alert .stamp{font-family:ui-monospace,monospace;font-size:12px;color:var(--mut);letter-spacing:.08em}
+  .alert .line{font-size:16px;flex:1;min-width:260px}
+  .alert .line b{font-family:ui-monospace,monospace;color:var(--red)}
+  .btn{display:inline-block;text-decoration:none;border-radius:10px;font-size:15px;font-weight:650;
+    padding:12px 20px;background:var(--accent);color:#171310;white-space:nowrap}
+  .btn:hover{filter:brightness(1.08)}
+
+  .trust{margin:26px 0 40px;font-size:13px;color:var(--mut);display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+  .trust .chip{font-family:ui-monospace,monospace;font-size:12px;border:1px solid var(--line);
+    border-radius:7px;padding:2px 9px;color:var(--dim)}
+  .trust a{color:var(--mut);text-decoration:none;border-bottom:1px solid var(--line)}
+  .trust a:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <span class="mark">agentic-risk-portfolio</span>
+      <span class="cat">&nbsp;·&nbsp; technology-risk oversight, run as software</span>
+    </div>
+    <a class="gh" href="https://github.com/Jiten76/agentic-risk-portfolio" rel="noopener">GitHub ↗</a>
+  </header>
+
+  <div class="grid">
+    <div>
+      <div class="tile">
+        <div class="lbl">residual exposure · P95 · a bad year, priced</div>
+        <div class="big"><a href="/apps/risk-as-code-agent/docs/index.html#role=leadership" data-slot="door-rac">…</a>
+          <small data-slot="rac-inh"></small></div>
+        <div class="sub"><span data-slot="rac-npat"></span>every judgment a re-runnable lever<span data-slot="rac-posture"></span></div>
+        <a class="go" href="/apps/risk-as-code-agent/docs/board.html">the board brief — five asks, one page →</a>
+        <a class="go" href="/apps/risk-as-code-agent/docs/index.html#role=leadership">the workbench — price it, challenge it, sign it →</a>
+      </div>
+      <div class="alert">
+        <div>
+          <div class="stamp"><span data-slot="inc-stamp">SEEDED INCIDENT</span></div>
+          <div class="line">Consumer lag <b data-slot="inc-peak">—</b><span data-slot="inc-ratio"></span> · no level alert before the peak</div>
+        </div>
+        <a class="btn" href="/apps/risk-as-code-agent/docs/journey.html">▶&nbsp; Watch the morning play out</a>
+      </div>
+    </div>
+
+    <div class="stack">
+      <a class="tile" href="/apps/agent-trace-gov/docs/index.html">
+        <div class="lbl">agent governance</div>
+        <div class="num" data-slot="door-atg">…</div>
+        <div class="unit">derived from traces · no verdicts claimed</div>
+        <div class="go">the workbench →</div>
+      </a>
+      <a class="tile" href="/apps/hypervelocity-risk-sim/docs/index.html">
+        <div class="lbl">incident replay</div>
+        <div class="num" data-slot="door-hv">…</div>
+        <div class="unit">detection, manual → instrumented · four failure shapes</div>
+        <div class="go">the observatory →</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="trust">
+    <span class="chip">synthetic · seeded</span>
+    <span class="chip">sealed · verifiable in-browser</span>
+    <span class="chip">self-audited every build</span>
+    <span class="chip">planted-defect tested</span>
+    <span>nothing here is production data — re-run all of it
+      · <a href="/apps/risk-as-code-agent/docs/validation.html">examiner annex</a><span id="strip-provenance"></span></span>
+  </div>
+
+</div>
+
+<script>
+// Shared-object strip + door hydration — the values come from the dashboards' OWN
+// sealed projections (fetched, never typed here). Candidate paths cover both the
+// served monorepo and the flattened review bundle. When every fetch fails (a
+// fully standalone cold-read: file://, or the page shipped without projections/)
+// the tiles fall back to #strip-snapshot — a build-time copy of the same sealed
+// values injected by build_review_bundle.py, never hand-typed — and say so.
+// Absent both, numerals degrade to "open →"; dashboards stay source of truth.
+(function () {
+  'use strict';
+  var $ = function (slot) { return document.querySelector('[data-slot="' + slot + '"]'); };
+  var M = function (x) { return '$' + (x / 1e6).toFixed(1) + 'M'; };
+
+  function firstOk(paths) {
+    return paths.reduce(function (p, url) {
+      return p.catch(function () {
+        return fetch(url).then(function (r) { if (!r.ok) throw 0; return r.json(); });
+      });
+    }, Promise.reject());
+  }
+
+  var snapNoted = false;
+  function snapshot(kind) {
+    var el = document.getElementById('strip-snapshot');
+    if (!el) return null;
+    try { var j = JSON.parse(el.textContent); } catch (e) { return null; }
+    if (j[kind] == null) return null;
+    if (!snapNoted) {
+      snapNoted = true;
+      var note = document.getElementById('strip-provenance');
+      if (note) note.innerHTML = ' <span style="color:var(--mut)">(offline — build-time snapshot of those projections, stamped ' + (j.built_from || 'at bundle build') + ')</span>';
+    }
+    return j[kind];
+  }
+
+  function fail(slots) {
+    slots.forEach(function (s) {
+      var el = $(s); if (el) { el.textContent = 'open →'; el.style.fontSize = '14px'; el.style.fontWeight = '600'; }
+    });
+  }
+
+  // count-up for the door numerals (reduced-motion → set instantly)
+  function countUp(el, target, fmt) {
+    if (!el) return;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { el.textContent = fmt(target); return; }
+    // rAF can starve in non-composited panes (hard-won lesson): a timer failsafe
+    // guarantees the final value regardless; the animation is pure enhancement.
+    var done = false, t0 = null;
+    function finish() { if (!done) { done = true; el.textContent = fmt(target); } }
+    setTimeout(finish, 1000);
+    function tick(t) {
+      if (done) return;
+      if (!t0) t0 = t;
+      var k = Math.min(1, (t - t0) / 850);
+      el.textContent = fmt(target * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(tick); else done = true;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // rac — the headline number, its context line, and the seeded incident strip
+  firstOk(['/apps/risk-as-code-agent/outputs/v2_0a/2026-Q3_projection.json',
+           '../projections/rac.projection.json', 'projections/rac.projection.json'])
+    .then(function (p) {
+      var exp = (p.exposure || {}).portfolio_total || {};
+      if (exp.p95_usd) countUp($('door-rac'), exp.p95_usd, M);
+      if (exp.inherent_p95_usd && $('rac-inh')) $('rac-inh').textContent = ' of ' + M(exp.inherent_p95_usd) + ' inherent';
+      var npat = ((p.inherent_residual || {}).by_pattern || []).length;
+      if (npat && $('rac-npat')) $('rac-npat').textContent = npat + ' failure patterns · ';
+      var rag = (p.meta || {}).overall_rag;
+      if (rag && $('rac-posture')) $('rac-posture').innerHTML = ' · posture <b style="color:var(--red)">' + String(rag).toUpperCase() + '</b>';
+      var inc = ((p.journey_spine || {}).incident) || {};
+      var step = (inc.narrative_steps || [])[0] || {};
+      if (inc.date && $('inc-stamp')) $('inc-stamp').textContent = inc.date + ' · ' + (inc.id || 'SEEDED INCIDENT');
+      if (step.derived_peak && $('inc-peak')) $('inc-peak').textContent = Math.round(step.derived_peak).toLocaleString() + ' msgs';
+      if (step.derived_peak_over_baseline && $('inc-ratio')) $('inc-ratio').textContent = ' · ' + step.derived_peak_over_baseline + '× baseline';
+    }).catch(function () {
+      var hp = snapshot('rac_p95');
+      if (hp != null) countUp($('door-rac'), hp, M);
+      else fail(['door-rac']);
+      // context spans stay empty offline — the numeral carries the tile
+    });
+
+  // atg — findings total for the gauge
+  firstOk(['/apps/agent-trace-gov/outputs/2026-06_atg_projection.json',
+           '../projections/atg.projection.json', 'projections/atg.projection.json'])
+    .then(function (p) {
+      var tot = ((p.meta || {}).counts || {}).findings_total;
+      if (tot) countUp($('door-atg'), tot, function (v) { return Math.round(v) + ' findings'; });
+    }).catch(function () {
+      var at = snapshot('atg_total');
+      if (at != null) countUp($('door-atg'), at, function (v) { return Math.round(v) + ' findings'; });
+      else fail(['door-atg']);
+    });
+
+  // hv — the manual-vs-instrumented detection gap
+  firstOk(['/apps/hypervelocity-risk-sim/docs/projection.json',
+           '../projections/hv.projection.json', 'projections/hv.projection.json'])
+    .then(function (p) {
+      var reg = ((((p.domains || {}).deployment_cascade || {}).comparison || {}).regimes || {});
+      var man = (((reg.traditional || {}).metrics || {}).detection_time_min || {}).value;
+      var ins = (((reg.risk_as_code || {}).metrics || {}).detection_time_min || {}).value;
+      var d = $('door-hv');
+      if (d && man != null && ins != null) d.textContent = man + ' → ' + ins + ' min';
+    }).catch(function () {
+      var s = snapshot('hv');
+      var d = $('door-hv');
+      if (s && d && s.ins != null && s.man != null) d.textContent = s.man + ' → ' + s.ins + ' min';
+      else fail(['door-hv']);
+    });
+})();
+</script>
+
+<!-- portfolio-nav -->
+<style>
+#pnav-tab{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:9998;writing-mode:vertical-rl;
+  text-orientation:mixed;font:600 10px ui-monospace,monospace;letter-spacing:.22em;color:rgba(232,223,211,.75);
+  background:rgba(24,20,16,.92);border:1px solid rgba(214,196,162,.3);border-left:none;border-radius:0 8px 8px 0;
+  padding:14px 5px;cursor:pointer;user-select:none}
+#pnav-tab:hover{color:#C9A26B;border-color:#C9A26B}
+#pnav{position:fixed;left:0;top:0;bottom:0;width:216px;z-index:9999;transform:translateX(-100%);
+  transition:transform .22s ease;background:rgba(20,17,13,.97);border-right:1px solid rgba(214,196,162,.25);
+  font-family:ui-monospace,monospace;overflow-y:auto;padding:14px 0 20px;
+  box-shadow:8px 0 40px rgba(0,0,0,.5)}
+#pnav.open{transform:translateX(0)}
+#pnav .pn-x{position:absolute;top:8px;right:12px;color:rgba(232,223,211,.4);cursor:pointer;font-size:13px}
+#pnav .pn-x:hover{color:#C9A26B}
+#pnav .pn-t{font-size:10px;letter-spacing:.2em;color:#C9A26B;padding:8px 16px 4px;text-transform:uppercase}
+#pnav .pn-g{font-size:9.5px;letter-spacing:.16em;color:rgba(232,223,211,.38);padding:12px 16px 3px;text-transform:uppercase}
+#pnav a{display:block;padding:5px 16px 5px 22px;font-size:11.5px;color:rgba(232,223,211,.68);text-decoration:none;line-height:1.4}
+#pnav a:hover{color:#E8DFD3;background:rgba(201,162,107,.08)}
+#pnav a.here{color:#C9A26B;border-left:2px solid #C9A26B;padding-left:20px;background:rgba(201,162,107,.10)}
+#pnav a small{color:rgba(232,223,211,.35);font-size:9.5px}
+#pnav a.annex{padding-left:30px;font-size:10.5px;color:rgba(232,223,211,.5)}
+#pnav .pn-f{margin-top:14px;padding:10px 16px 0;border-top:1px solid rgba(214,196,162,.14);
+  font-size:9px;color:rgba(232,223,211,.32);line-height:1.5}
+@media print{#pnav,#pnav-tab{display:none}}
+</style>
+<div id="pnav-tab" title="the site map">M A P</div>
+<nav id="pnav" aria-label="Portfolio map">
+  <span class="pn-x" title="close">✕</span>
+  <div class="pn-t">The map</div>
+  <div class="pn-g">Start here</div>
+  <a href="/PORTFOLIO_INDEX.html" data-pn="PORTFOLIO_INDEX.html" data-pb="landing.html">⌂ front door <small>· doors + the guided tour</small></a>
+  <div class="pn-g">risk-as-code · priced engine</div>
+  <a href="/apps/risk-as-code-agent/docs/journey.html" data-pn="risk-as-code-agent/docs/journey.html" data-pb="rac/journey.html">▶ the journey <small>· one money path, played</small></a>
+  <a href="/apps/risk-as-code-agent/docs/index.html" data-pn="risk-as-code-agent/docs/index.html" data-pb="rac/index.html">workbench <small>· price it, challenge it, sign it</small></a>
+  <a class="annex" href="/apps/risk-as-code-agent/docs/board.html" data-pn="risk-as-code-agent/docs/board.html" data-pb="rac/board.html">⎙ board brief <small>· print annex</small></a>
+  <a class="annex" href="/apps/risk-as-code-agent/docs/validation.html" data-pn="risk-as-code-agent/docs/validation.html" data-pb="rac/validation.html">⎙ validation <small>· examiner annex</small></a>
+  <div class="pn-g">agent-trace-gov · agent governance</div>
+  <a href="/apps/agent-trace-gov/docs/index.html" data-pn="agent-trace-gov/docs/index.html" data-pb="atg/index.html">workbench <small>· traces → verdict-free findings</small></a>
+  <div class="pn-g">hypervelocity · incident observatory</div>
+  <a href="/apps/hypervelocity-risk-sim/docs/index.html" data-pn="hypervelocity-risk-sim/docs/index.html" data-pb="hv/index.html">observatory <small>· four failure shapes, animated</small></a>
+  <div class="pn-f">The highlighted line is where you are. ⎙ pages are printable briefs.</div>
+</nav>
+<script>
+(function () {
+  'use strict';
+  var nav = document.getElementById('pnav'), tab = document.getElementById('pnav-tab');
+  if (!nav || !tab) return;
+  var KEY = 'portfolio_nav_open';
+  function setOpen(on) {
+    nav.classList.toggle('open', on);
+    tab.style.display = on ? 'none' : '';
+    try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {}
+  }
+  tab.addEventListener('click', function () { setOpen(true); });
+  nav.querySelector('.pn-x').addEventListener('click', function () { setOpen(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav.classList.contains('open')) setOpen(false);
+  });
+  try { if (localStorage.getItem(KEY) === '1') setOpen(true); } catch (e) {}
+  var path = location.pathname;
+  var dIdx = path.indexOf('/dashboards/');
+  if (dIdx >= 0) {
+    // review-bundle flat layout: resolve links at RUNTIME so the shipped
+    // page stays byte-identical to the audited repo file (B9 hash equality)
+    var sub = path.slice(dIdx + 12);
+    var up = sub.indexOf('/') >= 0 ? '../' : '';
+    nav.querySelectorAll('a[data-pb]').forEach(function (a) {
+      a.setAttribute('href', up + a.getAttribute('data-pb'));
+      if (sub === a.getAttribute('data-pb')) a.classList.add('here');
+    });
+  } else {
+    nav.querySelectorAll('a[data-pn]').forEach(function (a) {
+      if (path.indexOf(a.getAttribute('data-pn')) >= 0
+          || (a.getAttribute('data-pn') === 'PORTFOLIO_INDEX.html' && /(^|\/)(index\.html)?$/.test(path) && path.indexOf('apps') < 0 && path.indexOf('docs') < 0)) {
+        a.classList.add('here');
+      }
+    });
+  }
+})();
+</script>
+<!-- /portfolio-nav -->
+</body>
+</html>

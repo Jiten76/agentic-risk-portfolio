@@ -1,0 +1,3547 @@
+{
+  "action_log": {
+    "chain_detail": {
+      "broken_at_index": null,
+      "valid": true
+    },
+    "chain_status": "intact",
+    "justification_min_words": 12,
+    "path": "data/attestation_log.jsonl",
+    "recent_entries": [
+      {
+        "actor_handle": "@dpatel",
+        "actor_name": "D. Patel",
+        "actor_role": "Director, AI Platform (1LoD)",
+        "actor_role_tier": "1LoD",
+        "dissenting_voice": null,
+        "expiry": null,
+        "justification": "Escalating the unauthorized external data flow to 2LoD: the KYC agent egressed PII to a third-party endpoint with no lawful-basis record in the trace.",
+        "justification_min_words": 12,
+        "linked_findings": [
+          "RE-03-WF-27BFCC"
+        ],
+        "previous_action_hash": "GENESIS",
+        "review_cadence_days": 7,
+        "schema_version": "1.0",
+        "target_id": "RE-03-WF-27BFCC",
+        "target_name": "RE-03 \u00b7 Unauthorized External Data Flow",
+        "target_type": "finding",
+        "this_action_hash": "cbc28431a4f6a3ddb53ec05289cccce05416580325cb6382d07e3b53d96b2ea7",
+        "thresholds_at_time": {},
+        "timestamp": "2026-06-22T14:05:00Z",
+        "verb": "escalate"
+      },
+      {
+        "actor_handle": "@skhoury",
+        "actor_name": "S. Khoury",
+        "actor_role": "Director, Technology Risk (2LoD)",
+        "actor_role_tier": "2LoD",
+        "dissenting_voice": null,
+        "expiry": "2026-07-20",
+        "justification": "Production gate on the scope-exceeded agent pending a human-oversight control and updated logging; lift only after 2LoD re-review of the delegated path.",
+        "justification_min_words": 12,
+        "linked_findings": [
+          "RE-04-WF-0FDEE5"
+        ],
+        "previous_action_hash": "cbc28431a4f6a3ddb53ec05289cccce05416580325cb6382d07e3b53d96b2ea7",
+        "review_cadence_days": 14,
+        "schema_version": "1.0",
+        "target_id": "RE-04-WF-0FDEE5",
+        "target_name": "RE-04 \u00b7 Agent Scope Exceeded",
+        "target_type": "finding",
+        "this_action_hash": "761cd7a687ceb285a467efc5df914829e654cd720a6e3bda05f01657f1eae6dd",
+        "thresholds_at_time": {},
+        "timestamp": "2026-06-23T09:40:00Z",
+        "verb": "gate"
+      },
+      {
+        "actor_handle": "@mokonkwo",
+        "actor_name": "M. Okonkwo",
+        "actor_role": "VP Engineering / Audit liaison (3LoD)",
+        "actor_role_tier": "3LoD",
+        "dissenting_voice": null,
+        "expiry": null,
+        "justification": "Certifying that this governance pass reviewed every traced workflow, that fired framework triggers were routed to Legal for materiality determination, and the attestation chain verifies genesis-to-head.",
+        "justification_min_words": 12,
+        "linked_findings": [
+          "RE-03-WF-27BFCC",
+          "RE-04-WF-0FDEE5"
+        ],
+        "previous_action_hash": "761cd7a687ceb285a467efc5df914829e654cd720a6e3bda05f01657f1eae6dd",
+        "review_cadence_days": 30,
+        "schema_version": "1.0",
+        "target_id": "governance-pass",
+        "target_name": "Governance pass \u00b7 2026-06",
+        "target_type": "workflow",
+        "this_action_hash": "0e3c2503cd878a107fc7c2d642cebdc7bcc98919c093bc778e2cdb886586586a",
+        "thresholds_at_time": {},
+        "timestamp": "2026-06-24T16:20:00Z",
+        "verb": "certify"
+      }
+    ],
+    "role_tiers": [
+      "1LoD",
+      "2LoD",
+      "3LoD"
+    ],
+    "schema_version": "1.0",
+    "total_entries": 3,
+    "verbs_needing_expiry": [
+      "gate",
+      "suppress"
+    ],
+    "verbs_supported": [
+      "acknowledge",
+      "escalate",
+      "gate",
+      "suppress",
+      "override",
+      "remediate",
+      "certify"
+    ]
+  },
+  "agent_dependency_layer": {
+    "cross_substrate_note": "Every node names its rac_analog: the SAME failure mechanism priced in dollars on the infrastructure substrate (rac dependency_catalog.json) appears here in structural units on the agent substrate. One portfolio, one mechanism, two substrates.",
+    "deferred_nodes": {
+      "classes": [
+        "vector_store_memory",
+        "prompt_registry",
+        "eval_harness",
+        "sandbox_runtime",
+        "a2a_gateway",
+        "model_gateway_router"
+      ],
+      "note": "DECLARED DEFERRALS (same discipline as rac C30.6): agent-layer common-cause classes recognized but not yet modeled as first-class nodes \u2014 deferred, not denied."
+    },
+    "findings_total": 14,
+    "nodes": [
+      {
+        "anchors": [
+          {
+            "date": "2024-07-19",
+            "name": "CrowdStrike Falcon content update",
+            "summary": "The defense plane itself became the outage \u2014 the class precedent for 'the control watching the estate is the single point of failure'; rac prices the infrastructure twin as security_agent_vendor."
+          },
+          {
+            "date": "2019-07-02",
+            "name": "Cloudflare WAF regex CPU exhaustion",
+            "summary": "A safety-layer rule change took the protected estate down globally in minutes \u2014 the governance layer as common cause, not just common observer."
+          }
+        ],
+        "blast_basis": "governs every traced action by construction (the detection plane)",
+        "blindness_effect": "THE defining mode: the classifier still routes traffic but no longer catches. Detections drop to zero while violations continue \u2014 absorbed violations accumulate unlogged, and the dashboard reads GREEN precisely because the control watching the agents went dark. The divergence thesis rac prices on its skew-and-backpressure pattern, replayed on the agent substrate: level-metrics are what a silent classifier masks.",
+        "blindness_re": [
+          "RE-01",
+          "RE-02",
+          "RE-03",
+          "RE-04",
+          "RE-05",
+          "RE-06",
+          "RE-07",
+          "RE-08"
+        ],
+        "blindness_re_names": [
+          "PII Detected in Agent Output",
+          "Consent Record Missing",
+          "Unauthorized External Data Flow",
+          "Agent Scope Exceeded",
+          "Low-Confidence Automated Decision",
+          "Data Lineage Break",
+          "Excessive Data Retention by Agent",
+          "Multi-Agent Loop Detected"
+        ],
+        "containment_boundary": "estate-global",
+        "findings_at_stake": 14,
+        "id": "safety_classifier",
+        "layer": "governance",
+        "loss_effect": "The evaluation pipeline is DOWN \u2014 visibly. A gap opens in the finding log and everyone knows the estate is running unwatched; painful but honest.",
+        "mitigation_note": "Canary violations (synthetic known-bad traces injected continuously) are the only honest heartbeat for a detection plane \u2014 a classifier that stops flagging the canaries is dark, whatever its uptime says.",
+        "name": "Safety / governance classifier plane (the detection layer itself)",
+        "rac_analog": "security_agent_vendor",
+        "workflows_affected": 16,
+        "workflows_total": 16
+      },
+      {
+        "anchors": [
+          {
+            "date": "2021-10-04",
+            "label": "CLASS_ANALOG",
+            "name": "Meta control-plane loss",
+            "summary": "The control plane that routes everything goes down and takes the tools that would fix it \u2014 no public agent-orchestrator incident of record at this archetype; this is the nearest control-plane precedent, declared as an analog."
+          },
+          {
+            "date": "2023-03-14",
+            "label": "CLASS_ANALOG",
+            "name": "Reddit Pi-Day K8s control-plane outage",
+            "summary": "A control-plane upgrade takes the whole estate down for hours \u2014 the orchestrator is the agent estate's etcd."
+          }
+        ],
+        "blast_basis": "derived from lineage edges of node 'agent-orchestrator'",
+        "blindness_effect": "Routing continues but trace emission breaks \u2014 actions still happen, UNGOVERNED. A lineage break at estate scale: every downstream evidence trail is severed while work continues, and multi-agent loops run uncounted.",
+        "blindness_re": [
+          "RE-06",
+          "RE-08"
+        ],
+        "blindness_re_names": [
+          "Data Lineage Break",
+          "Multi-Agent Loop Detected"
+        ],
+        "containment_boundary": "estate-global",
+        "findings_at_stake": 2,
+        "id": "agent_orchestrator",
+        "layer": "control",
+        "loss_effect": "Every workflow stalls \u2014 no delegation, no tool calls, no decisions. The estate's single structural hub: its loss IS the estate's loss.",
+        "mitigation_note": "The one node whose blast radius the lineage graph itself proves: it transits every workflow. Isolation options are structural (per-domain orchestrators, static fallback routing), not control tweaks.",
+        "name": "Agent orchestrator (routing & delegation plane)",
+        "rac_analog": "k8s_control_plane",
+        "workflows_affected": 16,
+        "workflows_total": 16
+      },
+      {
+        "anchors": [
+          {
+            "date": "2023-10-20",
+            "name": "Okta support-system breach",
+            "summary": "Session tokens lifted from support artifacts \u2014 the issuer of trust as the breach vector; every relying integration inherited the compromise."
+          },
+          {
+            "date": "2023-01-04",
+            "name": "CircleCI secrets compromise",
+            "summary": "'Rotate everything' \u2014 one broker-level compromise invalidated every secret it had ever held; the blast radius is the credential graph, not the incident."
+          },
+          {
+            "date": "2025-03-14",
+            "name": "tj-actions/changed-files supply-chain compromise",
+            "summary": "A compromised CI action exfiltrated repository secrets at scale \u2014 automation credentials as the soft target of the estate."
+          }
+        ],
+        "blast_basis": "derived from traces with action_type in ['data_read', 'data_write', 'external_api_call']",
+        "blindness_effect": "COMPROMISE rather than outage: agent credentials exfiltrated or the issuer breached \u2014 actions execute with stolen agent authority, indistinguishable from governed work until the trail is audited. The agent estate's account-takeover.",
+        "blindness_re": [
+          "RE-03",
+          "RE-04"
+        ],
+        "blindness_re_names": [
+          "Unauthorized External Data Flow",
+          "Agent Scope Exceeded"
+        ],
+        "containment_boundary": "estate-global",
+        "findings_at_stake": 7,
+        "id": "credential_broker",
+        "layer": "identity",
+        "loss_effect": "Agents cannot authenticate to the systems they read and write \u2014 every data-touching workflow stalls at first credential refresh.",
+        "mitigation_note": "Short-lived per-workflow tokens bound to declared scopes turn a broker compromise from estate-wide to workflow-wide \u2014 the same containment-boundary move rac prices on the infrastructure side.",
+        "name": "Credential broker (agent secrets & token issuance)",
+        "rac_analog": "workforce_idp",
+        "workflows_affected": 14,
+        "workflows_total": 16
+      },
+      {
+        "anchors": [
+          {
+            "date": "2023-11-08",
+            "name": "OpenAI major API outage",
+            "summary": "API and ChatGPT down for hours (DDoS-attributed) \u2014 every dependent product's agent layer stalled at once; the pure form of this node's loss mode."
+          },
+          {
+            "date": "2024-06-04",
+            "name": "ChatGPT/API multi-hour degradation",
+            "summary": "Elevated errors across the API during peak hours \u2014 dependent workflows degraded together, not independently."
+          }
+        ],
+        "blast_basis": "derived from traces with action_type in ['model_inference']",
+        "blindness_effect": "The provider degrades SILENTLY \u2014 a model swap, a quality regression, a routing change. Agents keep producing output that clears no bar: low-confidence decisions ship and PII discipline slips, with nothing down to alarm on.",
+        "blindness_re": [
+          "RE-01",
+          "RE-05"
+        ],
+        "blindness_re_names": [
+          "PII Detected in Agent Output",
+          "Low-Confidence Automated Decision"
+        ],
+        "containment_boundary": "provider-global",
+        "findings_at_stake": 4,
+        "id": "model_provider",
+        "layer": "substrate",
+        "loss_effect": "Every agent that reasons stops reasoning \u2014 inference is the substrate the estate runs on, and a provider outage is a same-hour, all-workflows event.",
+        "mitigation_note": "Multi-provider failover is the region-failover of the agent estate \u2014 and carries the same failover-failure risk class rac prices on cloud_region (the fallback model behaves differently under the same prompts).",
+        "name": "Model provider (hosted LLM inference)",
+        "rac_analog": "cloud_region",
+        "workflows_affected": 10,
+        "workflows_total": 16
+      },
+      {
+        "anchors": [
+          {
+            "date": "2025-09-25",
+            "name": "postmark-mcp \u2014 first malicious MCP package on a public registry",
+            "summary": "A typosquatted MCP server BCC'd every email it relayed to an attacker domain \u2014 tool-supply-chain compromise executing with full agent authority."
+          },
+          {
+            "date": "2025-06-13",
+            "name": "CVE-2025-49596 \u00b7 MCP Inspector RCE (CVSS 9.4)",
+            "summary": "RCE in the standard MCP debugging tool \u2014 the tooling AROUND the agent supply chain is itself attack surface."
+          }
+        ],
+        "blast_basis": "derived from traces with action_type in ['tool_execution', 'external_api_call']",
+        "blindness_effect": "The registry is POISONED rather than down \u2014 a malicious or tampered tool description executes with the agent's authority: data exfiltrates through 'legitimate' tool calls, scope walks outward one plausible call at a time, copies accumulate where no policy looks.",
+        "blindness_re": [
+          "RE-03",
+          "RE-04",
+          "RE-07"
+        ],
+        "blindness_re_names": [
+          "Unauthorized External Data Flow",
+          "Agent Scope Exceeded",
+          "Excessive Data Retention by Agent"
+        ],
+        "containment_boundary": "estate-global",
+        "findings_at_stake": 7,
+        "id": "mcp_registry",
+        "layer": "supply_chain",
+        "loss_effect": "Tool resolution fails \u2014 every workflow that executes a tool or calls an external API stalls at the call site.",
+        "mitigation_note": "Hash-pinned tool manifests and registry attestation are the lockfile discipline of the agent layer; the ai-gov panel's hash-pin compliance metric reads on exactly this node.",
+        "name": "Tool / MCP registry (agent supply chain)",
+        "rac_analog": "api_registry",
+        "workflows_affected": 5,
+        "workflows_total": 16
+      }
+    ],
+    "one_thing": "One agent-layer dependency \u2014 the Safety / governance classifier plane (the detection layer itself) \u2014 transits 16 of 16 workflows: the estate has a control plane, and this layer puts it on the register. Its blindness mode is the sharper edge: the classifier plane going dark unmasks every finding class at once while the dashboard reads green.",
+    "provenance_note": "OPERATOR_CALIBRATED structure anchored to named public incidents. Where the class has no public incident of record at this archetype (a first-party agent orchestrator), anchors are labeled CLASS_ANALOG and borrow the nearest control-plane precedent \u2014 declared, not hidden.",
+    "source_status": "operator_calibrated",
+    "units_note": "STRUCTURAL LAYER, NOT A LOSS MODEL: atg's currency is workflows, traced actions and findings \u2014 there is deliberately NO frequency\u00d7severity dollar model here (the rac spoke prices the infrastructure analogs; production would attach fitted agent-incident history before pricing this layer). Blast radii are DERIVED at build time from the same traces and lineage the dashboard renders \u2014 the catalog declares WHAT each node underlies (lineage node or action types), never the counts.",
+    "workflows_total": 16
+  },
+  "domains": {
+    "WF-09EF5A": {
+      "domain_id": "WF-09EF5A",
+      "findings": [
+        {
+          "_sort_rank": 1,
+          "affected_agents": [
+            "agent-report-writer"
+          ],
+          "affected_targets": [
+            "internal_ledger"
+          ],
+          "agent_id": "agent-report-writer",
+          "consent_missing": false,
+          "finding_id": "RE-06-WF-09EF5A",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:11:52Z"
+          },
+          "framework": "ISO/IEC 27001:2022 A.8.13 (Information backup)",
+          "framework_source_url": "https://www.iso.org/standard/27001",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:11:52Z"
+          },
+          "name": "Data Lineage Break",
+          "notification_clock": null,
+          "occurrence_count": 1,
+          "overall_rag": "critical",
+          "records_exposed": {
+            "data_classes": [
+              "internal"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 0
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-06",
+          "severity": "high",
+          "severity_basis": "write to record store internal_ledger with lineage_complete=false \u2014 books-and-records preservation shape (17a-4 class)",
+          "severity_default": "medium",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-09EF5A"
+        }
+      ],
+      "label": "Ledger write, lineage broken 1",
+      "name": "WF-09EF5A",
+      "overall_rag": "critical",
+      "scenario": "ledger_amend"
+    },
+    "WF-0FDEE5": {
+      "domain_id": "WF-0FDEE5",
+      "findings": [
+        {
+          "_sort_rank": 0,
+          "affected_agents": [
+            "agent-report-writer"
+          ],
+          "affected_targets": [
+            "credit-bureau.external.io",
+            "credit_bureau_api"
+          ],
+          "agent_id": "agent-report-writer",
+          "consent_missing": false,
+          "finding_id": "RE-04-WF-0FDEE5",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:11:40Z"
+          },
+          "framework": "NIST AI RMF GOVERN-1",
+          "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:15:31Z"
+          },
+          "name": "Agent Scope Exceeded",
+          "notification_clock": null,
+          "occurrence_count": 2,
+          "overall_rag": "critical",
+          "records_exposed": {
+            "data_classes": [
+              "internal"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 0
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-04",
+          "severity": "critical",
+          "severity_basis": "agent-report-writer executed tool_execution against credit_bureau_api outside scope ['data_read', 'data_write', 'model_inference', 'agent_delegation', 'human_handoff'] \u2014 unauthorized-action capability demonstrated in trace (effectful tool) \u00b7 agent-report-writer executed external_api_call against credit-bureau.external.io outside scope ['data_read', 'data_write', 'model_inference', 'agent_delegation', 'human_handoff'] \u2014 unauthorized-action capability demonstrated in trace",
+          "severity_default": "high",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-0FDEE5"
+        },
+        {
+          "_sort_rank": 1,
+          "affected_agents": [
+            "agent-report-writer"
+          ],
+          "affected_targets": [
+            "credit-bureau.external.io"
+          ],
+          "agent_id": "agent-report-writer",
+          "consent_missing": false,
+          "finding_id": "RE-03-WF-0FDEE5",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:15:31Z"
+          },
+          "framework": "NIST CSF 1.1 PR.DS-5 (data-leak protection)",
+          "framework_source_url": "https://www.nist.gov/cyberframework",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:15:31Z"
+          },
+          "name": "Unauthorized External Data Flow",
+          "notification_clock": null,
+          "occurrence_count": 1,
+          "overall_rag": "critical",
+          "records_exposed": {
+            "data_classes": [
+              "internal"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 0
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-03",
+          "severity": "high",
+          "severity_basis": "egress to credit-bureau.external.io outside authorization; no PII detected on this flow",
+          "severity_default": "critical",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-0FDEE5"
+        }
+      ],
+      "label": "Scope exceeded 1",
+      "name": "WF-0FDEE5",
+      "overall_rag": "critical",
+      "scenario": "scope_exceed"
+    },
+    "WF-12AB35": {
+      "domain_id": "WF-12AB35",
+      "findings": [],
+      "label": "Clean run 5",
+      "name": "WF-12AB35",
+      "overall_rag": "evidence",
+      "scenario": "clean"
+    },
+    "WF-27BFCC": {
+      "domain_id": "WF-27BFCC",
+      "findings": [
+        {
+          "_sort_rank": 1,
+          "affected_agents": [
+            "agent-kyc-validator"
+          ],
+          "affected_targets": [
+            "customer_db",
+            "kyc-provider.external.io",
+            "kyc_results"
+          ],
+          "agent_id": "agent-kyc-validator",
+          "consent_missing": false,
+          "finding_id": "RE-01-WF-27BFCC",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:10:06Z"
+          },
+          "framework": "GDPR Art. 5; CCPA \u00a71798.100",
+          "framework_source_url": "https://gdpr-info.eu/art-5-gdpr/",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:13:59Z"
+          },
+          "name": "PII Detected in Agent Output",
+          "notification_clock": null,
+          "occurrence_count": 3,
+          "overall_rag": "critical",
+          "records_exposed": {
+            "data_classes": [
+              "PII",
+              "account",
+              "name",
+              "phone"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 3
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-01",
+          "severity": "high",
+          "severity_basis": "PII classes ['name'] in data_read output; redaction applied, internal sink \u00b7 PII classes ['name'] in external_api_call output bound for kyc-provider.external.io \u00b7 PII classes ['account', 'phone'] in data_write output; redaction applied, internal sink",
+          "severity_default": "high",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-27BFCC"
+        },
+        {
+          "_sort_rank": 1,
+          "affected_agents": [
+            "agent-kyc-validator"
+          ],
+          "affected_targets": [
+            "kyc-provider.external.io"
+          ],
+          "agent_id": "agent-kyc-validator",
+          "consent_missing": false,
+          "finding_id": "RE-03-WF-27BFCC",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:12:34Z"
+          },
+          "framework": "NIST CSF 1.1 PR.DS-5 (data-leak protection)",
+          "framework_source_url": "https://www.nist.gov/cyberframework",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:12:34Z"
+          },
+          "name": "Unauthorized External Data Flow",
+          "notification_clock": {
+            "citation": "GDPR Art. 33(1) \u2014 72h from awareness",
+            "note": "candidate personal-data breach (Art. 4(12)); the materiality DETERMINATION is reserved to Legal/Compliance",
+            "status": "assessment",
+            "window": "72h"
+          },
+          "occurrence_count": 1,
+          "overall_rag": "critical",
+          "records_exposed": {
+            "data_classes": [
+              "PII",
+              "name"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 1
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-03",
+          "severity": "high",
+          "severity_basis": "PII classes ['name'] crossed to kyc-provider.external.io \u2014 candidate personal-data breach (GDPR Art. 4(12)); notification clock runs from awareness",
+          "severity_default": "critical",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-27BFCC"
+        }
+      ],
+      "label": "PII exposure 1",
+      "name": "WF-27BFCC",
+      "overall_rag": "critical",
+      "scenario": "pii_leak"
+    },
+    "WF-2966B3": {
+      "domain_id": "WF-2966B3",
+      "findings": [
+        {
+          "_sort_rank": 2,
+          "affected_agents": [
+            "agent-kyc-validator"
+          ],
+          "affected_targets": [
+            "customer_db",
+            "kyc_model",
+            "kyc_results"
+          ],
+          "agent_id": "agent-kyc-validator",
+          "consent_missing": true,
+          "finding_id": "RE-01-WF-2966B3",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:08:18Z"
+          },
+          "framework": "GDPR Art. 5; CCPA \u00a71798.100",
+          "framework_source_url": "https://gdpr-info.eu/art-5-gdpr/",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:15:59Z"
+          },
+          "name": "PII Detected in Agent Output",
+          "notification_clock": null,
+          "occurrence_count": 3,
+          "overall_rag": "watch",
+          "records_exposed": {
+            "data_classes": [
+              "PII",
+              "account",
+              "name",
+              "phone"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 3
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-01",
+          "severity": "medium",
+          "severity_basis": "PII classes ['account', 'phone'] in data_read output; redaction applied, internal sink \u00b7 PII classes ['account', 'phone'] in model_inference output; redaction applied, internal sink \u00b7 PII classes ['name'] in data_write output; redaction applied, internal sink",
+          "severity_default": "high",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-2966B3"
+        },
+        {
+          "_sort_rank": 2,
+          "affected_agents": [
+            "agent-kyc-validator"
+          ],
+          "affected_targets": [
+            "kyc_results"
+          ],
+          "agent_id": "agent-kyc-validator",
+          "consent_missing": true,
+          "finding_id": "RE-02-WF-2966B3",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:15:59Z"
+          },
+          "framework": "GDPR Art. 6(1)(a); CCPA \u00a71798.120",
+          "framework_source_url": "https://gdpr-info.eu/art-6-gdpr/",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:15:59Z"
+          },
+          "name": "Consent Record Missing",
+          "notification_clock": null,
+          "occurrence_count": 1,
+          "overall_rag": "watch",
+          "records_exposed": {
+            "data_classes": [
+              "PII",
+              "name"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 1
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-02",
+          "severity": "medium",
+          "severity_basis": "consent record absent on data_write to kyc_results (internal sink)",
+          "severity_default": "high",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-2966B3"
+        }
+      ],
+      "label": "Consent gap 1",
+      "name": "WF-2966B3",
+      "overall_rag": "watch",
+      "scenario": "consent_gap"
+    },
+    "WF-37FD1E": {
+      "domain_id": "WF-37FD1E",
+      "findings": [
+        {
+          "_sort_rank": 2,
+          "affected_agents": [
+            "agent-decision"
+          ],
+          "affected_targets": [
+            "approve_transaction"
+          ],
+          "agent_id": "agent-decision",
+          "consent_missing": false,
+          "finding_id": "RE-05-WF-37FD1E",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:18:26Z"
+          },
+          "framework": "NIST AI RMF MEASURE-2",
+          "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:18:26Z"
+          },
+          "name": "Low-Confidence Automated Decision",
+          "notification_clock": null,
+          "occurrence_count": 1,
+          "overall_rag": "watch",
+          "records_exposed": {
+            "data_classes": [
+              "internal"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 0
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-05",
+          "severity": "medium",
+          "severity_basis": "automated approve_transaction decision at confidence 0.41 < 0.5 \u00b7 routed to risk_reviewer after the decision \u2014 human catch in-workflow",
+          "severity_default": "medium",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-37FD1E"
+        }
+      ],
+      "label": "Low-confidence decision 1",
+      "name": "WF-37FD1E",
+      "overall_rag": "watch",
+      "scenario": "low_conf"
+    },
+    "WF-3A03A6": {
+      "domain_id": "WF-3A03A6",
+      "findings": [
+        {
+          "_sort_rank": 3,
+          "affected_agents": [
+            "agent-data-fetcher",
+            "agent-risk-analyzer"
+          ],
+          "affected_targets": [
+            "agent-data-fetcher",
+            "agent-risk-analyzer"
+          ],
+          "agent_id": "agent-data-fetcher",
+          "consent_missing": false,
+          "finding_id": "RE-08-WF-3A03A6",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:09:04Z"
+          },
+          "framework": "NIST AI RMF MANAGE-2",
+          "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:15:42Z"
+          },
+          "name": "Multi-Agent Loop Detected",
+          "notification_clock": null,
+          "occurrence_count": 3,
+          "overall_rag": "watch",
+          "records_exposed": {
+            "data_classes": [
+              "internal"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 0
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-08",
+          "severity": "low",
+          "severity_basis": "delegation cycle at agent-data-fetcher\u2192agent-risk-analyzer (delegation-only) \u00b7 delegation cycle at agent-risk-analyzer\u2192agent-data-fetcher (delegation-only)",
+          "severity_default": "low",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-3A03A6"
+        }
+      ],
+      "label": "Agent loop 1",
+      "name": "WF-3A03A6",
+      "overall_rag": "watch",
+      "scenario": "loop"
+    },
+    "WF-43423E": {
+      "domain_id": "WF-43423E",
+      "findings": [],
+      "label": "Clean run 4",
+      "name": "WF-43423E",
+      "overall_rag": "evidence",
+      "scenario": "clean"
+    },
+    "WF-64B202": {
+      "domain_id": "WF-64B202",
+      "findings": [],
+      "label": "Clean run 6",
+      "name": "WF-64B202",
+      "overall_rag": "evidence",
+      "scenario": "clean"
+    },
+    "WF-932857": {
+      "domain_id": "WF-932857",
+      "findings": [
+        {
+          "_sort_rank": 0,
+          "affected_agents": [
+            "agent-notifier"
+          ],
+          "affected_targets": [
+            "payment_disbursement"
+          ],
+          "agent_id": "agent-notifier",
+          "consent_missing": false,
+          "finding_id": "RE-04-WF-932857",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:11:14Z"
+          },
+          "framework": "NIST AI RMF GOVERN-1",
+          "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:11:14Z"
+          },
+          "name": "Agent Scope Exceeded",
+          "notification_clock": null,
+          "occurrence_count": 1,
+          "overall_rag": "critical",
+          "records_exposed": {
+            "data_classes": [
+              "internal"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 0
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-04",
+          "severity": "critical",
+          "severity_basis": "agent-notifier executed tool_execution against payment_disbursement outside scope ['notify', 'human_handoff'] \u2014 unauthorized-action capability demonstrated in trace (effectful tool)",
+          "severity_default": "high",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-932857"
+        }
+      ],
+      "label": "Payments tool reached 1",
+      "name": "WF-932857",
+      "overall_rag": "critical",
+      "scenario": "payment_tool_grab"
+    },
+    "WF-9542ED": {
+      "domain_id": "WF-9542ED",
+      "findings": [],
+      "label": "Clean run 2",
+      "name": "WF-9542ED",
+      "overall_rag": "evidence",
+      "scenario": "clean"
+    },
+    "WF-BCE08C": {
+      "domain_id": "WF-BCE08C",
+      "findings": [
+        {
+          "_sort_rank": 0,
+          "affected_agents": [
+            "agent-notifier"
+          ],
+          "affected_targets": [
+            "customer-comms-gateway.external.io"
+          ],
+          "agent_id": "agent-notifier",
+          "consent_missing": false,
+          "finding_id": "RE-04-WF-BCE08C",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:10:35Z"
+          },
+          "framework": "NIST AI RMF GOVERN-1",
+          "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:10:35Z"
+          },
+          "name": "Agent Scope Exceeded",
+          "notification_clock": null,
+          "occurrence_count": 1,
+          "overall_rag": "critical",
+          "records_exposed": {
+            "data_classes": [
+              "internal"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 0
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-04",
+          "severity": "critical",
+          "severity_basis": "agent-notifier executed external_api_call against customer-comms-gateway.external.io outside scope ['notify', 'human_handoff'] \u2014 unauthorized-action capability demonstrated in trace",
+          "severity_default": "high",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-BCE08C"
+        },
+        {
+          "_sort_rank": 1,
+          "affected_agents": [
+            "agent-notifier"
+          ],
+          "affected_targets": [
+            "customer-comms-gateway.external.io"
+          ],
+          "agent_id": "agent-notifier",
+          "consent_missing": false,
+          "finding_id": "RE-03-WF-BCE08C",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:10:35Z"
+          },
+          "framework": "NIST CSF 1.1 PR.DS-5 (data-leak protection)",
+          "framework_source_url": "https://www.nist.gov/cyberframework",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:10:35Z"
+          },
+          "name": "Unauthorized External Data Flow",
+          "notification_clock": null,
+          "occurrence_count": 1,
+          "overall_rag": "critical",
+          "records_exposed": {
+            "data_classes": [
+              "internal"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 0
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-03",
+          "severity": "high",
+          "severity_basis": "egress to customer-comms-gateway.external.io outside authorization; no PII detected on this flow",
+          "severity_default": "critical",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-BCE08C"
+        }
+      ],
+      "label": "Customer comms, gate skipped 1",
+      "name": "WF-BCE08C",
+      "overall_rag": "critical",
+      "scenario": "retail_comms"
+    },
+    "WF-BE3CF8": {
+      "domain_id": "WF-BE3CF8",
+      "findings": [],
+      "label": "Clean run 7",
+      "name": "WF-BE3CF8",
+      "overall_rag": "evidence",
+      "scenario": "clean"
+    },
+    "WF-C04D8A": {
+      "domain_id": "WF-C04D8A",
+      "findings": [],
+      "label": "Clean run 1",
+      "name": "WF-C04D8A",
+      "overall_rag": "evidence",
+      "scenario": "clean"
+    },
+    "WF-D099C6": {
+      "domain_id": "WF-D099C6",
+      "findings": [
+        {
+          "_sort_rank": 1,
+          "affected_agents": [
+            "agent-kyc-validator"
+          ],
+          "affected_targets": [
+            "customer_db",
+            "kyc-provider.external.io",
+            "kyc_results"
+          ],
+          "agent_id": "agent-kyc-validator",
+          "consent_missing": false,
+          "finding_id": "RE-01-WF-D099C6",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:08:09Z"
+          },
+          "framework": "GDPR Art. 5; CCPA \u00a71798.100",
+          "framework_source_url": "https://gdpr-info.eu/art-5-gdpr/",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:15:42Z"
+          },
+          "name": "PII Detected in Agent Output",
+          "notification_clock": null,
+          "occurrence_count": 3,
+          "overall_rag": "critical",
+          "records_exposed": {
+            "data_classes": [
+              "PII",
+              "account",
+              "name",
+              "phone"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 3
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-01",
+          "severity": "high",
+          "severity_basis": "PII classes ['account', 'phone'] in data_read output; redaction applied, internal sink \u00b7 PII classes ['name'] in external_api_call output bound for kyc-provider.external.io \u00b7 PII classes ['account', 'phone'] in data_write output; redaction applied, internal sink",
+          "severity_default": "high",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-D099C6"
+        },
+        {
+          "_sort_rank": 1,
+          "affected_agents": [
+            "agent-kyc-validator"
+          ],
+          "affected_targets": [
+            "kyc-provider.external.io"
+          ],
+          "agent_id": "agent-kyc-validator",
+          "consent_missing": false,
+          "finding_id": "RE-03-WF-D099C6",
+          "first_detected": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "min(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:10:21Z"
+          },
+          "framework": "NIST CSF 1.1 PR.DS-5 (data-leak protection)",
+          "framework_source_url": "https://www.nist.gov/cyberframework",
+          "last_seen": {
+            "provenance": {
+              "assumptions": [],
+              "computation": "max(trace.timestamp) over this RE\u00d7workflow's simulated traces",
+              "source_query": "derived_at_adapter",
+              "source_status": "derived",
+              "source_system": "adapter",
+              "source_timestamp": "2026-06-01T09:00:00Z"
+            },
+            "value": "2026-06-01T09:10:21Z"
+          },
+          "name": "Unauthorized External Data Flow",
+          "notification_clock": {
+            "citation": "GDPR Art. 33(1) \u2014 72h from awareness",
+            "note": "candidate personal-data breach (Art. 4(12)); the materiality DETERMINATION is reserved to Legal/Compliance",
+            "status": "assessment",
+            "window": "72h"
+          },
+          "occurrence_count": 1,
+          "overall_rag": "critical",
+          "records_exposed": {
+            "data_classes": [
+              "PII",
+              "name"
+            ],
+            "pii_flow_count": {
+              "provenance": {
+                "assumptions": [],
+                "computation": "counted PII flows in this RE\u00d7workflow",
+                "source_query": "count(traces where pii_detected)",
+                "source_status": "real_query_synthesized_data",
+                "source_system": "agent_simulator",
+                "source_timestamp": "2026-06-01T09:00:00Z"
+              },
+              "value": 1
+            },
+            "record_count": {
+              "provenance": {
+                "assumptions": [
+                  "trace does not carry an affected-record count; not instrumented"
+                ],
+                "computation": "Value not present in the source; rendered as absent, never estimated.",
+                "source_query": "not_instrumented",
+                "source_status": "absent",
+                "source_system": "none",
+                "source_timestamp": "1900-01-01T00:00:00Z"
+              },
+              "value": null
+            }
+          },
+          "risk_event_id": "RE-03",
+          "severity": "high",
+          "severity_basis": "PII classes ['name'] crossed to kyc-provider.external.io \u2014 candidate personal-data breach (GDPR Art. 4(12)); notification clock runs from awareness",
+          "severity_default": "critical",
+          "treatment": {
+            "provenance": {
+              "assumptions": [
+                "populated at Stage 4 from real attestation entries"
+              ],
+              "computation": "Value not present in the source; rendered as absent, never estimated.",
+              "source_query": "not_instrumented",
+              "source_status": "absent",
+              "source_system": "none",
+              "source_timestamp": "1900-01-01T00:00:00Z"
+            },
+            "value": null
+          },
+          "workflow_id": "WF-D099C6"
+        }
+      ],
+      "label": "PII exposure 2",
+      "name": "WF-D099C6",
+      "overall_rag": "critical",
+      "scenario": "pii_leak"
+    },
+    "WF-F13449": {
+      "domain_id": "WF-F13449",
+      "findings": [],
+      "label": "Clean run 3",
+      "name": "WF-F13449",
+      "overall_rag": "evidence",
+      "scenario": "clean"
+    }
+  },
+  "frameworks": {
+    "alignment": [
+      "GDPR",
+      "CCPA",
+      "NIST CSF 2.0",
+      "NIST AI RMF 1.0",
+      "NIST AI 600-1 (GenAI Profile)",
+      "ISO/IEC 27001:2022",
+      "SOC 2 Type II",
+      "EU AI Act (Reg. 2024/1689)"
+    ],
+    "soc2_evidence": {
+      "assessment_scope": "16 agent workflows",
+      "criteria_assessed": 5,
+      "criteria_detail": {
+        "CC6.1": {
+          "name": "Logical and Physical Access Controls",
+          "notes": "Agent scope violations detected: 4 occurrences",
+          "status": "finding"
+        },
+        "CC6.6": {
+          "name": "Logical Access Security \u2014 External Transmissions",
+          "notes": "Unauthorized external data flows: 4 occurrences",
+          "status": "finding"
+        },
+        "CC9.2": {
+          "name": "Risk Assessment \u2014 Vendor and Business Partner Management",
+          "notes": "4 external agent API calls logged and traceable.",
+          "status": "satisfied"
+        },
+        "P3.1": {
+          "name": "Privacy \u2014 Collection and Use of Personal Information",
+          "notes": "PII flows: 9. Consent gaps: 1 occurrences.",
+          "status": "finding"
+        },
+        "P6.1": {
+          "name": "Privacy \u2014 Disclosure and Notification",
+          "notes": "Unauthorized external disclosures of data: 4 occurrences.",
+          "status": "finding"
+        }
+      },
+      "findings": 4,
+      "satisfied": 1
+    },
+    "source_status": "real_query_synthesized_data"
+  },
+  "ia": {
+    "acts": [
+      {
+        "desc": "governance pass \u00b7 which risk events fired",
+        "id": "signal",
+        "name": "Signal"
+      },
+      {
+        "desc": "observed data-flow \u00b7 agent \u2192 system \u2192 external",
+        "id": "pattern",
+        "name": "Propagate"
+      },
+      {
+        "desc": "which regulatory obligations the findings trigger",
+        "id": "impact",
+        "name": "Impact"
+      },
+      {
+        "desc": "governance verbs \u00b7 named human + justification",
+        "id": "decide",
+        "name": "Decide"
+      },
+      {
+        "desc": "hash-chained log \u00b7 precedent register",
+        "id": "attest",
+        "name": "Attest"
+      }
+    ],
+    "default_role": "basic",
+    "headlines": {
+      "agent-dependencies": "5 common-cause nodes of the agent estate \u2014 the orchestrator transits 16 of 16 workflows; classifier blindness unmasks every finding class at once.",
+      "attest-chain": "Edit any entry and the chain breaks visibly \u2014 the SHA-256 math re-runs on every load.",
+      "attest-log": "3 attestations on the chain \u2014 actor, justification, expiry, thresholds at decision time.",
+      "attest-precedent": "Real enforcement precedent per RE class \u2014 deliberately separated from any single finding.",
+      "decide-queue": "14 findings ranked for disposition \u2014 the queue is the docket.",
+      "decide-verbs": "Four verbs, A8-gated in the browser: named human, 12-word justification, expiry.",
+      "impact-magnitude": "4 external and 9 PII traversals \u2014 the magnitude counts what actually crossed, not what might.",
+      "impact-materiality": "Obligations grouped by jurisdiction, article-level only \u2014 flags, not determinations.",
+      "lineage-hero": "30 distinct flows counted from traces \u2014 3 unauthorized external (RE-03) lit, 3 multi-agent loops dashed.",
+      "pattern-primer": "8 risk-event classes with framework citations \u2014 4\u00d7 Unauthorized External Data Flow and 3\u00d7 Agent Scope Exceeded are the structural catches.",
+      "signal-hero": "23 risk events scored this pass \u2014 the hero counts them from traces, not opinion.",
+      "signal-queue": "14 workflow\u00d7risk-event findings \u2014 3 critical \u00b7 7 high; click lineage for the evidence trail."
+    },
+    "nodes": [
+      {
+        "act": "signal",
+        "beat": "BELIEVE",
+        "headline": "14 findings from 84 traced actions across 16 workflows \u2014 3 critical, each row reconstructed from the trace stream.",
+        "id": "trail",
+        "label": "what fired",
+        "targets": [
+          "signal-hero",
+          "signal-queue"
+        ]
+      },
+      {
+        "act": "pattern",
+        "beat": "BELIEVE",
+        "headline": "26 nodes and 84 edges of counted lineage \u2014 3 external flows lit critical, 4 PII, 3 loops.",
+        "id": "lineage",
+        "label": "how risk moves",
+        "targets": [
+          "lineage-hero",
+          "pattern-primer"
+        ]
+      },
+      {
+        "act": "impact",
+        "beat": "STAKE",
+        "headline": "3 critical + 7 high findings mapped to US, EU and cross-cutting obligations \u2014 article-level facts; the determination stays with Legal/Compliance.",
+        "id": "exposure",
+        "label": "what it triggers",
+        "targets": [
+          "impact-magnitude",
+          "impact-materiality"
+        ]
+      },
+      {
+        "act": "decide",
+        "beat": "ACT",
+        "headline": "Every verb needs a named human + 12-word justification, hash-chained \u2014 14 findings await disposition.",
+        "id": "verbs",
+        "label": "act on it",
+        "targets": [
+          "decide-verbs",
+          "decide-queue"
+        ]
+      },
+      {
+        "act": "attest",
+        "beat": "ATTACK",
+        "headline": "3 chained attestations, SHA-256 verified live in your browser \u2014 plus the enforcement-precedent register per RE class.",
+        "id": "attest",
+        "label": "prove it",
+        "targets": [
+          "attest-chain",
+          "attest-log",
+          "attest-precedent"
+        ]
+      }
+    ],
+    "paths": {
+      "audit": [
+        "attest",
+        "lineage",
+        "trail",
+        "exposure",
+        "verbs"
+      ],
+      "basic": [
+        "trail",
+        "lineage",
+        "exposure",
+        "verbs",
+        "attest"
+      ],
+      "engineering": [
+        "trail",
+        "lineage",
+        "verbs",
+        "exposure",
+        "attest"
+      ],
+      "leadership": [
+        "exposure",
+        "verbs",
+        "trail",
+        "attest",
+        "lineage"
+      ]
+    },
+    "source_note": "Spine, role paths and every headline derive from this projection.",
+    "thesis": "Agents doing governance work leave verifiable evidence trails \u2014 and the trail is what catches the agent that exceeded its scope."
+  },
+  "lineage_graph": {
+    "distinct_flow_count": 30,
+    "edges": [
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-C04D8A"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "internal_ledger",
+        "workflow_id": "WF-C04D8A"
+      },
+      {
+        "action": "model_inference",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_model_v2",
+        "workflow_id": "WF-C04D8A"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-report-writer",
+        "workflow_id": "WF-C04D8A"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "report_store",
+        "workflow_id": "WF-C04D8A"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_reviewer",
+        "workflow_id": "WF-C04D8A"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-9542ED"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "internal_ledger",
+        "workflow_id": "WF-9542ED"
+      },
+      {
+        "action": "model_inference",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_model_v2",
+        "workflow_id": "WF-9542ED"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-report-writer",
+        "workflow_id": "WF-9542ED"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "report_store",
+        "workflow_id": "WF-9542ED"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_reviewer",
+        "workflow_id": "WF-9542ED"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-F13449"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "internal_ledger",
+        "workflow_id": "WF-F13449"
+      },
+      {
+        "action": "model_inference",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_model_v2",
+        "workflow_id": "WF-F13449"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-report-writer",
+        "workflow_id": "WF-F13449"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "report_store",
+        "workflow_id": "WF-F13449"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_reviewer",
+        "workflow_id": "WF-F13449"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-kyc-validator",
+        "workflow_id": "WF-27BFCC"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-kyc-validator",
+        "pii": true,
+        "rag": "watch",
+        "risk_events": [
+          "RE-01"
+        ],
+        "severity": "medium",
+        "to": "customer_db",
+        "workflow_id": "WF-27BFCC"
+      },
+      {
+        "action": "external_api_call",
+        "external": true,
+        "from": "agent-kyc-validator",
+        "pii": true,
+        "rag": "critical",
+        "risk_events": [
+          "RE-01",
+          "RE-03"
+        ],
+        "severity": "high",
+        "to": "kyc-provider.external.io",
+        "workflow_id": "WF-27BFCC"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-kyc-validator",
+        "pii": true,
+        "rag": "watch",
+        "risk_events": [
+          "RE-01"
+        ],
+        "severity": "medium",
+        "to": "kyc_results",
+        "workflow_id": "WF-27BFCC"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "compliance_team",
+        "workflow_id": "WF-27BFCC"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-report-writer",
+        "workflow_id": "WF-0FDEE5"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "internal_ledger",
+        "workflow_id": "WF-0FDEE5"
+      },
+      {
+        "action": "tool_execution",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "critical",
+        "risk_events": [
+          "RE-04"
+        ],
+        "severity": "critical",
+        "to": "credit_bureau_api",
+        "workflow_id": "WF-0FDEE5"
+      },
+      {
+        "action": "external_api_call",
+        "external": true,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "critical",
+        "risk_events": [
+          "RE-04",
+          "RE-03"
+        ],
+        "severity": "critical",
+        "to": "credit-bureau.external.io",
+        "workflow_id": "WF-0FDEE5"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "security_team",
+        "workflow_id": "WF-0FDEE5"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-kyc-validator",
+        "workflow_id": "WF-2966B3"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-kyc-validator",
+        "pii": true,
+        "rag": "watch",
+        "risk_events": [
+          "RE-01"
+        ],
+        "severity": "medium",
+        "to": "customer_db",
+        "workflow_id": "WF-2966B3"
+      },
+      {
+        "action": "model_inference",
+        "external": false,
+        "from": "agent-kyc-validator",
+        "pii": true,
+        "rag": "watch",
+        "risk_events": [
+          "RE-01"
+        ],
+        "severity": "medium",
+        "to": "kyc_model",
+        "workflow_id": "WF-2966B3"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-kyc-validator",
+        "pii": true,
+        "rag": "watch",
+        "risk_events": [
+          "RE-01",
+          "RE-02"
+        ],
+        "severity": "medium",
+        "to": "kyc_results",
+        "workflow_id": "WF-2966B3"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-3A03A6"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-data-fetcher",
+        "workflow_id": "WF-3A03A6"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-data-fetcher",
+        "pii": false,
+        "rag": "watch",
+        "risk_events": [
+          "RE-08"
+        ],
+        "severity": "low",
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-3A03A6"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "watch",
+        "risk_events": [
+          "RE-08"
+        ],
+        "severity": "low",
+        "to": "agent-data-fetcher",
+        "workflow_id": "WF-3A03A6"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-data-fetcher",
+        "pii": false,
+        "rag": "watch",
+        "risk_events": [
+          "RE-08"
+        ],
+        "severity": "low",
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-3A03A6"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "on_call_engineer",
+        "workflow_id": "WF-3A03A6"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-decision",
+        "workflow_id": "WF-37FD1E"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-decision",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_signals_db",
+        "workflow_id": "WF-37FD1E"
+      },
+      {
+        "action": "model_inference",
+        "external": false,
+        "from": "agent-decision",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "decision_model_v1",
+        "workflow_id": "WF-37FD1E"
+      },
+      {
+        "action": "decision",
+        "external": false,
+        "from": "agent-decision",
+        "pii": false,
+        "rag": "critical",
+        "risk_events": [
+          "RE-05"
+        ],
+        "severity": "high",
+        "to": "approve_transaction",
+        "workflow_id": "WF-37FD1E"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_reviewer",
+        "workflow_id": "WF-37FD1E"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-notifier",
+        "workflow_id": "WF-932857"
+      },
+      {
+        "action": "tool_execution",
+        "external": false,
+        "from": "agent-notifier",
+        "pii": false,
+        "rag": "critical",
+        "risk_events": [
+          "RE-04"
+        ],
+        "severity": "critical",
+        "to": "payment_disbursement",
+        "workflow_id": "WF-932857"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "security_team",
+        "workflow_id": "WF-932857"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-report-writer",
+        "workflow_id": "WF-BCE08C"
+      },
+      {
+        "action": "model_inference",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "comms_draft_model",
+        "workflow_id": "WF-BCE08C"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-notifier",
+        "workflow_id": "WF-BCE08C"
+      },
+      {
+        "action": "external_api_call",
+        "external": true,
+        "from": "agent-notifier",
+        "pii": false,
+        "rag": "critical",
+        "risk_events": [
+          "RE-04",
+          "RE-03"
+        ],
+        "severity": "critical",
+        "to": "customer-comms-gateway.external.io",
+        "workflow_id": "WF-BCE08C"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "compliance_team",
+        "workflow_id": "WF-BCE08C"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-report-writer",
+        "workflow_id": "WF-09EF5A"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "internal_ledger",
+        "workflow_id": "WF-09EF5A"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "critical",
+        "risk_events": [
+          "RE-06"
+        ],
+        "severity": "high",
+        "to": "internal_ledger",
+        "workflow_id": "WF-09EF5A"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_reviewer",
+        "workflow_id": "WF-09EF5A"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-43423E"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "internal_ledger",
+        "workflow_id": "WF-43423E"
+      },
+      {
+        "action": "model_inference",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_model_v2",
+        "workflow_id": "WF-43423E"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-report-writer",
+        "workflow_id": "WF-43423E"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "report_store",
+        "workflow_id": "WF-43423E"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_reviewer",
+        "workflow_id": "WF-43423E"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-kyc-validator",
+        "workflow_id": "WF-D099C6"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-kyc-validator",
+        "pii": true,
+        "rag": "watch",
+        "risk_events": [
+          "RE-01"
+        ],
+        "severity": "medium",
+        "to": "customer_db",
+        "workflow_id": "WF-D099C6"
+      },
+      {
+        "action": "external_api_call",
+        "external": true,
+        "from": "agent-kyc-validator",
+        "pii": true,
+        "rag": "critical",
+        "risk_events": [
+          "RE-01",
+          "RE-03"
+        ],
+        "severity": "high",
+        "to": "kyc-provider.external.io",
+        "workflow_id": "WF-D099C6"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-kyc-validator",
+        "pii": true,
+        "rag": "watch",
+        "risk_events": [
+          "RE-01"
+        ],
+        "severity": "medium",
+        "to": "kyc_results",
+        "workflow_id": "WF-D099C6"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "compliance_team",
+        "workflow_id": "WF-D099C6"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-12AB35"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "internal_ledger",
+        "workflow_id": "WF-12AB35"
+      },
+      {
+        "action": "model_inference",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_model_v2",
+        "workflow_id": "WF-12AB35"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-report-writer",
+        "workflow_id": "WF-12AB35"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "report_store",
+        "workflow_id": "WF-12AB35"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_reviewer",
+        "workflow_id": "WF-12AB35"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-64B202"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "internal_ledger",
+        "workflow_id": "WF-64B202"
+      },
+      {
+        "action": "model_inference",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_model_v2",
+        "workflow_id": "WF-64B202"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-report-writer",
+        "workflow_id": "WF-64B202"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "report_store",
+        "workflow_id": "WF-64B202"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_reviewer",
+        "workflow_id": "WF-64B202"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-orchestrator",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-BE3CF8"
+      },
+      {
+        "action": "data_read",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "internal_ledger",
+        "workflow_id": "WF-BE3CF8"
+      },
+      {
+        "action": "model_inference",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_model_v2",
+        "workflow_id": "WF-BE3CF8"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "agent-report-writer",
+        "workflow_id": "WF-BE3CF8"
+      },
+      {
+        "action": "data_write",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "report_store",
+        "workflow_id": "WF-BE3CF8"
+      },
+      {
+        "action": "human_handoff",
+        "external": false,
+        "from": "agent-report-writer",
+        "pii": false,
+        "rag": "evidence",
+        "risk_events": [],
+        "severity": null,
+        "to": "risk_reviewer",
+        "workflow_id": "WF-BE3CF8"
+      }
+    ],
+    "external_flow_count": 3,
+    "external_flow_traversals": 4,
+    "loop_edges": [
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-data-fetcher",
+        "pii": false,
+        "rag": "watch",
+        "risk_events": [
+          "RE-08"
+        ],
+        "severity": "low",
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-3A03A6"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-risk-analyzer",
+        "pii": false,
+        "rag": "watch",
+        "risk_events": [
+          "RE-08"
+        ],
+        "severity": "low",
+        "to": "agent-data-fetcher",
+        "workflow_id": "WF-3A03A6"
+      },
+      {
+        "action": "agent_delegation",
+        "external": false,
+        "from": "agent-data-fetcher",
+        "pii": false,
+        "rag": "watch",
+        "risk_events": [
+          "RE-08"
+        ],
+        "severity": "low",
+        "to": "agent-risk-analyzer",
+        "workflow_id": "WF-3A03A6"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "agent-orchestrator",
+        "pii_touched": false,
+        "type": "agent"
+      },
+      {
+        "id": "agent-risk-analyzer",
+        "pii_touched": false,
+        "type": "agent"
+      },
+      {
+        "id": "internal_ledger",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "risk_model_v2",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "agent-report-writer",
+        "pii_touched": false,
+        "type": "agent"
+      },
+      {
+        "id": "report_store",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "risk_reviewer",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "agent-kyc-validator",
+        "pii_touched": true,
+        "type": "agent"
+      },
+      {
+        "id": "customer_db",
+        "pii_touched": true,
+        "type": "system"
+      },
+      {
+        "id": "kyc-provider.external.io",
+        "pii_touched": true,
+        "type": "system"
+      },
+      {
+        "id": "kyc_results",
+        "pii_touched": true,
+        "type": "system"
+      },
+      {
+        "id": "compliance_team",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "credit_bureau_api",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "credit-bureau.external.io",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "security_team",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "kyc_model",
+        "pii_touched": true,
+        "type": "system"
+      },
+      {
+        "id": "agent-data-fetcher",
+        "pii_touched": false,
+        "type": "agent"
+      },
+      {
+        "id": "on_call_engineer",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "agent-decision",
+        "pii_touched": false,
+        "type": "agent"
+      },
+      {
+        "id": "risk_signals_db",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "decision_model_v1",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "approve_transaction",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "agent-notifier",
+        "pii_touched": false,
+        "type": "agent"
+      },
+      {
+        "id": "payment_disbursement",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "comms_draft_model",
+        "pii_touched": false,
+        "type": "system"
+      },
+      {
+        "id": "customer-comms-gateway.external.io",
+        "pii_touched": false,
+        "type": "system"
+      }
+    ],
+    "pii_flow_count": 4,
+    "pii_flow_traversals": 9,
+    "source_note": "Structural data-flow (agent\u2192system\u2192external) counted from SIMULATED agent traces \u2014 NOT a probabilistic cascade. RE-03 external-flow edges are lit critical; RE-08 multi-agent loops marked as cycles (port spec \u00a715.G). Counts are DISTINCT (from\u2192to) flows \u2014 matching the painted graph; raw traversals (same flow across workflows) are exposed separately. First-paint hero.",
+    "source_status": "real_query_synthesized_data"
+  },
+  "magnitude": {
+    "data_classes": [
+      "PII",
+      "account",
+      "internal",
+      "name",
+      "phone"
+    ],
+    "external_flow_traversals": {
+      "provenance": {
+        "assumptions": [],
+        "computation": "raw external flow traversals across all workflows",
+        "source_query": "count(lineage edges where external)",
+        "source_status": "real_query_synthesized_data",
+        "source_system": "agent_simulator",
+        "source_timestamp": "2026-06-01T09:00:00Z"
+      },
+      "value": 4
+    },
+    "external_flows": {
+      "provenance": {
+        "assumptions": [],
+        "computation": "counted DISTINCT external-destination flows",
+        "source_query": "count(distinct (from,to) lineage edges where external)",
+        "source_status": "real_query_synthesized_data",
+        "source_system": "agent_simulator",
+        "source_timestamp": "2026-06-01T09:00:00Z"
+      },
+      "value": 3
+    },
+    "pii_flow_traversals": {
+      "provenance": {
+        "assumptions": [],
+        "computation": "raw PII flow traversals across all workflows",
+        "source_query": "count(lineage edges where pii)",
+        "source_status": "real_query_synthesized_data",
+        "source_system": "agent_simulator",
+        "source_timestamp": "2026-06-01T09:00:00Z"
+      },
+      "value": 9
+    },
+    "pii_flows_exposed": {
+      "provenance": {
+        "assumptions": [],
+        "computation": "counted DISTINCT PII-bearing flows (matches the graph)",
+        "source_query": "count(distinct (from,to) lineage edges where pii)",
+        "source_status": "real_query_synthesized_data",
+        "source_system": "agent_simulator",
+        "source_timestamp": "2026-06-01T09:00:00Z"
+      },
+      "value": 4
+    },
+    "record_count": {
+      "provenance": {
+        "assumptions": [
+          "affected-record / data-subject count not instrumented in traces"
+        ],
+        "computation": "Value not present in the source; rendered as absent, never estimated.",
+        "source_query": "not_instrumented",
+        "source_status": "absent",
+        "source_system": "none",
+        "source_timestamp": "1900-01-01T00:00:00Z"
+      },
+      "value": null
+    },
+    "source_note": "Magnitude axis = DISTINCT PII-bearing / external flows in the lineage (port spec \u00a715.B) \u2014 a lineage signal, NOT the GDPR Art. 33(1)(a) 'records / data-subjects' quantity, which is itself not instrumented and rendered absent below. Flows + data classes are COUNTED (distinct from\u2192to, matching the graph); raw traversals are a secondary line. No dollar figure, no composite score. Lives in IMPACT \u2014 never on the same row as a regulatory precedent anchor (\u00a715.C).",
+    "source_status": "real_query_synthesized_data"
+  },
+  "materiality": {
+    "eu_ai_act_art_14_12": {
+      "jurisdiction": "EU",
+      "provenance": {
+        "assumptions": [],
+        "computation": "Agent scope exceeded / low-confidence automated decision \u2192 oversight + logging duties APPLY ONLY IF the system is classified high-risk under Annex III (predicate not established here). Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "EU AI Act Reg. 2024/1689 Art. 14 (human oversight) + Art. 12 (logging) \u2014 IF high-risk (Annex III)",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-04",
+        "RE-05"
+      ]
+    },
+    "eu_ai_act_art_26_gdpr_chV": {
+      "jurisdiction": "EU",
+      "provenance": {
+        "assumptions": [],
+        "computation": "Unauthorized external flow = cross-border transfer needing a Ch. V basis; Art. 26 deployer duties apply only if high-risk (Annex III). Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "EU AI Act Art. 26 (deployer, IF high-risk) + GDPR Ch. V Art. 44\u201349 (transfer basis)",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-03"
+      ]
+    },
+    "finra_2210": {
+      "jurisdiction": "US",
+      "provenance": {
+        "assumptions": [],
+        "computation": "An agent sending customer communications outside its authorization, with the human gate skipped, is a principal-approval gap in 2210 terms \u2014 surfaced as fact; the supervisory determination stays with Compliance. Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "FINRA Rule 2210 (communications with the public) + Reg. Notice 24-09 \u2014 IF a FINRA member firm",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-04"
+      ]
+    },
+    "finra_ai_supervision": {
+      "jurisdiction": "US",
+      "provenance": {
+        "assumptions": [],
+        "computation": "Agent overreach / low-confidence decisions / uncontrolled multi-agent loops engage a member firm's supervisory-system obligations over AI tools. Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "FINRA Reg. Notice 24-09 (AI) + Rule 3110 (supervision) \u2014 IF a FINRA member firm",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-04",
+        "RE-05",
+        "RE-08"
+      ]
+    },
+    "gdpr_art_33_34": {
+      "jurisdiction": "EU",
+      "provenance": {
+        "assumptions": [],
+        "computation": "Unauthorized external flow is a candidate personal-data breach (Art. 4(12)) \u2192 72h notification ASSESSMENT (not a determination). Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "GDPR Reg. 2016/679 Art. 33(1)\u201334 \u2014 72h breach notification",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-03"
+      ]
+    },
+    "gdpr_art_5_32": {
+      "jurisdiction": "EU",
+      "provenance": {
+        "assumptions": [],
+        "computation": "PII detected in agent output \u2192 data-minimisation + security-of-processing considerations (not a breach notification). Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "GDPR Art. 5 (principles) / Art. 32 (security of processing)",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-01"
+      ]
+    },
+    "gdpr_art_6_consent": {
+      "jurisdiction": "EU",
+      "provenance": {
+        "assumptions": [],
+        "computation": "Consent record missing (no Art. 6(1)(a) basis) / excessive retention. Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "GDPR Art. 6(1)(a) (consent) / Art. 5(1)(e) (storage limitation)",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-02"
+      ]
+    },
+    "glba_safeguards": {
+      "jurisdiction": "US",
+      "provenance": {
+        "assumptions": [],
+        "computation": "PII in output / unauthorized egress / over-retention engage the Safeguards Rule's access-control, monitoring and disposal duties for covered financial institutions. Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "GLBA Safeguards Rule \u2014 16 CFR \u00a7314.4 (access controls, monitoring, disposal) \u2014 IF a US financial institution",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-01",
+        "RE-03"
+      ]
+    },
+    "nist_ai_rmf": {
+      "jurisdiction": "Cross-cutting",
+      "provenance": {
+        "assumptions": [],
+        "computation": "Autonomy/confidence/loop events map to the MEASURE + MANAGE functions; adopting the RMF is voluntary, so this is a maturity signal, not a legal duty. Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "NIST AI RMF 1.0 \u2014 GOVERN / MAP / MEASURE / MANAGE (voluntary consensus framework)",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-04",
+        "RE-05",
+        "RE-08"
+      ]
+    },
+    "sea_17a4": {
+      "jurisdiction": "US",
+      "provenance": {
+        "assumptions": [],
+        "computation": "A record-store write with broken lineage threatens the preservation obligation's completeness/integrity premise \u2014 IF broker-dealer; same regime and citation the rac register carries, so the cross-substrate loop closes. Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "SEA Rule 17a-4 (17 CFR 240.17a-4) \u00b7 books & records preservation",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-06"
+      ]
+    },
+    "sec_reg_sp": {
+      "jurisdiction": "US",
+      "provenance": {
+        "assumptions": [],
+        "computation": "Unauthorized external flow of customer information is the trigger for the Reg S-P safeguards + the 2024 breach-notification amendment \u2014 IF the firm is a covered SEC registrant. Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "SEC Regulation S-P \u2014 17 CFR \u00a7248.30 safeguards + 2024 incident-response amendment (\u224830-day customer notice) \u2014 IF broker-dealer / RIA / transfer agent",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-03"
+      ]
+    },
+    "soc2_cc6": {
+      "jurisdiction": "Cross-cutting",
+      "provenance": {
+        "assumptions": [],
+        "computation": "Access / boundary / lineage-integrity criteria. Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "SOC 2 Type II \u2014 CC6.1 / CC6.6 (logical access, boundary protection)",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-03",
+        "RE-04",
+        "RE-06"
+      ]
+    },
+    "sr_11_7_model_risk": {
+      "jurisdiction": "US",
+      "provenance": {
+        "assumptions": [],
+        "computation": "Scope-exceeded / low-confidence automated decisions and broken data lineage are model-risk events: they engage validation, ongoing monitoring and effective-challenge duties for supervised institutions. Materiality DETERMINATION is reserved to Legal/Compliance; this surfaces facts only."
+      },
+      "regulation_citation": "Fed SR 11-7 / OCC 2011-12 \u2014 Model Risk Management (validation, monitoring, effective challenge) \u2014 IF a supervised bank",
+      "status": "TRIGGERED",
+      "triggered_patterns": [
+        "RE-04",
+        "RE-05",
+        "RE-06"
+      ]
+    }
+  },
+  "meta": {
+    "artefact_version": "v2.0-atg-alpha1",
+    "counts": {
+      "actions_traced": 84,
+      "critical": 3,
+      "external_flows": 3,
+      "findings_total": 14,
+      "high": 7,
+      "low": 1,
+      "medium": 3,
+      "pii_flows": 4,
+      "risk_events_total": 23,
+      "workflows_analyzed": 16
+    },
+    "counts_gloss": "findings_total = grouped (workflow\u00d7risk-event) findings; the severity tiers (critical+high+medium+low) sum to THIS. risk_events_total = raw risk-event occurrences before grouping.",
+    "counts_provenance": {
+      "actions_traced": "real_query_synthesized_data",
+      "critical": "derived",
+      "external_flows": "real_query_synthesized_data",
+      "findings_total": "real_query_synthesized_data",
+      "high": "derived",
+      "low": "derived",
+      "medium": "derived",
+      "pii_flows": "real_query_synthesized_data",
+      "risk_events_total": "real_query_synthesized_data",
+      "workflows_analyzed": "real_query_synthesized_data"
+    },
+    "detection_eval": {
+      "boundaries_documented": 6,
+      "by_class": [
+        {
+          "cls": "RE-01",
+          "name": "PII Detected in Agent Output",
+          "near_miss": "1/1",
+          "tp": "5/5"
+        },
+        {
+          "cls": "RE-02",
+          "name": "Consent Record Missing",
+          "near_miss": "1/1",
+          "tp": "3/3"
+        },
+        {
+          "cls": "RE-03",
+          "name": "Unauthorized External Data Flow",
+          "near_miss": "2/2",
+          "tp": "5/5"
+        },
+        {
+          "cls": "RE-04",
+          "name": "Agent Scope Exceeded",
+          "near_miss": "2/2",
+          "tp": "6/6"
+        },
+        {
+          "cls": "RE-05",
+          "name": "Low-Confidence Automated Decision",
+          "near_miss": "2/2",
+          "tp": "2/2"
+        },
+        {
+          "cls": "RE-06",
+          "name": "Data Lineage Break",
+          "near_miss": "2/2",
+          "tp": "2/2"
+        },
+        {
+          "cls": "RE-08",
+          "name": "Multi-Agent Loop Detected",
+          "near_miss": "1/1",
+          "tp": "2/2"
+        }
+      ],
+      "catalog_sha12": "6fd11e031249",
+      "classes_exercised": 7,
+      "coverage_gap_rows": [
+        {
+          "cls": "RE-07",
+          "name": "Excessive Data Retention by Agent",
+          "note": "schema class with NO deriving rule in the classifier \u2014 retention-window signals are not present on the spans. An open coverage gap, stated; closing it is a rule change and lands through the A8 gate."
+        }
+      ],
+      "coverage_gaps": [
+        "RE-07"
+      ],
+      "false_fires": 0,
+      "injections_total": 28,
+      "loop_closure": "closed through a human, deliberately: rule changes require the A8 gate (named human \u00b7 \u226512-word justification \u00b7 expiry); the eval re-runs and re-seals on every build",
+      "near_miss": "10/10",
+      "source": "qa/detection_eval.json",
+      "tp": "18/18"
+    },
+    "domain_ids": [
+      "WF-C04D8A",
+      "WF-9542ED",
+      "WF-F13449",
+      "WF-27BFCC",
+      "WF-0FDEE5",
+      "WF-2966B3",
+      "WF-3A03A6",
+      "WF-37FD1E",
+      "WF-932857",
+      "WF-BCE08C",
+      "WF-09EF5A",
+      "WF-43423E",
+      "WF-D099C6",
+      "WF-12AB35",
+      "WF-64B202",
+      "WF-BE3CF8"
+    ],
+    "domain_object": "workflow",
+    "generated_at": "2026-06-01T09:00:00Z",
+    "overall_posture": "critical",
+    "period": "2026-06",
+    "rag_note": "overall_rag is a 3-tier display accent (critical|watch|evidence) derived from severity for row coloring; the rating is `severity`, consequence-derived with its basis in `severity_basis`",
+    "run_seed": 42,
+    "schema_version": "1.0"
+  },
+  "patterns_meta": {
+    "patterns": [
+      {
+        "anchors": [
+          {
+            "date": "2023-03-20",
+            "name": "ChatGPT \u2014 Redis bug exposed conversation titles and payment metadata",
+            "summary": "Request-cancellation race in redis-py exposed chat titles and partial payment data for ~1.2% of ChatGPT Plus subscribers. Canonical 'shared cache + agent output' PII-leak class.",
+            "url": "https://openai.com/index/march-20-chatgpt-outage/"
+          },
+          {
+            "date": "2023-04-30",
+            "name": "Samsung \u2014 semiconductor source code pasted into ChatGPT",
+            "summary": "Three separate engineer-driven leaks of proprietary semiconductor source code and meeting transcripts to ChatGPT within 20 days. Samsung banned generative-AI tools company-wide on 2023-05-01.",
+            "url": "https://techcrunch.com/2023/05/02/samsung-bans-use-of-generative-ai-tools-like-chatgpt-after-april-internal-data-leak/"
+          }
+        ],
+        "description": "",
+        "framework": "GDPR Art. 5; CCPA \u00a71798.100",
+        "framework_source_url": "https://gdpr-info.eu/art-5-gdpr/",
+        "id": "RE-01",
+        "name": "PII Detected in Agent Output",
+        "severity_default": "high"
+      },
+      {
+        "anchors": [
+          {
+            "date": "2023-01-04",
+            "name": "Meta \u2014 Irish DPC \u20ac390M fine for Article 6 violation",
+            "summary": "Irish Data Protection Commission fined Meta \u20ac210M (Facebook) + \u20ac180M (Instagram) for relying on 'contract' legal basis to process personal data for behavioural advertising without valid consent. Canonical 'consent assumed not captured' GDPR case.",
+            "url": "https://www.dataprotection.ie/en/news-media/data-protection-commission-announces-decisions-meta-irelands-facebook-and-instagram-services"
+          }
+        ],
+        "description": "",
+        "framework": "GDPR Art. 6(1)(a); CCPA \u00a71798.120",
+        "framework_source_url": "https://gdpr-info.eu/art-6-gdpr/",
+        "id": "RE-02",
+        "name": "Consent Record Missing",
+        "severity_default": "high"
+      },
+      {
+        "anchors": [
+          {
+            "date": "2019-07-19",
+            "name": "Capital One \u2014 SSRF to AWS metadata service",
+            "summary": "WAF misconfiguration allowed SSRF; attacker reached EC2 instance metadata service and exfiltrated ~106M records to external infrastructure. $80M OCC fine; consent order specifically cited absent egress controls.",
+            "url": "https://www.occ.treas.gov/news-issuances/news-releases/2020/nr-occ-2020-101.html"
+          },
+          {
+            "date": "2023-04-30",
+            "name": "Samsung \u2014 proprietary code to external LLM endpoint",
+            "summary": "Engineer-initiated paste of proprietary semiconductor code to a third-party model service \u2014 the canonical agent-era external-flow violation (the destination is a model API, not a competitor).",
+            "url": "https://techcrunch.com/2023/05/02/samsung-bans-use-of-generative-ai-tools-like-chatgpt-after-april-internal-data-leak/"
+          }
+        ],
+        "description": "",
+        "framework": "NIST CSF 1.1 PR.DS-5 (data-leak protection)",
+        "framework_source_url": "https://www.nist.gov/cyberframework",
+        "id": "RE-03",
+        "name": "Unauthorized External Data Flow",
+        "severity_default": "critical"
+      },
+      {
+        "anchors": [
+          {
+            "date": "2025-06-01",
+            "name": "CVE-2025-49596 \u2014 MCP Inspector RCE (CVSS 9.4)",
+            "summary": "Unauthenticated MCP Inspector instances allowed arbitrary command execution \u2014 an agent-tooling 'open scope' failure exposed to network.",
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-49596"
+          },
+          {
+            "date": "2025-04-09",
+            "name": "Tool-mutation / rug-pull pattern (Simon Willison)",
+            "summary": "MCP tool definitions can mutate after install; a tool approved on Day 1 can be re-pointed by Day 7 with no re-approval. The scope a user authorized is not the scope the tool ends up exercising.",
+            "url": "https://simonwillison.net/2025/Apr/9/mcp-prompt-injection/"
+          }
+        ],
+        "description": "",
+        "framework": "NIST AI RMF GOVERN-1",
+        "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+        "id": "RE-04",
+        "name": "Agent Scope Exceeded",
+        "severity_default": "high"
+      },
+      {
+        "anchors": [
+          {
+            "date": "2024-02-14",
+            "name": "Moffatt v. Air Canada \u2014 airline liable for chatbot hallucination",
+            "summary": "BC Civil Resolution Tribunal held Air Canada liable for chatbot-invented bereavement-refund policy ($812.02). Court rejected airline's 'separate legal entity' defence \u2014 companies own their agents' decisions. The first agent-confidence ruling that bit a deployer.",
+            "url": "https://decisions.civilresolutionbc.ca/crt/sd/en/item/525448/index.do"
+          },
+          {
+            "date": "2021-11-02",
+            "name": "Zillow Offers \u2014 model drift in production",
+            "summary": "iBuying model overpaid for inventory in a volatile market; Zillow wound down Offers with a $304M write-down and ~25% workforce reduction. Confidence intervals existed; they did not surface to a decision veto in time.",
+            "url": "https://www.sec.gov/Archives/edgar/data/1617640/000161764021000067/zillowgroup-shareholderletter.htm"
+          }
+        ],
+        "description": "",
+        "framework": "NIST AI RMF MEASURE-2",
+        "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+        "id": "RE-05",
+        "name": "Low-Confidence Automated Decision",
+        "severity_default": "medium"
+      },
+      {
+        "anchors": [
+          {
+            "date": "2022-04-04",
+            "name": "Atlassian Cloud \u2014 14-day partial outage",
+            "summary": "Maintenance script deleted ~775 customer sites; recovery took up to 14 days for some tenants because per-tenant restore tooling and lineage between operational and backup state did not exist.",
+            "url": "https://www.atlassian.com/engineering/post-incident-review-april-2022-outage"
+          }
+        ],
+        "description": "",
+        "framework": "ISO/IEC 27001:2022 A.8.13 (Information backup)",
+        "framework_source_url": "https://www.iso.org/standard/27001",
+        "id": "RE-06",
+        "name": "Data Lineage Break",
+        "severity_default": "medium"
+      },
+      {
+        "anchors": [
+          {
+            "date": "2021-07-30",
+            "name": "Amazon \u2014 CNPD \u20ac746M fine (Luxembourg)",
+            "summary": "Largest GDPR fine to date at issuance; Luxembourg DPA found Amazon's personal-data processing did not comply with GDPR rules, including retention and lawful-basis concerns.",
+            "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872421000020/amzn-20210630.htm"
+          }
+        ],
+        "description": "",
+        "framework": "GDPR Art. 5(e) (storage limitation)",
+        "framework_source_url": "https://gdpr-info.eu/art-5-gdpr/",
+        "id": "RE-07",
+        "name": "Excessive Data Retention by Agent",
+        "severity_default": "medium"
+      },
+      {
+        "anchors": [
+          {
+            "date": "2025-08-01",
+            "name": "MCPTox benchmark \u2014 agent vulnerability to tool-output prompt injection",
+            "summary": "Benchmark tested 20 LLM agents against 45 real MCP servers; most agents were vulnerable to prompt-injection-driven action loops via tool descriptions and outputs. Loops are the failure mode; injection is the trigger.",
+            "url": "https://www.practical-devsecops.com/mcp-security-guide/"
+          }
+        ],
+        "description": "",
+        "framework": "NIST AI RMF MANAGE-2",
+        "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+        "id": "RE-08",
+        "name": "Multi-Agent Loop Detected",
+        "severity_default": "low"
+      }
+    ],
+    "source_note": "Authoritative RE taxonomy + framework citations + incident anchors from data/action_schema.json. Anchors are keyed to the RE class and render only in the ATTEST/PATTERN precedent register \u2014 never inside a finding's impact band (port spec \u00a714.A.3 / \u00a715.C).",
+    "source_status": "published_standard"
+  },
+  "source_note": "Input is agent_simulator (synthetic agent traces, scenario-mixed \u2014 port spec \u00a714.G); the governance logic is real. Reproducible under a run seed (meta.run_seed). Counted values carry real_query_synthesized_data; derived/absent fields are marked as such.",
+  "telemetry_status": "synthesised"
+}

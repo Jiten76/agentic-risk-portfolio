@@ -1,0 +1,94 @@
+{
+ "_comment": "Formal risk-event taxonomy for the hypervelocity-risk-sim spoke. Each entry is a failure-mode the simulator replays. Provenance is split at the right granularity: the scenario failure-mode TOPOLOGY (lag accumulates from a producer-minus-consumer rate deficit, error rates spike, releases cascade) is source_derived from public failure-mode reporting, but the specific numeric SHAPE PARAMETERS (degradation depth, phase timing, catch-up rate) are operator_calibrated — tuned, not from any cited source. The spreadsheet-vs-signal response-time gap the sim reports is likewise operator_calibrated ILLUSTRATION, not measured telemetry. The spoke keeps this reviewed taxonomy; packages/kri-taxonomy/crosswalk.yaml maps it onto the canonical hub catalog.",
+ "id_field": "HV",
+ "modality": "live-simulation",
+ "risk_events": [
+  {
+   "id": "HV-01",
+   "name": "Consumer-Lag Cascade",
+   "scenario": "kafka_lag_storm",
+   "description": "Consumer lag accumulates from a sustained producer-minus-consumer rate deficit during a volume surge (a slow partition / rebalance); the payments domain's error rate spikes and an availability SLO violations. A capacity/observability gap that becomes an availability incident.",
+   "signals": [
+    "consumer_rate_mps",
+    "lag_messages",
+    "downstream_error_rate",
+    "downstream_latency_ms",
+    "slo_violation"
+   ],
+   "shape_topology_provenance": "source_derived",
+   "shape_parameter_provenance": "operator_calibrated",
+   "metric_provenance": "operator_calibrated",
+   "frameworks": [
+    "Google SRE (SLO / error budget)",
+    "NIST CSF 2.0 RC.RP",
+    "NIST CSF 2.0 DE.CM"
+   ]
+  },
+  {
+   "id": "HV-02",
+   "name": "Change-Induced Cascade",
+   "scenario": "deployment_cascade",
+   "description": "A bad release propagates across interdependent services, tripping circuit breakers and forcing emergency rollbacks. Change failure surfaces as an availability and incident-recovery event.",
+   "signals": [
+    "change_ticket",
+    "deployment_type",
+    "circuit_breaker",
+    "error_rate_before",
+    "error_rate_after",
+    "mttr_minutes",
+    "rollback"
+   ],
+   "shape_topology_provenance": "source_derived",
+   "shape_parameter_provenance": "operator_calibrated",
+   "metric_provenance": "operator_calibrated",
+   "frameworks": [
+    "DORA / DevOps Research & Assessment (change failure rate)",
+    "NIST CSF 2.0 ID.IM",
+    "NIST CSF 2.0 RS"
+   ]
+  },
+  {
+   "id": "HV-03",
+   "name": "Transaction-Velocity Surge / Fraud-Control Response",
+   "scenario": "velocity_surge",
+   "description": "Transaction rate spikes to a multiple of baseline, tripping fraud detection that also blocks legitimate traffic. The elevated-velocity signal is routed to an AML review queue for human disposition — a simulated fraud-control signal, NOT a BSA/AML determination. A decision-quality and human-oversight risk where one signal must route to fraud and compliance teams with different SLAs.",
+   "signals": [
+    "surge_ratio",
+    "transactions_blocked",
+    "fraud_score_avg",
+    "false_positives",
+    "aml_review_routed",
+    "compliance_escalation"
+   ],
+   "scope_note": "The simulator makes no BSA/AML compliance assertion. A transactions-per-second surge is a fraud-control signal, not a money-laundering typology; the AML element models only routing to a human review queue. SAR/CTR determinations (31 CFR 1020) are out of scope.",
+   "shape_topology_provenance": "source_derived",
+   "shape_parameter_provenance": "operator_calibrated",
+   "metric_provenance": "operator_calibrated",
+   "frameworks": [
+    "NIST AI RMF MEASURE 2",
+    "EU AI Act Art. 14 (human oversight) — applies only if the fraud decisioning is high-risk under Annex III"
+   ]
+  },
+  {
+   "id": "HV-04",
+   "name": "Identity-Plane Lockout",
+   "scenario": "identity_outage",
+   "description": "The customer identity/session plane degrades then fails: token issuance collapses, customers are locked out of accounts and funds in real time, and support saturates. The defining feature is the RECURSION — workforce SSO shares the failed plane, so responders are locked out of their own tooling with the customers (Meta 2021-10-04 class). Detection is near-instant in both regimes; ACCESS is the bottleneck. Break-glass restores tool access, then recovery arrives as a re-auth surge. Anchors: Auth0 global outage 2021-04-20; the 2021-01 brokerage login failures under volume; Meta workforce lockout 2021-10-04.",
+   "signals": [
+    "auth_success_rate",
+    "auth_failure_rate_pct",
+    "customers_locked_out",
+    "responder_lockout",
+    "support_queue_depth"
+   ],
+   "scope_note": "The simulator models availability and access mechanics only — no fraud, ATO or credential-stuffing determination is made; degraded-verification abuse is the rac dependency layer's blindness mode, priced there, not replayed here.",
+   "shape_topology_provenance": "source_derived",
+   "shape_parameter_provenance": "operator_calibrated",
+   "metric_provenance": "operator_calibrated",
+   "frameworks": [
+    "NIST CSF 2.0 PR.AA (identity & access)",
+    "FFIEC AIO — resilience of authentication infrastructure"
+   ]
+  }
+ ]
+}

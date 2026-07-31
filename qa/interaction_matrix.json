@@ -1,0 +1,1379 @@
+{
+ "spec": "round-15 \u2014 GROK round-14 findings #2/#6: interaction matrix for the platform grammar",
+ "run_at": "2026-07-22 (r33 sweep: rac index 36/36 + journey 12/12 on the journey-spine build \u2014 first-paint storyboard, per-service chain expansion, incident walk, audience re-argue all content-asserted live; the runner caught journey.html missing the #act=N hash router on first pass (11/12) \u2014 wired, re-run 12/12. Other surfaces re-render from the same projection and stand. Total 168, 0 fail.) | stage-2 chips: hv per-scenario chip render click-verified with fresh-query rail drives (a stale-NodeList probe run was caught and discarded \u2014 instrument lesson recorded). | r35 (stage 3): index 36/36 with the operating-model panel content-asserted live (counts, hard-flags, no-evidence class, rating states, A8). NEW SUB-CLASS on the ledger: a load-time ReferenceError passes node --check AND the matrix (fires before the error listener attaches) \u2014 only per-panel content assertion catches it. | r36 (stage 4, port complete): index 36/36 with the rollup strip content-asserted (totals + 12 parent chips); journey 12/12 with the gated verbatim caption asserted against the live hash. A silent-edit gap (journey caption never applied; gate passed on the JSON leaf) was caught by the content assertion and the gate tightened \u2014 the class-19 instrument earns its ledger entry twice in one day. | r37 (stage 5): journey 12/12 on the observatory build \u2014 canvas painted, 10 nodes, node-click card swaps, scrub moves KPIs (802\u21925,758 msgs), step cards jump the player, play advances under the interval fallback (verified in the rAF-suspended pane), trend chart painted. | r38: journey re-swept 10/10 on the combined surface (chapter count discovered, not assumed); board 12/12 + read 12/12 re-verified after the runner change. Total 166, 0 fail.",
+ "method": "live browser, real DOM events. Hash routes driven via location.hash + synchronous HashChangeEvent dispatch (async click/select/back paths verified across event-loop boundaries); clicks and keydowns dispatched on the actual elements. Assertions are GEOMETRIC (getBoundingClientRect().height > 0 \u2014 element presence and passing data audits prove nothing about interaction), state (body dataset role/node), and content-distinctness (visible-text hashes must differ per node; textContent alone is insufficient \u2014 it includes display:none panels). Geometric checks require a sized viewport; a 0\u00d70 pane tab produced one false failure during the run, re-verified at 1280\u00d7800.",
+ "summary": {
+  "checks": 166,
+  "pass": 166,
+  "fail": 0,
+  "note": "complete per-check evidence in rows_by_page; re-execute with scripts/interaction_matrix_runner.js"
+ },
+ "coverage": {
+  "rac/index": "4 roles \u00d7 full role paths (24 combos: state + only-active-node visible + step-header echoes node + visible-text distinct per node) + map/Escape + spine-pill click + role drop-down + browser back",
+  "atg/index": "4 roles \u00d7 5 nodes (20 combos, same assertions) + sub-walker panel step (geometric child visibility + PANEL k/N label) + map/Escape",
+  "hv/index": "4 roles \u00d7 3 scenarios (12 combos: hero title + per-scenario caption distinct + step-header) + map/Escape + rail-retired",
+  "reads": "chapter clicks (exactly-one-open, geometric), keys 1/2/3, live #act=N hash, canvas init, masthead workbench link; hv adds shape-icon chips + scenario re-run"
+ },
+ "catches_fixed_during_run": [
+  {
+   "finding": "read pages parsed #act=N only at load \u2014 live hash edits and browser back/forward between chapters were dead",
+   "fix": "hashchange listener added to all three read generators; re-tested green"
+  },
+  {
+   "finding": "atg read generator resolved its projection glob-last; a stray 2026-07 projection from an earlier unpinned mis-build silently swapped the read's data (period + counts)",
+   "fix": "atg pinned to the DEFAULT_AS_OF period, rac pinned to its canonical sealed projection (same footgun class); hv already reads docs/projection.json directly. B10 would also have caught this at bundle time"
+  },
+  {
+   "finding": "the ia map overlay had no Escape binding (close button only)",
+   "fix": "Escape closes the map \u2014 shared ia_runtime + rac inline runtime; verified on all three workbenches"
+  }
+ ],
+ "runner": "qa/interaction_matrix_runner.js \u2014 the assertion harness itself ships (round-16 external: '88/88 is only as strong as the unshipped harness'). Paste it in the console of any workbench or read at a sized viewport; it re-executes the checks and prints per-check EVIDENCE (states, geometry, text-hash values), so coverage is re-executable, not claimed.",
+ "round18_class_gates": {
+  "added": [
+   "zero-JS-errors during driven interactions",
+   "no-horizontal-overflow at any viewport",
+   "read renders its own projection (period + headline value)",
+   "link integrity as a standing bundle assertion"
+  ],
+  "caught_on_first_run": [
+   "rac keyboard layer: unguarded e.target.matches threw on non-Element targets \u2014 guarded class-wide, re-run green",
+   "validation.html: 743px document at a 390px viewport \u2014 tables now scroll internally, re-swept green"
+  ],
+  "mobile_sweep_390": {
+   "pages": 8,
+   "fail_then_fixed": 1,
+   "final": "all 8 surfaces scrollWidth == viewport"
+  },
+  "ledger": "qa/DEFECT_CLASS_LEDGER.md \u2014 every defect class from 18 rounds vs its standing guard"
+ },
+ "round19_a11y": {
+  "added_gates": [
+   "active pill aria-current=step",
+   "step header aria-live=polite",
+   "map aria-modal + focus enters on open + returns on Escape",
+   "chapter heads aria-expanded/aria-controls in sync",
+   "scrub + tour labeled"
+  ],
+  "caught_during_build": "my own a11y edit referenced an undefined 'show' in rac's inline runtime and killed the spine at boot \u2014 the runner caught it on the next sweep; fixed with a boot-safe interactive-open guard"
+ },
+ "round22_decision_graph": "all three round-22 reviewers' P0 (CRO can't go number \u2192 this week's decisions without hunting): closed with the hero-docket-cta edge, machine-held by the new CTA row here, C27.4 (spoken $ must be leaf-backed) and C29.1/C20.5/C8.5 (shipped inline JS must parse \u2014 the escape this round's first build actually had).",
+ "rows_by_page": {
+  "rac-index": [
+   {
+    "check": "audit\u00b7attack",
+    "pass": true,
+    "evidence": {
+     "state": "audit/attack",
+     "visibleNodes": "attack",
+     "textHash": 3782269647,
+     "headerLen": 289
+    }
+   },
+   {
+    "check": "audit\u00b7register",
+    "pass": true,
+    "evidence": {
+     "state": "audit/register",
+     "visibleNodes": "register",
+     "textHash": 3120565467,
+     "headerLen": 264
+    }
+   },
+   {
+    "check": "audit\u00b7regulation",
+    "pass": true,
+    "evidence": {
+     "state": "audit/regulation",
+     "visibleNodes": "regulation",
+     "textHash": 2565475725,
+     "headerLen": 367
+    }
+   },
+   {
+    "check": "audit\u00b7ai-gov",
+    "pass": true,
+    "evidence": {
+     "state": "audit/ai-gov",
+     "visibleNodes": "ai-gov",
+     "textHash": 3864451704,
+     "headerLen": 290
+    }
+   },
+   {
+    "check": "audit\u00b7stake",
+    "pass": true,
+    "evidence": {
+     "state": "audit/stake",
+     "visibleNodes": "stake",
+     "textHash": 1964168085,
+     "headerLen": 326
+    }
+   },
+   {
+    "check": "audit\u00b7docket",
+    "pass": true,
+    "evidence": {
+     "state": "audit/docket",
+     "visibleNodes": "docket",
+     "textHash": 3508127815,
+     "headerLen": 322
+    }
+   },
+   {
+    "check": "basic\u00b7stake",
+    "pass": true,
+    "evidence": {
+     "state": "basic/stake",
+     "visibleNodes": "stake",
+     "textHash": 1964168085,
+     "headerLen": 303
+    }
+   },
+   {
+    "check": "basic\u00b7register",
+    "pass": true,
+    "evidence": {
+     "state": "basic/register",
+     "visibleNodes": "register",
+     "textHash": 3120565467,
+     "headerLen": 257
+    }
+   },
+   {
+    "check": "basic\u00b7cascade",
+    "pass": true,
+    "evidence": {
+     "state": "basic/cascade",
+     "visibleNodes": "cascade",
+     "textHash": 787406523,
+     "headerLen": 281
+    }
+   },
+   {
+    "check": "basic\u00b7ai-gov",
+    "pass": true,
+    "evidence": {
+     "state": "basic/ai-gov",
+     "visibleNodes": "ai-gov",
+     "textHash": 3864451704,
+     "headerLen": 287
+    }
+   },
+   {
+    "check": "basic\u00b7docket",
+    "pass": true,
+    "evidence": {
+     "state": "basic/docket",
+     "visibleNodes": "docket",
+     "textHash": 3508127815,
+     "headerLen": 342
+    }
+   },
+   {
+    "check": "basic\u00b7regulation",
+    "pass": true,
+    "evidence": {
+     "state": "basic/regulation",
+     "visibleNodes": "regulation",
+     "textHash": 2565475725,
+     "headerLen": 376
+    }
+   },
+   {
+    "check": "basic\u00b7attack",
+    "pass": true,
+    "evidence": {
+     "state": "basic/attack",
+     "visibleNodes": "attack",
+     "textHash": 3782269647,
+     "headerLen": 298
+    }
+   },
+   {
+    "check": "engineering\u00b7register",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/register",
+     "visibleNodes": "register",
+     "textHash": 3120565467,
+     "headerLen": 241
+    }
+   },
+   {
+    "check": "engineering\u00b7cascade",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/cascade",
+     "visibleNodes": "cascade",
+     "textHash": 787406523,
+     "headerLen": 286
+    }
+   },
+   {
+    "check": "engineering\u00b7docket",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/docket",
+     "visibleNodes": "docket",
+     "textHash": 3508127815,
+     "headerLen": 336
+    }
+   },
+   {
+    "check": "engineering\u00b7stake",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/stake",
+     "visibleNodes": "stake",
+     "textHash": 1964168085,
+     "headerLen": 326
+    }
+   },
+   {
+    "check": "engineering\u00b7ai-gov",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/ai-gov",
+     "visibleNodes": "ai-gov",
+     "textHash": 3864451704,
+     "headerLen": 285
+    }
+   },
+   {
+    "check": "engineering\u00b7attack",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/attack",
+     "visibleNodes": "attack",
+     "textHash": 3782269647,
+     "headerLen": 292
+    }
+   },
+   {
+    "check": "leadership\u00b7stake",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/stake",
+     "visibleNodes": "stake",
+     "textHash": 1964168085,
+     "headerLen": 311
+    }
+   },
+   {
+    "check": "leadership\u00b7docket",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/docket",
+     "visibleNodes": "docket",
+     "textHash": 3508127815,
+     "headerLen": 343
+    }
+   },
+   {
+    "check": "leadership\u00b7regulation",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/regulation",
+     "visibleNodes": "regulation",
+     "textHash": 2565475725,
+     "headerLen": 372
+    }
+   },
+   {
+    "check": "leadership\u00b7register",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/register",
+     "visibleNodes": "register",
+     "textHash": 3120565467,
+     "headerLen": 264
+    }
+   },
+   {
+    "check": "leadership\u00b7attack",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/attack",
+     "visibleNodes": "attack",
+     "textHash": 3782269647,
+     "headerLen": 289
+    }
+   },
+   {
+    "check": "role tiering: leadership hides operator chrome, engineering keeps it",
+    "pass": true,
+    "evidence": {
+     "leadership": {
+      "kbd": 0,
+      "verb": 0,
+      "rail": 0
+     },
+     "engineering": {
+      "kbd": 28.4453125,
+      "verb": 26.5,
+      "rail": 332.5625
+     },
+     "vacuous": false
+    }
+   },
+   {
+    "check": "leadership CTA: visible with $ under leadership, click routes to docket, hidden for engineering",
+    "pass": true,
+    "evidence": {
+     "leadershipH": true,
+     "dollar": true,
+     "landedOn": "docket",
+     "engineeringH": 0
+    }
+   },
+   {
+    "check": "applicability filter: style-mapped row + its $ render by DEFAULT, hide under binding-only, return on toggle",
+    "pass": true,
+    "evidence": {
+     "styleRow": "occ_12cfr30_app_d",
+     "dollar": "$128.5M",
+     "defShowsAll": true,
+     "filteredHides": true,
+     "restored": true
+    }
+   },
+   {
+    "check": "perimeter selector: every profile renders ITS in-perimeter $ AND the headline re-derives with the state",
+    "pass": true,
+    "evidence": {
+     "fintech_mtl": {
+      "expect": "$200.8M",
+      "rendered": true,
+      "headlineStateAware": true
+     },
+     "us_broker_dealer": {
+      "expect": "$195.5M",
+      "rendered": true,
+      "headlineStateAware": true
+     },
+     "national_bank": {
+      "expect": "$202.6M",
+      "rendered": true,
+      "headlineStateAware": true
+     },
+     "eu_emi": {
+      "expect": "$200.8M",
+      "rendered": true,
+      "headlineStateAware": true
+     }
+    }
+   },
+   {
+    "check": "role switch preserves the current node when it exists on the new path",
+    "pass": true,
+    "evidence": {
+     "sharedNode": "stake",
+     "landed": "engineering/stake"
+    }
+   },
+   {
+    "check": "map open \u2192 Escape close",
+    "pass": true,
+    "evidence": {
+     "openedHeight": true
+    }
+   },
+   {
+    "check": "spine carries \u219e the read backlink",
+    "pass": true,
+    "evidence": {
+     "href": "read.html"
+    }
+   },
+   {
+    "check": "a11y: active spine pill carries aria-current=step",
+    "pass": true,
+    "evidence": {
+     "pill": "stake"
+    }
+   },
+   {
+    "check": "a11y: step header is a polite live region",
+    "pass": true,
+    "evidence": {
+     "ariaLive": "polite"
+    }
+   },
+   {
+    "check": "a11y: map is aria-modal dialog; focus enters on open and returns on Escape",
+    "pass": true,
+    "evidence": {
+     "modal": true,
+     "focusIn": true,
+     "focusBack": true
+    }
+   },
+   {
+    "check": "no horizontal document overflow at this viewport",
+    "pass": true,
+    "evidence": {
+     "scrollWidth": 1265,
+     "viewport": 1265
+    }
+   },
+   {
+    "check": "zero JS errors during the driven run",
+    "pass": true,
+    "evidence": {
+     "errors": []
+    }
+   }
+  ],
+  "rac-read": [
+   {
+    "check": "chapter click \u2192 2",
+    "pass": true,
+    "evidence": {
+     "open": "010"
+    }
+   },
+   {
+    "check": "chapter click \u2192 3",
+    "pass": true,
+    "evidence": {
+     "open": "001"
+    }
+   },
+   {
+    "check": "chapter click \u2192 1",
+    "pass": true,
+    "evidence": {
+     "open": "100"
+    }
+   },
+   {
+    "check": "key 2 opens chapter 2",
+    "pass": true,
+    "evidence": {
+     "open": "010"
+    }
+   },
+   {
+    "check": "#act=3 live hash \u2192 chapter 3",
+    "pass": true,
+    "evidence": {
+     "open": "001"
+    }
+   },
+   {
+    "check": "chapter-2 canvas initialized",
+    "pass": true,
+    "evidence": {
+     "canvasWidth": 1609
+    }
+   },
+   {
+    "check": "masthead carries a navigation link",
+    "pass": true,
+    "evidence": {
+     "href": "index.html"
+    }
+   },
+   {
+    "check": "a11y: chapter heads carry aria-expanded/aria-controls in sync",
+    "pass": true,
+    "evidence": {}
+   },
+   {
+    "check": "read renders its own projection: period in title",
+    "pass": true,
+    "evidence": {
+     "period": "2026-Q3",
+     "title": "risk-as-code-agent \u00b7 2026-Q3 \u00b7 the read"
+    }
+   },
+   {
+    "check": "read renders its own projection: headline value in page",
+    "pass": true,
+    "evidence": {
+     "probe": "$135.2M"
+    }
+   },
+   {
+    "check": "no horizontal document overflow at this viewport",
+    "pass": true,
+    "evidence": {
+     "scrollWidth": 1280,
+     "viewport": 1280
+    }
+   },
+   {
+    "check": "zero JS errors during the driven run",
+    "pass": true,
+    "evidence": {
+     "errors": []
+    }
+   }
+  ],
+  "rac-board": [
+   {
+    "check": "chapter click \u2192 2",
+    "pass": true,
+    "evidence": {
+     "open": "010"
+    }
+   },
+   {
+    "check": "chapter click \u2192 3",
+    "pass": true,
+    "evidence": {
+     "open": "001"
+    }
+   },
+   {
+    "check": "chapter click \u2192 1",
+    "pass": true,
+    "evidence": {
+     "open": "100"
+    }
+   },
+   {
+    "check": "key 2 opens chapter 2",
+    "pass": true,
+    "evidence": {
+     "open": "010"
+    }
+   },
+   {
+    "check": "#act=3 live hash \u2192 chapter 3",
+    "pass": true,
+    "evidence": {
+     "open": "001"
+    }
+   },
+   {
+    "check": "chapter-2 device present (no canvas by design \u2014 CSS device)",
+    "pass": true,
+    "evidence": {
+     "vacuousCanvas": true
+    }
+   },
+   {
+    "check": "masthead carries a navigation link",
+    "pass": true,
+    "evidence": {
+     "href": "index.html#role=leadership"
+    }
+   },
+   {
+    "check": "a11y: chapter heads carry aria-expanded/aria-controls in sync",
+    "pass": true,
+    "evidence": {}
+   },
+   {
+    "check": "read renders its own projection: period in title",
+    "pass": true,
+    "evidence": {
+     "period": "2026-Q3",
+     "title": "risk-as-code-agent \u00b7 2026-Q3 \u00b7 board risk brief"
+    }
+   },
+   {
+    "check": "read renders its own projection: headline value in page",
+    "pass": true,
+    "evidence": {
+     "probe": "$135.2M"
+    }
+   },
+   {
+    "check": "no horizontal document overflow at this viewport",
+    "pass": true,
+    "evidence": {
+     "scrollWidth": 1280,
+     "viewport": 1280
+    }
+   },
+   {
+    "check": "zero JS errors during the driven run",
+    "pass": true,
+    "evidence": {
+     "errors": []
+    }
+   }
+  ],
+  "rac-validation": [
+   {
+    "check": "chapter click \u2192 2",
+    "pass": true,
+    "evidence": {
+     "open": "010"
+    }
+   },
+   {
+    "check": "chapter click \u2192 3",
+    "pass": true,
+    "evidence": {
+     "open": "001"
+    }
+   },
+   {
+    "check": "chapter click \u2192 1",
+    "pass": true,
+    "evidence": {
+     "open": "100"
+    }
+   },
+   {
+    "check": "key 2 opens chapter 2",
+    "pass": true,
+    "evidence": {
+     "open": "010"
+    }
+   },
+   {
+    "check": "#act=3 live hash \u2192 chapter 3",
+    "pass": true,
+    "evidence": {
+     "open": "001"
+    }
+   },
+   {
+    "check": "chapter-2 device present (no canvas by design \u2014 CSS device)",
+    "pass": true,
+    "evidence": {
+     "vacuousCanvas": true
+    }
+   },
+   {
+    "check": "masthead carries a navigation link",
+    "pass": true,
+    "evidence": {
+     "href": "index.html#role=audit"
+    }
+   },
+   {
+    "check": "a11y: chapter heads carry aria-expanded/aria-controls in sync",
+    "pass": true,
+    "evidence": {}
+   },
+   {
+    "check": "read renders its own projection: period in title",
+    "pass": true,
+    "evidence": {
+     "period": "2026-Q3",
+     "title": "risk-as-code-agent \u00b7 2026-Q3 \u00b7 model validation package"
+    }
+   },
+   {
+    "check": "read renders its own projection: headline value in page",
+    "pass": true,
+    "evidence": {
+     "probe": "$135.2M"
+    }
+   },
+   {
+    "check": "no horizontal document overflow at this viewport",
+    "pass": true,
+    "evidence": {
+     "scrollWidth": 1280,
+     "viewport": 1280
+    }
+   },
+   {
+    "check": "zero JS errors during the driven run",
+    "pass": true,
+    "evidence": {
+     "errors": []
+    }
+   }
+  ],
+  "atg-index": [
+   {
+    "check": "audit\u00b7attest",
+    "pass": true,
+    "evidence": {
+     "state": "audit/attest",
+     "visibleNodes": "attest",
+     "textHash": 1571757687,
+     "headerLen": 268
+    }
+   },
+   {
+    "check": "audit\u00b7lineage",
+    "pass": true,
+    "evidence": {
+     "state": "audit/lineage",
+     "visibleNodes": "lineage",
+     "textHash": 3106924565,
+     "headerLen": 275
+    }
+   },
+   {
+    "check": "audit\u00b7trail",
+    "pass": true,
+    "evidence": {
+     "state": "audit/trail",
+     "visibleNodes": "trail",
+     "textHash": 3296386962,
+     "headerLen": 201
+    }
+   },
+   {
+    "check": "audit\u00b7exposure",
+    "pass": true,
+    "evidence": {
+     "state": "audit/exposure",
+     "visibleNodes": "exposure",
+     "textHash": 148441686,
+     "headerLen": 225
+    }
+   },
+   {
+    "check": "audit\u00b7verbs",
+    "pass": true,
+    "evidence": {
+     "state": "audit/verbs",
+     "visibleNodes": "verbs",
+     "textHash": 3585654156,
+     "headerLen": 167
+    }
+   },
+   {
+    "check": "basic\u00b7trail",
+    "pass": true,
+    "evidence": {
+     "state": "basic/trail",
+     "visibleNodes": "trail",
+     "textHash": 3296386962,
+     "headerLen": 183
+    }
+   },
+   {
+    "check": "basic\u00b7lineage",
+    "pass": true,
+    "evidence": {
+     "state": "basic/lineage",
+     "visibleNodes": "lineage",
+     "textHash": 3106924565,
+     "headerLen": 283
+    }
+   },
+   {
+    "check": "basic\u00b7exposure",
+    "pass": true,
+    "evidence": {
+     "state": "basic/exposure",
+     "visibleNodes": "exposure",
+     "textHash": 148441686,
+     "headerLen": 229
+    }
+   },
+   {
+    "check": "basic\u00b7verbs",
+    "pass": true,
+    "evidence": {
+     "state": "basic/verbs",
+     "visibleNodes": "verbs",
+     "textHash": 3585654156,
+     "headerLen": 177
+    }
+   },
+   {
+    "check": "basic\u00b7attest",
+    "pass": true,
+    "evidence": {
+     "state": "basic/attest",
+     "visibleNodes": "attest",
+     "textHash": 1571757687,
+     "headerLen": 263
+    }
+   },
+   {
+    "check": "engineering\u00b7trail",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/trail",
+     "visibleNodes": "trail",
+     "textHash": 3296386962,
+     "headerLen": 183
+    }
+   },
+   {
+    "check": "engineering\u00b7lineage",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/lineage",
+     "visibleNodes": "lineage",
+     "textHash": 3106924565,
+     "headerLen": 276
+    }
+   },
+   {
+    "check": "engineering\u00b7verbs",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/verbs",
+     "visibleNodes": "verbs",
+     "textHash": 3585654156,
+     "headerLen": 183
+    }
+   },
+   {
+    "check": "engineering\u00b7exposure",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/exposure",
+     "visibleNodes": "exposure",
+     "textHash": 148441686,
+     "headerLen": 223
+    }
+   },
+   {
+    "check": "engineering\u00b7attest",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/attest",
+     "visibleNodes": "attest",
+     "textHash": 1571757687,
+     "headerLen": 270
+    }
+   },
+   {
+    "check": "leadership\u00b7exposure",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/exposure",
+     "visibleNodes": "exposure",
+     "textHash": 148441686,
+     "headerLen": 213
+    }
+   },
+   {
+    "check": "leadership\u00b7verbs",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/verbs",
+     "visibleNodes": "verbs",
+     "textHash": 3585654156,
+     "headerLen": 179
+    }
+   },
+   {
+    "check": "leadership\u00b7trail",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/trail",
+     "visibleNodes": "trail",
+     "textHash": 3296386962,
+     "headerLen": 188
+    }
+   },
+   {
+    "check": "leadership\u00b7attest",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/attest",
+     "visibleNodes": "attest",
+     "textHash": 1571757687,
+     "headerLen": 280
+    }
+   },
+   {
+    "check": "leadership\u00b7lineage",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/lineage",
+     "visibleNodes": "lineage",
+     "textHash": 3106924565,
+     "headerLen": 263
+    }
+   },
+   {
+    "check": "role tiering: leadership hides operator chrome, engineering keeps it",
+    "pass": true,
+    "evidence": {
+     "leadership": {
+      "kbd": null,
+      "verb": 0,
+      "rail": 0
+     },
+     "engineering": {
+      "kbd": null,
+      "verb": 0,
+      "rail": 899.140625
+     },
+     "vacuous": false
+    }
+   },
+   {
+    "check": "leadership CTA (no .lead-cta by design on this app)",
+    "pass": true,
+    "evidence": {
+     "vacuousCta": true
+    }
+   },
+   {
+    "check": "applicability filter (no reg filter on this app by design)",
+    "pass": true,
+    "evidence": {
+     "vacuousRegFilter": true
+    }
+   },
+   {
+    "check": "perimeter selector (no perimeter selector on this app by design)",
+    "pass": true,
+    "evidence": {
+     "vacuousPerimeter": true
+    }
+   },
+   {
+    "check": "role switch preserves the current node when it exists on the new path",
+    "pass": true,
+    "evidence": {
+     "sharedNode": "exposure",
+     "landed": "engineering/exposure"
+    }
+   },
+   {
+    "check": "map open \u2192 Escape close",
+    "pass": true,
+    "evidence": {
+     "openedHeight": true
+    }
+   },
+   {
+    "check": "spine carries \u219e the read backlink",
+    "pass": true,
+    "evidence": {
+     "href": "read.html"
+    }
+   },
+   {
+    "check": "a11y: active spine pill carries aria-current=step",
+    "pass": true,
+    "evidence": {
+     "pill": "exposure"
+    }
+   },
+   {
+    "check": "a11y: step header is a polite live region",
+    "pass": true,
+    "evidence": {
+     "ariaLive": "polite"
+    }
+   },
+   {
+    "check": "a11y: map is aria-modal dialog; focus enters on open and returns on Escape",
+    "pass": true,
+    "evidence": {
+     "modal": true,
+     "focusIn": true,
+     "focusBack": true
+    }
+   },
+   {
+    "check": "no horizontal document overflow at this viewport",
+    "pass": true,
+    "evidence": {
+     "scrollWidth": 1269,
+     "viewport": 1269
+    }
+   },
+   {
+    "check": "zero JS errors during the driven run",
+    "pass": true,
+    "evidence": {
+     "errors": []
+    }
+   }
+  ],
+  "atg-read": [
+   {
+    "check": "chapter click \u2192 2",
+    "pass": true,
+    "evidence": {
+     "open": "010"
+    }
+   },
+   {
+    "check": "chapter click \u2192 3",
+    "pass": true,
+    "evidence": {
+     "open": "001"
+    }
+   },
+   {
+    "check": "chapter click \u2192 1",
+    "pass": true,
+    "evidence": {
+     "open": "100"
+    }
+   },
+   {
+    "check": "key 2 opens chapter 2",
+    "pass": true,
+    "evidence": {
+     "open": "010"
+    }
+   },
+   {
+    "check": "#act=3 live hash \u2192 chapter 3",
+    "pass": true,
+    "evidence": {
+     "open": "001"
+    }
+   },
+   {
+    "check": "chapter-2 canvas initialized",
+    "pass": true,
+    "evidence": {
+     "canvasWidth": 1547
+    }
+   },
+   {
+    "check": "masthead carries a navigation link",
+    "pass": true,
+    "evidence": {
+     "href": "index.html"
+    }
+   },
+   {
+    "check": "a11y: chapter heads carry aria-expanded/aria-controls in sync",
+    "pass": true,
+    "evidence": {}
+   },
+   {
+    "check": "read renders its own projection: period in title",
+    "pass": true,
+    "evidence": {
+     "period": "2026-06",
+     "title": "agent-trace-gov \u00b7 2026-06 \u00b7 the read"
+    }
+   },
+   {
+    "check": "read renders its own projection: headline value in page",
+    "pass": true,
+    "evidence": {
+     "probe": "16 findings"
+    }
+   },
+   {
+    "check": "no horizontal document overflow at this viewport",
+    "pass": true,
+    "evidence": {
+     "scrollWidth": 1280,
+     "viewport": 1280
+    }
+   },
+   {
+    "check": "zero JS errors during the driven run",
+    "pass": true,
+    "evidence": {
+     "errors": []
+    }
+   }
+  ],
+  "hv-index": [
+   {
+    "check": "audit\u00b7velocity_surge",
+    "pass": true,
+    "evidence": {
+     "state": "audit/velocity_surge",
+     "visibleNodes": "scenario-mode",
+     "textHash": 1357194825,
+     "headerLen": 252
+    }
+   },
+   {
+    "check": "audit\u00b7kafka_lag_storm",
+    "pass": true,
+    "evidence": {
+     "state": "audit/kafka_lag_storm",
+     "visibleNodes": "scenario-mode",
+     "textHash": 1646929531,
+     "headerLen": 276
+    }
+   },
+   {
+    "check": "audit\u00b7deployment_cascade",
+    "pass": true,
+    "evidence": {
+     "state": "audit/deployment_cascade",
+     "visibleNodes": "scenario-mode",
+     "textHash": 3856259810,
+     "headerLen": 224
+    }
+   },
+   {
+    "check": "basic\u00b7kafka_lag_storm",
+    "pass": true,
+    "evidence": {
+     "state": "basic/kafka_lag_storm",
+     "visibleNodes": "scenario-mode",
+     "textHash": 1646929531,
+     "headerLen": 223
+    }
+   },
+   {
+    "check": "basic\u00b7deployment_cascade",
+    "pass": true,
+    "evidence": {
+     "state": "basic/deployment_cascade",
+     "visibleNodes": "scenario-mode",
+     "textHash": 3856259810,
+     "headerLen": 277
+    }
+   },
+   {
+    "check": "basic\u00b7velocity_surge",
+    "pass": true,
+    "evidence": {
+     "state": "basic/velocity_surge",
+     "visibleNodes": "scenario-mode",
+     "textHash": 1357194825,
+     "headerLen": 254
+    }
+   },
+   {
+    "check": "engineering\u00b7kafka_lag_storm",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/kafka_lag_storm",
+     "visibleNodes": "scenario-mode",
+     "textHash": 1646929531,
+     "headerLen": 223
+    }
+   },
+   {
+    "check": "engineering\u00b7deployment_cascade",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/deployment_cascade",
+     "visibleNodes": "scenario-mode",
+     "textHash": 3856259810,
+     "headerLen": 277
+    }
+   },
+   {
+    "check": "engineering\u00b7velocity_surge",
+    "pass": true,
+    "evidence": {
+     "state": "engineering/velocity_surge",
+     "visibleNodes": "scenario-mode",
+     "textHash": 1357194825,
+     "headerLen": 254
+    }
+   },
+   {
+    "check": "leadership\u00b7kafka_lag_storm",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/kafka_lag_storm",
+     "visibleNodes": "scenario-mode",
+     "textHash": 1646929531,
+     "headerLen": 223
+    }
+   },
+   {
+    "check": "leadership\u00b7deployment_cascade",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/deployment_cascade",
+     "visibleNodes": "scenario-mode",
+     "textHash": 3856259810,
+     "headerLen": 277
+    }
+   },
+   {
+    "check": "leadership\u00b7velocity_surge",
+    "pass": true,
+    "evidence": {
+     "state": "leadership/velocity_surge",
+     "visibleNodes": "scenario-mode",
+     "textHash": 1357194825,
+     "headerLen": 254
+    }
+   },
+   {
+    "check": "role tiering: leadership hides operator chrome, engineering keeps it",
+    "pass": true,
+    "evidence": {
+     "leadership": {
+      "kbd": null,
+      "verb": null,
+      "rail": 0
+     },
+     "engineering": {
+      "kbd": null,
+      "verb": null,
+      "rail": 0
+     },
+     "vacuous": true
+    }
+   },
+   {
+    "check": "leadership CTA (no .lead-cta by design on this app)",
+    "pass": true,
+    "evidence": {
+     "vacuousCta": true
+    }
+   },
+   {
+    "check": "applicability filter (no reg filter on this app by design)",
+    "pass": true,
+    "evidence": {
+     "vacuousRegFilter": true
+    }
+   },
+   {
+    "check": "perimeter selector (no perimeter selector on this app by design)",
+    "pass": true,
+    "evidence": {
+     "vacuousPerimeter": true
+    }
+   },
+   {
+    "check": "role switch preserves the current node when it exists on the new path",
+    "pass": true,
+    "evidence": {
+     "sharedNode": "kafka_lag_storm",
+     "landed": "engineering/kafka_lag_storm"
+    }
+   },
+   {
+    "check": "map open \u2192 Escape close",
+    "pass": true,
+    "evidence": {
+     "openedHeight": true
+    }
+   },
+   {
+    "check": "spine carries \u219e the read backlink",
+    "pass": true,
+    "evidence": {
+     "href": "read.html"
+    }
+   },
+   {
+    "check": "a11y: active spine pill carries aria-current=step",
+    "pass": true,
+    "evidence": {
+     "pill": "kafka_lag_storm"
+    }
+   },
+   {
+    "check": "a11y: step header is a polite live region",
+    "pass": true,
+    "evidence": {
+     "ariaLive": "polite"
+    }
+   },
+   {
+    "check": "a11y: map is aria-modal dialog; focus enters on open and returns on Escape",
+    "pass": true,
+    "evidence": {
+     "modal": true,
+     "focusIn": true,
+     "focusBack": true
+    }
+   },
+   {
+    "check": "no horizontal document overflow at this viewport",
+    "pass": true,
+    "evidence": {
+     "scrollWidth": 1265,
+     "viewport": 1265
+    }
+   },
+   {
+    "check": "zero JS errors during the driven run",
+    "pass": true,
+    "evidence": {
+     "errors": []
+    }
+   }
+  ],
+  "hv-read": [
+   {
+    "check": "chapter click \u2192 2",
+    "pass": true,
+    "evidence": {
+     "open": "010"
+    }
+   },
+   {
+    "check": "chapter click \u2192 3",
+    "pass": true,
+    "evidence": {
+     "open": "001"
+    }
+   },
+   {
+    "check": "chapter click \u2192 1",
+    "pass": true,
+    "evidence": {
+     "open": "100"
+    }
+   },
+   {
+    "check": "key 2 opens chapter 2",
+    "pass": true,
+    "evidence": {
+     "open": "010"
+    }
+   },
+   {
+    "check": "#act=3 live hash \u2192 chapter 3",
+    "pass": true,
+    "evidence": {
+     "open": "001"
+    }
+   },
+   {
+    "check": "chapter-2 canvas initialized",
+    "pass": true,
+    "evidence": {
+     "canvasWidth": 1709
+    }
+   },
+   {
+    "check": "masthead carries a navigation link",
+    "pass": true,
+    "evidence": {
+     "href": "index.html"
+    }
+   },
+   {
+    "check": "a11y: chapter heads carry aria-expanded/aria-controls in sync",
+    "pass": true,
+    "evidence": {}
+   },
+   {
+    "check": "read renders its own projection: period in title",
+    "pass": true,
+    "evidence": {
+     "period": "2026-06",
+     "title": "hypervelocity-risk-sim \u00b7 2026-06 \u00b7 the read"
+    }
+   },
+   {
+    "check": "read renders its own projection: headline value in page",
+    "pass": true,
+    "evidence": {
+     "probe": "96"
+    }
+   },
+   {
+    "check": "no horizontal document overflow at this viewport",
+    "pass": true,
+    "evidence": {
+     "scrollWidth": 1280,
+     "viewport": 1280
+    }
+   },
+   {
+    "check": "zero JS errors during the driven run",
+    "pass": true,
+    "evidence": {
+     "errors": []
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,69 @@
+# GitHub Pages deployment — STAGED, not active until the repo goes public and
+# Pages is enabled (Settings → Pages → Source: GitHub Actions).
+#
+# Publish checklist (deliberate, operator-only):
+#   1. PORTFOLIO_INDEX.html and TOUR.html are gitignored by design; when
+#      publishing:  git add -f PORTFOLIO_INDEX.html TOUR.html
+#   2. The landing's live tiles hydrate from projections under apps/*/outputs/
+#      (untracked). Without them the page degrades gracefully to "open ↪" —
+#      commit the two projection JSONs for full hydration if desired.
+#   3. Flip the repo public, enable Pages, run this workflow.
+name: pages
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble site
+        run: |
+          set -e
+          if [ ! -f PORTFOLIO_INDEX.html ]; then
+            echo "PORTFOLIO_INDEX.html is not committed (gitignored by design)."
+            echo "Publish checklist step 1: git add -f PORTFOLIO_INDEX.html TOUR.html"
+            exit 1
+          fi
+          mkdir -p _site/qa
+          cp PORTFOLIO_INDEX.html _site/index.html
+          cp PORTFOLIO_INDEX.html _site/PORTFOLIO_INDEX.html
+          [ -f TOUR.html ] && cp TOUR.html _site/TOUR.html
+          cp qa/trust_board.json _site/qa/ 2>/dev/null || true
+          for app in risk-as-code-agent agent-trace-gov hypervelocity-risk-sim; do
+            mkdir -p "_site/apps/$app"
+            cp -R "apps/$app/docs" "_site/apps/$app/docs"
+          done
+          # live-tile hydration sources (graceful degradation if untracked)
+          mkdir -p _site/apps/risk-as-code-agent/outputs/v2_0a _site/apps/agent-trace-gov/outputs
+          cp apps/risk-as-code-agent/outputs/v2_0a/2026-Q3_projection.json \
+             _site/apps/risk-as-code-agent/outputs/v2_0a/ 2>/dev/null || true
+          cp apps/agent-trace-gov/outputs/2026-06_atg_projection.json \
+             _site/apps/agent-trace-gov/outputs/ 2>/dev/null || true
+          # project Pages serves under /<repo>/ — absolute paths gain the prefix
+          BASE="/${GITHUB_REPOSITORY#*/}"
+          find _site -name '*.html' -print0 | xargs -0 sed -i \
+            -e "s|href=\"/|href=\"$BASE/|g" \
+            -e "s|url=/|url=$BASE/|g" \
+            -e "s|'/apps/|'$BASE/apps/|g" \
+            -e "s|'/qa/|'$BASE/qa/|g"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

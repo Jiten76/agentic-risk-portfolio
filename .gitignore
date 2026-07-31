@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+artifacts/
+*.tsbuildinfo
+
+# Secrets / env
+.env
+.env.*
+!.env.example
+.envrc
+!.envrc.example
+
+# Claude audit logs (never commit these)
+.claude/audit/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# OSCAL exports (regenerated)
+artifacts/oscal/
+
+# Local publish denylist — must never be committed/published (see scripts/make-public-snapshot.sh)
+.publish-denylist
+
+# External-review package — a regenerable working deliverable, not repo content
+HV_EXTERNAL_REVIEW_PACKAGE.md
+
+# Local tour landing page — working artifact, not repo content
+PORTFOLIO_INDEX.html
+PORTFOLIO_REVIEW/
+PORTFOLIO_REVIEW.zip
+
+# Human cold-read pack — priming-free dashboards zip + facilitator kit (regenerable)
+COLD_READ/
+COLD_READ.zip
+COLD_READ_KIT.md
+
+# transient build backups (kept on disk, not tracked)
+apps/*/data/*.jsonl.*.bak
+
+# concept prototypes (working artifacts)
+apps/*/docs/_proto_*.html
+exports/
+
+# r62 · channel curation — GitHub carries product + proof; process stays local
+reviews/mocks/
+reviews/history/
+reviews/DEEP_REVIEW_PROTOCOL.md
+reviews/atg_severity_recalibration_r56.md
+PRESENTER_KIT.md
+.claude/
+qa/TEST_REPORT.md
+apps/*/STATUS.md
+apps/*/CONTRIBUTING.md
+apps/*/Dockerfile
+apps/*/docker-compose.yml
+apps/*/ui/
+apps/*/agents/
+apps/risk-as-code-agent/reviews/
+reviews/PROSE_REVIEW.html

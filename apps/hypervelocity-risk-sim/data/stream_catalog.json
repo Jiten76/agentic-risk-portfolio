@@ -1,0 +1,58 @@
+{
+ "_generated_by": "event_generator@seed42 via utils/hv_html_report.write_hv_report \u2014 do not hand-edit",
+ "port_tag": "Structure from the operator's production 2LoD practice; all names, values, and dates seeded.",
+ "streams": [
+  {
+   "id": "stream.kafka_lag_storm",
+   "scenario": "Consumer-Lag Cascade",
+   "hv_id": "HV-01",
+   "chip": {
+    "realness": "SEEDED",
+    "events": 60,
+    "window_s": 596,
+    "telemetry_fields": 7,
+    "gen": "event_generator@seed42"
+   },
+   "intent": "the Kafka Lag Storm incident replay \u2014 every node value, KPI and KRI on the observatory derives from this stream"
+  },
+  {
+   "id": "stream.deployment_cascade",
+   "scenario": "Change-Induced Cascade",
+   "hv_id": "HV-02",
+   "chip": {
+    "realness": "SEEDED",
+    "events": 13,
+    "window_s": 1461,
+    "telemetry_fields": 5,
+    "gen": "event_generator@seed42"
+   },
+   "intent": "the Deployment Cascade Failure incident replay \u2014 every node value, KPI and KRI on the observatory derives from this stream"
+  },
+  {
+   "id": "stream.velocity_surge",
+   "scenario": "Transaction-Velocity Surge / Fraud-Control Response",
+   "hv_id": "HV-03",
+   "chip": {
+    "realness": "SEEDED",
+    "events": 23,
+    "window_s": 232,
+    "telemetry_fields": 5,
+    "gen": "event_generator@seed42"
+   },
+   "intent": "the Transaction-Velocity Surge / Fraud-Control Response incident replay \u2014 every node value, KPI and KRI on the observatory derives from this stream"
+  },
+  {
+   "id": "stream.identity_outage",
+   "scenario": "Identity-Plane Lockout",
+   "hv_id": "HV-04",
+   "chip": {
+    "realness": "SEEDED",
+    "events": 49,
+    "window_s": 596,
+    "telemetry_fields": 6,
+    "gen": "event_generator@seed42"
+   },
+   "intent": "the Identity-Plane Lockout incident replay \u2014 every node value, KPI and KRI on the observatory derives from this stream"
+  }
+ ]
+}

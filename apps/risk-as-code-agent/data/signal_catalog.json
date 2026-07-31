@@ -1,0 +1,244 @@
+{
+ "_generated_by": "journey_signal_gen@seed42 via utils/projection._build_journey_spine \u2014 do not hand-edit",
+ "port_tag": "Structure from the operator's production 2LoD practice; all names, values, and dates seeded.",
+ "signals": [
+  {
+   "id": "sim.rps_edge",
+   "stage": "initiate",
+   "service": "edge-gateway",
+   "owner": "team-platform-runtime",
+   "unit": "rps",
+   "query_intent": "request rate at the front door \u2014 is the journey being asked for",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.p99_edge",
+   "stage": "initiate",
+   "service": "edge-gateway",
+   "owner": "team-platform-runtime",
+   "unit": "ms",
+   "query_intent": "tail latency at the edge \u2014 first place customer pain shows",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.p99_transfer_api",
+   "stage": "initiate",
+   "service": "transfer-api",
+   "owner": "team-money-movement",
+   "unit": "ms",
+   "query_intent": "orchestration tail latency \u2014 the journey's own clock",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.error_rate_transfer_api",
+   "stage": "initiate",
+   "service": "transfer-api",
+   "owner": "team-money-movement",
+   "unit": "%",
+   "query_intent": "transfer-path error share \u2014 failed asks",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.p99_risk_score",
+   "stage": "risk-check",
+   "service": "risk-scorer",
+   "owner": "team-money-movement",
+   "unit": "ms",
+   "query_intent": "risk-decision latency \u2014 the gate before money moves",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.decision_conf_p5",
+   "stage": "risk-check",
+   "service": "risk-scorer",
+   "owner": "team-money-movement",
+   "unit": "score",
+   "query_intent": "5th-percentile decision confidence \u2014 low-confidence automation share",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.auth_failure_rate",
+   "stage": "risk-check",
+   "service": "identity-verifier",
+   "owner": "team-identity",
+   "unit": "%",
+   "query_intent": "customer auth failure share \u2014 identity-plane health",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.p99_identity",
+   "stage": "risk-check",
+   "service": "identity-verifier",
+   "owner": "team-identity",
+   "unit": "ms",
+   "query_intent": "verification tail latency",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.p99_ledger_write",
+   "stage": "ledger",
+   "service": "ledger-writer",
+   "owner": "team-money-movement",
+   "unit": "ms",
+   "query_intent": "ledger write tail latency \u2014 did the books keep up",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.write_retry_rate",
+   "stage": "ledger",
+   "service": "ledger-writer",
+   "owner": "team-money-movement",
+   "unit": "%",
+   "query_intent": "write retry share \u2014 the amplification fuel",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.consumer_lag_p95",
+   "stage": "ledger",
+   "service": "event-bus",
+   "owner": "team-platform-runtime",
+   "unit": "msgs",
+   "query_intent": "consumer lag depth \u2014 work-queue solvency",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.publish_p99",
+   "stage": "ledger",
+   "service": "event-bus",
+   "owner": "team-platform-runtime",
+   "unit": "ms",
+   "query_intent": "publish tail latency into the bus",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.p99_settle",
+   "stage": "rails",
+   "service": "settlement-engine",
+   "owner": "team-treasury-eng",
+   "unit": "ms",
+   "query_intent": "settlement submit tail latency",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.settle_queue_depth",
+   "stage": "rails",
+   "service": "settlement-engine",
+   "owner": "team-treasury-eng",
+   "unit": "items",
+   "query_intent": "settlement queue depth \u2014 rails backpressure",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.rail_ack_latency",
+   "stage": "rails",
+   "service": "rails-partner",
+   "owner": "team-treasury-eng",
+   "unit": "ms",
+   "query_intent": "external rail acknowledgment latency \u2014 the observable edge of the partner",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.notify_send_rate",
+   "stage": "settle",
+   "service": "notify-svc",
+   "owner": "team-platform-runtime",
+   "unit": "per_min",
+   "query_intent": "customer notification throughput",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  },
+  {
+   "id": "sim.recon_break_count",
+   "stage": "settle",
+   "service": "recon-batch",
+   "owner": "team-treasury-eng",
+   "unit": "count",
+   "query_intent": "reconciliation breaks per run \u2014 does everyone agree it happened",
+   "chip": {
+    "realness": "SEEDED",
+    "pts": 2160,
+    "cadence": "1h",
+    "gen": "journey_signal_gen@seed42"
+   }
+  }
+ ]
+}

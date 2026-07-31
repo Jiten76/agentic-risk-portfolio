@@ -1,0 +1,4085 @@
+{
+  "action_log": {
+    "chain_detail": {
+      "broken_at_index": null,
+      "valid": true
+    },
+    "chain_status": "intact",
+    "justification_min_words": 12,
+    "path": "data/attestation_log.jsonl",
+    "recent_entries": [
+      {
+        "actor_handle": "@dpatel",
+        "actor_name": "D. Patel",
+        "actor_role": "SRE \u00b7 demonstrator",
+        "actor_role_tier": "1LoD",
+        "dissenting_voice": null,
+        "expiry": "2027-06-01",
+        "justification": "ILLUSTRATIVE demonstrator attestation: escalate the consumer-lag SLO violation to the payments on-call for signal-based triage and immediate evidence capture.",
+        "justification_min_words": 12,
+        "linked_findings": [
+          "HV-01"
+        ],
+        "previous_action_hash": "GENESIS",
+        "review_cadence_days": null,
+        "schema_version": "1.0",
+        "target_id": "HV-01",
+        "target_name": "Consumer-Lag Cascade",
+        "target_type": "scenario",
+        "this_action_hash": "5b7cd53f88a4406e7b5b32df4a207557828c5d1e698044ff3b4ac1a8a4b35b34",
+        "thresholds_at_time": {},
+        "timestamp": "2026-06-01T09:05:00Z",
+        "verb": "escalate"
+      },
+      {
+        "actor_handle": "@mokonkwo",
+        "actor_name": "M. Okonkwo",
+        "actor_role": "Audit \u00b7 demonstrator",
+        "actor_role_tier": "3LoD",
+        "dissenting_voice": null,
+        "expiry": null,
+        "justification": "ILLUSTRATIVE demonstrator attestation: certify that this seeded run reproduces byte-for-byte and that the response-time gap is labelled operator-calibrated illustration.",
+        "justification_min_words": 12,
+        "linked_findings": [
+          "HV-01",
+          "HV-02",
+          "HV-03"
+        ],
+        "previous_action_hash": "5b7cd53f88a4406e7b5b32df4a207557828c5d1e698044ff3b4ac1a8a4b35b34",
+        "review_cadence_days": null,
+        "schema_version": "1.0",
+        "target_id": "hv-2026-06",
+        "target_name": "hypervelocity run 2026-06",
+        "target_type": "run",
+        "this_action_hash": "80ad38067b39912084fcfdfac4072522ce1fd28f9516a22828e2797a1f3eb0c1",
+        "thresholds_at_time": {},
+        "timestamp": "2026-06-01T09:06:00Z",
+        "verb": "certify"
+      }
+    ],
+    "role_tiers": [
+      "1LoD",
+      "2LoD",
+      "3LoD"
+    ],
+    "schema_version": "1.0",
+    "total_entries": 2,
+    "verbs_needing_expiry": [
+      "escalate",
+      "mitigate"
+    ],
+    "verbs_supported": [
+      "acknowledge",
+      "escalate",
+      "mitigate",
+      "rollback",
+      "certify"
+    ]
+  },
+  "domains": {
+    "deployment_cascade": {
+      "comparison": {
+        "regimes": {
+          "risk_as_code": {
+            "label": "Instrumented + automated response",
+            "metrics": {
+              "audit_trail": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Change failure auto-logged, RP-01 triggered"
+              },
+              "detection_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "deployment_cascade \u00b7 risk_as_code \u00b7 detection_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 2
+              },
+              "escalation_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "deployment_cascade \u00b7 risk_as_code \u00b7 escalation_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 4
+              },
+              "evidence_ready_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "deployment_cascade \u00b7 risk_as_code \u00b7 evidence_ready_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 12
+              },
+              "false_positives": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "deployment_cascade \u00b7 risk_as_code \u00b7 false_positives \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 1
+              },
+              "human_effort_hours": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "deployment_cascade \u00b7 risk_as_code \u00b7 human_effort_hours \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 1.0
+              },
+              "missed_events": {
+                "provenance": {
+                  "assumptions": [
+                    "real event count is upstream; the miss-fraction (0.4/0.35) is operator_calibrated"
+                  ],
+                  "computation": "round(count(deployment_cascade events) \u00d7 miss_fraction) \u2014 event count counted, fraction operator-calibrated",
+                  "source_query": "derived_at_adapter",
+                  "source_status": "derived",
+                  "source_system": "adapter",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 0
+              },
+              "rollback_trigger": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Automated at error_rate > threshold"
+              }
+            },
+            "name": "Risk-as-Code \u2014 Automated",
+            "response_timeline": {
+              "entries": [
+                {
+                  "action": "fires on error-vs-deploy correlation the moment svc-0 error crosses its band \u2014 change ticket, artifact hash and blast-radius map attached",
+                  "actor": "DR-01 KRI",
+                  "t_min": 0
+                },
+                {
+                  "action": "acks; the page already names the deploy, the diff, and the four downstream services in the dependency path",
+                  "actor": "on-call SRE",
+                  "t_min": 2
+                },
+                {
+                  "action": "SEV-1 declared; rollback proposal pre-staged with the prior artifact pinned",
+                  "actor": "incident commander",
+                  "t_min": 4
+                },
+                {
+                  "action": "confirms rollback \u2014 the decision is one approval, not an argument, because the causal evidence is on the page",
+                  "actor": "release engineer (human-in-loop)",
+                  "t_min": 7
+                },
+                {
+                  "action": "evidence pack sealed: deploy \u2192 violation \u2192 decision \u2192 recovery, one timeline, one hash",
+                  "actor": "platform",
+                  "t_min": 12
+                }
+              ],
+              "note": "war-room narrative \u2014 actors and events are illustrative; minute marks are consistent with this regime's operator-calibrated response metrics (same model, same numbers)",
+              "source_status": "illustrative"
+            }
+          },
+          "traditional": {
+            "label": "Manual / checklist response",
+            "metrics": {
+              "audit_trail": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Post-incident ticket + manual timeline"
+              },
+              "detection_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "deployment_cascade \u00b7 traditional \u00b7 detection_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 10
+              },
+              "escalation_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "deployment_cascade \u00b7 traditional \u00b7 escalation_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 20
+              },
+              "evidence_ready_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "deployment_cascade \u00b7 traditional \u00b7 evidence_ready_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 100
+              },
+              "false_positives": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "deployment_cascade \u00b7 traditional \u00b7 false_positives \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 2
+              },
+              "human_effort_hours": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "deployment_cascade \u00b7 traditional \u00b7 human_effort_hours \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 4.5
+              },
+              "missed_events": {
+                "provenance": {
+                  "assumptions": [
+                    "real event count is upstream; the miss-fraction (0.4/0.35) is operator_calibrated"
+                  ],
+                  "computation": "round(count(deployment_cascade events) \u00d7 miss_fraction) \u2014 event count counted, fraction operator-calibrated",
+                  "source_query": "derived_at_adapter",
+                  "source_status": "derived",
+                  "source_system": "adapter",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 1
+              },
+              "rollback_trigger": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Manual decision at T+18min"
+              }
+            },
+            "name": "Traditional \u2014 Manual Checklist",
+            "response_timeline": {
+              "entries": [
+                {
+                  "action": "v2.4.1 rolling deploy proceeds \u2014 canary stage green (the regression is in a code path canary traffic never exercises)",
+                  "actor": "release engineer (D. Patel's org)",
+                  "t_min": 0
+                },
+                {
+                  "action": "error budget page for order-router; correlation to the deploy is manual \u2014 the deploy dashboard and the error dashboard disagree on timezones",
+                  "actor": "on-call SRE",
+                  "t_min": 10
+                },
+                {
+                  "action": "SEV-1 declared as breakers open across 4 services; support queue flooding; status page still green",
+                  "actor": "incident commander",
+                  "t_min": 20
+                },
+                {
+                  "action": "rollback decision argued for 8 minutes \u2014 'is it the deploy or the database?' \u2014 before change ticket CHG-2025-0401 is pulled up",
+                  "actor": "war room",
+                  "t_min": 38
+                },
+                {
+                  "action": "rollback to v2.4.0 completes; cache warm-up tail keeps p99 elevated another 20 min",
+                  "actor": "release engineering",
+                  "t_min": 60
+                },
+                {
+                  "action": "evidence pack stitched from deploy logs + breaker metrics + Slack; the 'who approved the deploy' thread takes the longest",
+                  "actor": "duty analyst",
+                  "t_min": 100
+                }
+              ],
+              "note": "war-room narrative \u2014 actors and events are illustrative; minute marks are consistent with this regime's operator-calibrated response metrics (same model, same numbers)",
+              "source_status": "illustrative"
+            }
+          }
+        },
+        "source_status": "illustrative"
+      },
+      "domain_id": "deployment_cascade",
+      "event_count": {
+        "provenance": {
+          "assumptions": [],
+          "computation": "counted events in the stream",
+          "source_query": "count(deployment_cascade events)",
+          "source_status": "real_query_synthesized_data",
+          "source_system": "event_generator",
+          "source_timestamp": "2026-06-01T09:00:00Z"
+        },
+        "value": 13
+      },
+      "events": [
+        {
+          "change_ticket": "CHG-2025-0401",
+          "deployment_type": "rolling",
+          "error_rate_after": null,
+          "error_rate_before": 0.1,
+          "event_type": "deployment_start",
+          "phase": "build_up",
+          "service": "order-router",
+          "t_seconds": 0,
+          "timestamp": "2026-01-01T00:00:00Z",
+          "version": "v2.4.1"
+        },
+        {
+          "change_failure": true,
+          "circuit_breaker": "open",
+          "domain": "trading",
+          "error_rate_pct": 24.3,
+          "event_type": "cascade_failure",
+          "phase": "cascade",
+          "requests_dropped": 570000,
+          "rollback_triggered": true,
+          "service": "order-router",
+          "t_seconds": 30,
+          "timestamp": "2026-01-01T00:00:30Z",
+          "trigger": "bad_deployment"
+        },
+        {
+          "change_failure": true,
+          "circuit_breaker": "open",
+          "domain": "payments",
+          "error_rate_pct": 17.8,
+          "event_type": "cascade_failure",
+          "phase": "cascade",
+          "requests_dropped": 836000,
+          "rollback_triggered": false,
+          "service": "execution-engine",
+          "t_seconds": 45,
+          "timestamp": "2026-01-01T00:00:45Z",
+          "trigger": "upstream_failure"
+        },
+        {
+          "change_failure": true,
+          "circuit_breaker": "closed",
+          "domain": "custody",
+          "error_rate_pct": 11.9,
+          "event_type": "cascade_failure",
+          "phase": "cascade",
+          "requests_dropped": 0,
+          "rollback_triggered": false,
+          "service": "payment-gateway",
+          "t_seconds": 67,
+          "timestamp": "2026-01-01T00:01:07Z",
+          "trigger": "upstream_failure"
+        },
+        {
+          "change_failure": true,
+          "circuit_breaker": "closed",
+          "domain": "identity",
+          "error_rate_pct": 8.2,
+          "event_type": "cascade_failure",
+          "phase": "cascade",
+          "requests_dropped": 0,
+          "rollback_triggered": false,
+          "service": "balance-service",
+          "t_seconds": 105,
+          "timestamp": "2026-01-01T00:01:45Z",
+          "trigger": "upstream_failure"
+        },
+        {
+          "change_failure": true,
+          "circuit_breaker": "closed",
+          "domain": "platform",
+          "error_rate_pct": 7.2,
+          "event_type": "cascade_failure",
+          "phase": "cascade",
+          "requests_dropped": 0,
+          "rollback_triggered": false,
+          "service": "auth-service",
+          "t_seconds": 143,
+          "timestamp": "2026-01-01T00:02:23Z",
+          "trigger": "upstream_failure"
+        },
+        {
+          "change_failure": true,
+          "circuit_breaker": "closed",
+          "domain": "trading",
+          "error_rate_pct": 4.8,
+          "event_type": "cascade_failure",
+          "phase": "cascade",
+          "requests_dropped": 0,
+          "rollback_triggered": false,
+          "service": "api-gateway",
+          "t_seconds": 160,
+          "timestamp": "2026-01-01T00:02:40Z",
+          "trigger": "upstream_failure"
+        },
+        {
+          "event_type": "rollback_start",
+          "phase": "recovery",
+          "rollback_to": "v2.4.0",
+          "service": "order-router",
+          "t_seconds": 206,
+          "timestamp": "2026-01-01T00:03:26Z",
+          "trigger": "error_rate > threshold"
+        },
+        {
+          "circuit_breaker": "half_open",
+          "error_rate_pct": 9.6,
+          "event_type": "recovery",
+          "phase": "recovery",
+          "service": "order-router",
+          "t_seconds": 433,
+          "timestamp": "2026-01-01T00:07:13Z"
+        },
+        {
+          "circuit_breaker": "half_open",
+          "error_rate_pct": 3.84,
+          "event_type": "recovery",
+          "phase": "recovery",
+          "service": "order-router",
+          "t_seconds": 724,
+          "timestamp": "2026-01-01T00:12:04Z"
+        },
+        {
+          "circuit_breaker": "half_open",
+          "error_rate_pct": 1.54,
+          "event_type": "recovery",
+          "phase": "recovery",
+          "service": "order-router",
+          "t_seconds": 1023,
+          "timestamp": "2026-01-01T00:17:03Z"
+        },
+        {
+          "circuit_breaker": "closed",
+          "error_rate_pct": 0.61,
+          "event_type": "recovery",
+          "phase": "recovery",
+          "service": "order-router",
+          "t_seconds": 1461,
+          "timestamp": "2026-01-01T00:24:21Z"
+        },
+        {
+          "error_rate_after": 0.12,
+          "event_type": "rollback_complete",
+          "mttr_minutes": 23.9,
+          "phase": "recovery",
+          "post_incident": "required",
+          "rollback_to": "v2.4.0",
+          "service": "order-router",
+          "t_seconds": 1461,
+          "timestamp": "2026-01-01T00:24:21Z"
+        }
+      ],
+      "frameworks": [
+        "DORA / DevOps Research & Assessment (change failure rate)",
+        "NIST CSF 2.0 ID.IM",
+        "NIST CSF 2.0 RS"
+      ],
+      "hv_id": "HV-02",
+      "kris_fired": [
+        {
+          "id": "DR-01",
+          "name": "Change & deploy gating",
+          "role": "primary"
+        },
+        {
+          "id": "DR-02",
+          "name": "Availability & resilience",
+          "role": "also"
+        },
+        {
+          "id": "DR-03",
+          "name": "Incident & recovery",
+          "role": "also"
+        }
+      ],
+      "label": "Change-Induced Cascade",
+      "metric_provenance": "operator_calibrated",
+      "name": "Deployment Cascade Failure",
+      "overall_rag": "critical",
+      "peaks": {
+        "mttr_minutes": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted mttr_minutes",
+            "source_query": "max/agg over deployment_cascade event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 23.9
+        },
+        "services_hit": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "services_hit counted from the event stream (not the run parameter)",
+            "source_query": "observed services_hit over deployment_cascade event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 6
+        }
+      },
+      "phase_counts": {
+        "build_up": 1,
+        "cascade": 6,
+        "recovery": 6
+      },
+      "scope_note": "",
+      "shape_parameter_provenance": "operator_calibrated",
+      "shape_topology_provenance": "source_derived",
+      "stream_chip": {
+        "events": 13,
+        "gen": "event_generator@seed42",
+        "realness": "SEEDED",
+        "telemetry_fields": 5,
+        "window_s": 1461
+      }
+    },
+    "identity_outage": {
+      "comparison": {
+        "regimes": {
+          "risk_as_code": {
+            "label": "Instrumented + automated response",
+            "metrics": {
+              "access_note": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Break-glass identities pre-provisioned + exercised quarterly; out-of-band evidence path"
+              },
+              "audit_trail": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Out-of-band telemetry keeps recording through the lockout; break-glass use itself is logged"
+              },
+              "detection_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 risk_as_code \u00b7 detection_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 2
+              },
+              "escalation_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 risk_as_code \u00b7 escalation_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 6
+              },
+              "evidence_ready_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 risk_as_code \u00b7 evidence_ready_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 12
+              },
+              "false_positives": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 risk_as_code \u00b7 false_positives \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 1
+              },
+              "human_effort_hours": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 risk_as_code \u00b7 human_effort_hours \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 1.2
+              },
+              "missed_events": {
+                "provenance": {
+                  "assumptions": [
+                    "real event count is upstream; the miss-fraction (0.4/0.35) is operator_calibrated"
+                  ],
+                  "computation": "round(count(identity_outage events) \u00d7 miss_fraction) \u2014 event count counted, fraction operator-calibrated",
+                  "source_query": "derived_at_adapter",
+                  "source_status": "derived",
+                  "source_system": "adapter",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 1
+              },
+              "tool_access_recovery_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 risk_as_code \u00b7 tool_access_recovery_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 6
+              }
+            },
+            "name": "Risk-as-Code \u2014 Automated",
+            "response_timeline": {
+              "entries": [
+                {
+                  "action": "token-issuance failure rate crosses its band \u2014 page carries the causal chain and fires over the OUT-OF-BAND path (paging does not ride the failed plane)",
+                  "actor": "PL-03 KRI",
+                  "t_min": 0
+                },
+                {
+                  "action": "acks; break-glass identity (pre-provisioned, exercised quarterly, logged) opens the consoles in minutes",
+                  "actor": "on-call SRE (S. Iyer)",
+                  "t_min": 2
+                },
+                {
+                  "action": "SEV-1 declared from the pre-filled doc; customer-lockout counter and support-queue depth already on the bridge screen",
+                  "actor": "incident commander (K. Osei)",
+                  "t_min": 6
+                },
+                {
+                  "action": "fallback token path proposed by runbook, confirmed by a named human; re-auth surge plan staged before recovery begins",
+                  "actor": "platform (human-in-loop)",
+                  "t_min": 10
+                },
+                {
+                  "action": "evidence pack auto-assembled \u2014 out-of-band telemetry recorded THROUGH the lockout; the break-glass use is itself on the log",
+                  "actor": "platform",
+                  "t_min": 12
+                }
+              ],
+              "note": "war-room narrative \u2014 actors and events are illustrative; minute marks are consistent with this regime's operator-calibrated response metrics (same model, same numbers)",
+              "source_status": "illustrative"
+            }
+          },
+          "traditional": {
+            "label": "Manual / checklist response",
+            "metrics": {
+              "access_note": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Responders locked out with the customers \u2014 war room assembles on personal phones"
+              },
+              "audit_trail": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Reconstructed after access restored; the lockout window is a gap in its own evidence"
+              },
+              "detection_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 traditional \u00b7 detection_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 3
+              },
+              "escalation_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 traditional \u00b7 escalation_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 25
+              },
+              "evidence_ready_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 traditional \u00b7 evidence_ready_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 120
+              },
+              "false_positives": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 traditional \u00b7 false_positives \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 2
+              },
+              "human_effort_hours": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 traditional \u00b7 human_effort_hours \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 5.0
+              },
+              "missed_events": {
+                "provenance": {
+                  "assumptions": [
+                    "real event count is upstream; the miss-fraction (0.4/0.35) is operator_calibrated"
+                  ],
+                  "computation": "round(count(identity_outage events) \u00d7 miss_fraction) \u2014 event count counted, fraction operator-calibrated",
+                  "source_query": "derived_at_adapter",
+                  "source_status": "derived",
+                  "source_system": "adapter",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 4
+              },
+              "tool_access_recovery_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "identity_outage \u00b7 traditional \u00b7 tool_access_recovery_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 42
+              }
+            },
+            "name": "Traditional \u2014 Manual Checklist",
+            "response_timeline": {
+              "entries": [
+                {
+                  "action": "login-failure reports spike everywhere at once \u2014 detection is NOT the problem; the auth dashboard itself needs SSO to open",
+                  "actor": "support + social",
+                  "t_min": 0
+                },
+                {
+                  "action": "page acknowledged from a personal phone \u2014 the runbook, the console and the incident tooling all sit behind the failed identity plane",
+                  "actor": "on-call SRE (S. Iyer)",
+                  "t_min": 3
+                },
+                {
+                  "action": "bridge assembles on personal devices; nobody can pull auth-service metrics \u2014 the people who fix identity authenticate THROUGH identity",
+                  "actor": "war room (improvised)",
+                  "t_min": 12
+                },
+                {
+                  "action": "SEV-1 declared verbally; escalation stalls hunting for the ONE engineer with a still-valid local admin path",
+                  "actor": "incident commander (K. Osei)",
+                  "t_min": 25
+                },
+                {
+                  "action": "ad-hoc break-glass improvised (shared root credential from a safe) \u2014 access restored 42 minutes in; remediation of the plane itself only STARTS now",
+                  "actor": "platform engineer",
+                  "t_min": 42
+                },
+                {
+                  "action": "evidence pack reconstructed after the fact \u2014 the lockout window is a hole in its own audit trail",
+                  "actor": "duty analyst",
+                  "t_min": 120
+                }
+              ],
+              "note": "war-room narrative \u2014 actors and events are illustrative; minute marks are consistent with this regime's operator-calibrated response metrics (same model, same numbers)",
+              "source_status": "illustrative"
+            }
+          }
+        },
+        "source_status": "illustrative"
+      },
+      "domain_id": "identity_outage",
+      "event_count": {
+        "provenance": {
+          "assumptions": [],
+          "computation": "counted events in the stream",
+          "source_query": "count(identity_outage events)",
+          "source_status": "real_query_synthesized_data",
+          "source_system": "event_generator",
+          "source_timestamp": "2026-06-01T09:00:00Z"
+        },
+        "value": 49
+      },
+      "events": [
+        {
+          "auth_attempts_per_sec": 4962,
+          "auth_failure_rate_pct": 0.3,
+          "auth_success_rate": 99.7,
+          "customers_locked_out": 0,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 0,
+          "t_seconds": 0,
+          "timestamp": "2026-01-01T00:00:00Z"
+        },
+        {
+          "auth_attempts_per_sec": 5019,
+          "auth_failure_rate_pct": 0.5,
+          "auth_success_rate": 99.5,
+          "customers_locked_out": 0,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 0,
+          "t_seconds": 13,
+          "timestamp": "2026-01-01T00:00:13Z"
+        },
+        {
+          "auth_attempts_per_sec": 5396,
+          "auth_failure_rate_pct": 0.3,
+          "auth_success_rate": 99.7,
+          "customers_locked_out": 0,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 0,
+          "t_seconds": 21,
+          "timestamp": "2026-01-01T00:00:21Z"
+        },
+        {
+          "auth_attempts_per_sec": 4965,
+          "auth_failure_rate_pct": 0.4,
+          "auth_success_rate": 99.6,
+          "customers_locked_out": 0,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 0,
+          "t_seconds": 28,
+          "timestamp": "2026-01-01T00:00:28Z"
+        },
+        {
+          "auth_attempts_per_sec": 5202,
+          "auth_failure_rate_pct": 0.5,
+          "auth_success_rate": 99.5,
+          "customers_locked_out": 0,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 0,
+          "t_seconds": 35,
+          "timestamp": "2026-01-01T00:00:35Z"
+        },
+        {
+          "auth_attempts_per_sec": 5308,
+          "auth_failure_rate_pct": 0.4,
+          "auth_success_rate": 99.6,
+          "customers_locked_out": 0,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 0,
+          "t_seconds": 40,
+          "timestamp": "2026-01-01T00:00:40Z"
+        },
+        {
+          "auth_attempts_per_sec": 5244,
+          "auth_failure_rate_pct": 0.5,
+          "auth_success_rate": 99.5,
+          "customers_locked_out": 0,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 0,
+          "t_seconds": 58,
+          "timestamp": "2026-01-01T00:00:58Z"
+        },
+        {
+          "auth_attempts_per_sec": 5317,
+          "auth_failure_rate_pct": 1.5,
+          "auth_success_rate": 98.5,
+          "customers_locked_out": 0,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 0,
+          "t_seconds": 63,
+          "timestamp": "2026-01-01T00:01:03Z"
+        },
+        {
+          "auth_attempts_per_sec": 5707,
+          "auth_failure_rate_pct": 8.7,
+          "auth_success_rate": 91.3,
+          "customers_locked_out": 0,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 0,
+          "t_seconds": 73,
+          "timestamp": "2026-01-01T00:01:13Z"
+        },
+        {
+          "auth_attempts_per_sec": 6292,
+          "auth_failure_rate_pct": 21.6,
+          "auth_success_rate": 78.4,
+          "customers_locked_out": 5431,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 65,
+          "t_seconds": 88,
+          "timestamp": "2026-01-01T00:01:28Z"
+        },
+        {
+          "auth_attempts_per_sec": 6721,
+          "auth_failure_rate_pct": 25.1,
+          "auth_success_rate": 74.9,
+          "customers_locked_out": 12170,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 146,
+          "t_seconds": 99,
+          "timestamp": "2026-01-01T00:01:39Z"
+        },
+        {
+          "auth_attempts_per_sec": 7306,
+          "auth_failure_rate_pct": 40.5,
+          "auth_success_rate": 59.5,
+          "customers_locked_out": 24009,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "build_up",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 288,
+          "t_seconds": 114,
+          "timestamp": "2026-01-01T00:01:54Z"
+        },
+        {
+          "auth_attempts_per_sec": 7969,
+          "auth_failure_rate_pct": 52.2,
+          "auth_success_rate": 47.8,
+          "customers_locked_out": 40658,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 487,
+          "t_seconds": 131,
+          "timestamp": "2026-01-01T00:02:11Z"
+        },
+        {
+          "auth_attempts_per_sec": 10125,
+          "auth_failure_rate_pct": 87.8,
+          "auth_success_rate": 12.2,
+          "customers_locked_out": 76226,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 914,
+          "t_seconds": 147,
+          "timestamp": "2026-01-01T00:02:27Z"
+        },
+        {
+          "auth_attempts_per_sec": 10258,
+          "auth_failure_rate_pct": 88.7,
+          "auth_success_rate": 11.3,
+          "customers_locked_out": 112632,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 1351,
+          "t_seconds": 166,
+          "timestamp": "2026-01-01T00:02:46Z"
+        },
+        {
+          "auth_attempts_per_sec": 9714,
+          "auth_failure_rate_pct": 91.1,
+          "auth_success_rate": 8.9,
+          "customers_locked_out": 148038,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 1776,
+          "t_seconds": 183,
+          "timestamp": "2026-01-01T00:03:03Z"
+        },
+        {
+          "auth_attempts_per_sec": 10043,
+          "auth_failure_rate_pct": 89.7,
+          "auth_success_rate": 10.3,
+          "customers_locked_out": 184057,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 2208,
+          "t_seconds": 199,
+          "timestamp": "2026-01-01T00:03:19Z"
+        },
+        {
+          "auth_attempts_per_sec": 10098,
+          "auth_failure_rate_pct": 89.5,
+          "auth_success_rate": 10.5,
+          "customers_locked_out": 220218,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 2642,
+          "t_seconds": 205,
+          "timestamp": "2026-01-01T00:03:25Z"
+        },
+        {
+          "auth_attempts_per_sec": 10173,
+          "auth_failure_rate_pct": 89.0,
+          "auth_success_rate": 11.0,
+          "customers_locked_out": 256425,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 3077,
+          "t_seconds": 212,
+          "timestamp": "2026-01-01T00:03:32Z"
+        },
+        {
+          "auth_attempts_per_sec": 9988,
+          "auth_failure_rate_pct": 91.9,
+          "auth_success_rate": 8.1,
+          "customers_locked_out": 293124,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 3517,
+          "t_seconds": 229,
+          "timestamp": "2026-01-01T00:03:49Z"
+        },
+        {
+          "auth_attempts_per_sec": 9764,
+          "auth_failure_rate_pct": 92.8,
+          "auth_success_rate": 7.2,
+          "customers_locked_out": 329388,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 3952,
+          "t_seconds": 245,
+          "timestamp": "2026-01-01T00:04:05Z"
+        },
+        {
+          "auth_attempts_per_sec": 10026,
+          "auth_failure_rate_pct": 91.1,
+          "auth_success_rate": 8.9,
+          "customers_locked_out": 365936,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 4391,
+          "t_seconds": 258,
+          "timestamp": "2026-01-01T00:04:18Z"
+        },
+        {
+          "auth_attempts_per_sec": 9616,
+          "auth_failure_rate_pct": 91.7,
+          "auth_success_rate": 8.3,
+          "customers_locked_out": 401222,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 4814,
+          "t_seconds": 265,
+          "timestamp": "2026-01-01T00:04:25Z"
+        },
+        {
+          "auth_attempts_per_sec": 9783,
+          "auth_failure_rate_pct": 93.9,
+          "auth_success_rate": 6.1,
+          "customers_locked_out": 437974,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 5255,
+          "t_seconds": 277,
+          "timestamp": "2026-01-01T00:04:37Z"
+        },
+        {
+          "auth_attempts_per_sec": 10154,
+          "auth_failure_rate_pct": 92.2,
+          "auth_success_rate": 7.8,
+          "customers_locked_out": 475434,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 5705,
+          "t_seconds": 289,
+          "timestamp": "2026-01-01T00:04:49Z"
+        },
+        {
+          "auth_attempts_per_sec": 9505,
+          "auth_failure_rate_pct": 94.3,
+          "auth_success_rate": 5.7,
+          "customers_locked_out": 511270,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "cascade",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 6135,
+          "t_seconds": 295,
+          "timestamp": "2026-01-01T00:04:55Z"
+        },
+        {
+          "auth_attempts_per_sec": 9532,
+          "auth_failure_rate_pct": 94.1,
+          "auth_success_rate": 5.9,
+          "customers_locked_out": 547137,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "recovery",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 6565,
+          "t_seconds": 310,
+          "timestamp": "2026-01-01T00:05:10Z"
+        },
+        {
+          "auth_attempts_per_sec": 9761,
+          "auth_failure_rate_pct": 83.9,
+          "auth_success_rate": 16.1,
+          "customers_locked_out": 579893,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "recovery",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 6958,
+          "t_seconds": 325,
+          "timestamp": "2026-01-01T00:05:25Z"
+        },
+        {
+          "auth_attempts_per_sec": 9289,
+          "auth_failure_rate_pct": 68.8,
+          "auth_success_rate": 31.2,
+          "customers_locked_out": 605452,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "recovery",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 7265,
+          "t_seconds": 345,
+          "timestamp": "2026-01-01T00:05:45Z"
+        },
+        {
+          "auth_attempts_per_sec": 8840,
+          "auth_failure_rate_pct": 57.9,
+          "auth_success_rate": 42.1,
+          "customers_locked_out": 625910,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "recovery",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 7510,
+          "t_seconds": 364,
+          "timestamp": "2026-01-01T00:06:04Z"
+        },
+        {
+          "auth_attempts_per_sec": 8627,
+          "auth_failure_rate_pct": 50.9,
+          "auth_success_rate": 49.1,
+          "customers_locked_out": 643471,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "recovery",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 7721,
+          "t_seconds": 373,
+          "timestamp": "2026-01-01T00:06:13Z"
+        },
+        {
+          "auth_attempts_per_sec": 8320,
+          "auth_failure_rate_pct": 38.0,
+          "auth_success_rate": 62.0,
+          "customers_locked_out": 656125,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "recovery",
+          "responder_lockout": 1,
+          "responder_tools_reachable": false,
+          "session_reauth_surge": false,
+          "support_queue_depth": 7873,
+          "t_seconds": 386,
+          "timestamp": "2026-01-01T00:06:26Z"
+        },
+        {
+          "auth_attempts_per_sec": 7894,
+          "auth_failure_rate_pct": 24.5,
+          "auth_success_rate": 75.5,
+          "customers_locked_out": 663875,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 7966,
+          "t_seconds": 404,
+          "timestamp": "2026-01-01T00:06:44Z"
+        },
+        {
+          "auth_attempts_per_sec": 7492,
+          "auth_failure_rate_pct": 17.2,
+          "auth_success_rate": 82.8,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "identity_outage",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": false,
+          "support_queue_depth": 8028,
+          "t_seconds": 421,
+          "timestamp": "2026-01-01T00:07:01Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.7,
+          "auth_success_rate": 99.3,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 430,
+          "timestamp": "2026-01-01T00:07:10Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.5,
+          "auth_success_rate": 99.5,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 437,
+          "timestamp": "2026-01-01T00:07:17Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.9,
+          "auth_success_rate": 99.1,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 445,
+          "timestamp": "2026-01-01T00:07:25Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.5,
+          "auth_success_rate": 99.5,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 455,
+          "timestamp": "2026-01-01T00:07:35Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.6,
+          "auth_success_rate": 99.4,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 473,
+          "timestamp": "2026-01-01T00:07:53Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.8,
+          "auth_success_rate": 99.2,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 490,
+          "timestamp": "2026-01-01T00:08:10Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.7,
+          "auth_success_rate": 99.3,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 509,
+          "timestamp": "2026-01-01T00:08:29Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.6,
+          "auth_success_rate": 99.4,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 514,
+          "timestamp": "2026-01-01T00:08:34Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.6,
+          "auth_success_rate": 99.4,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 522,
+          "timestamp": "2026-01-01T00:08:42Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.5,
+          "auth_success_rate": 99.5,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 535,
+          "timestamp": "2026-01-01T00:08:55Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.9,
+          "auth_success_rate": 99.1,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 550,
+          "timestamp": "2026-01-01T00:09:10Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.9,
+          "auth_success_rate": 99.1,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 568,
+          "timestamp": "2026-01-01T00:09:28Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.4,
+          "auth_success_rate": 99.6,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 573,
+          "timestamp": "2026-01-01T00:09:33Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.4,
+          "auth_success_rate": 99.6,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 586,
+          "timestamp": "2026-01-01T00:09:46Z"
+        },
+        {
+          "auth_attempts_per_sec": 7800,
+          "auth_failure_rate_pct": 0.7,
+          "auth_success_rate": 99.3,
+          "customers_locked_out": 669042,
+          "domain": "identity",
+          "event_type": "normal_auth",
+          "phase": "recovery",
+          "responder_lockout": 0,
+          "responder_tools_reachable": true,
+          "session_reauth_surge": true,
+          "support_queue_depth": 8028,
+          "t_seconds": 596,
+          "timestamp": "2026-01-01T00:09:56Z"
+        }
+      ],
+      "frameworks": [
+        "NIST CSF 2.0 PR.AA (identity & access)",
+        "FFIEC AIO \u2014 resilience of authentication infrastructure"
+      ],
+      "hv_id": "HV-04",
+      "kris_fired": [
+        {
+          "id": "PL-03",
+          "name": "IAM & secrets management",
+          "role": "primary"
+        },
+        {
+          "id": "DR-02",
+          "name": "Availability & resilience",
+          "role": "also"
+        },
+        {
+          "id": "DR-03",
+          "name": "Incident & recovery",
+          "role": "also"
+        }
+      ],
+      "label": "Identity-Plane Lockout",
+      "metric_provenance": "operator_calibrated",
+      "name": "Identity-Plane Lockout",
+      "overall_rag": "critical",
+      "peaks": {
+        "duration_s": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "duration_s counted from the event stream (not the run parameter)",
+            "source_query": "observed duration_s over identity_outage event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 596
+        },
+        "min_auth_success_pct": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted min_auth_success_pct",
+            "source_query": "max/agg over identity_outage event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 5.7
+        },
+        "peak_locked_out": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted peak_locked_out",
+            "source_query": "max/agg over identity_outage event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 669042
+        },
+        "responder_dark_min": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted responder_dark_min",
+            "source_query": "max/agg over identity_outage event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 4
+        },
+        "support_queue_peak": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted support_queue_peak",
+            "source_query": "max/agg over identity_outage event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 8028
+        }
+      },
+      "phase_counts": {
+        "build_up": 12,
+        "cascade": 14,
+        "recovery": 23
+      },
+      "scope_note": "The simulator models availability and access mechanics only \u2014 no fraud, ATO or credential-stuffing determination is made; degraded-verification abuse is the rac dependency layer's blindness mode, priced there, not replayed here.",
+      "shape_parameter_provenance": "operator_calibrated",
+      "shape_topology_provenance": "source_derived",
+      "stream_chip": {
+        "events": 49,
+        "gen": "event_generator@seed42",
+        "realness": "SEEDED",
+        "telemetry_fields": 6,
+        "window_s": 596
+      }
+    },
+    "kafka_lag_storm": {
+      "comparison": {
+        "regimes": {
+          "risk_as_code": {
+            "label": "Instrumented + automated response",
+            "metrics": {
+              "audit_trail": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Full telemetry trace, timestamped"
+              },
+              "detection_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "kafka_lag_storm \u00b7 risk_as_code \u00b7 detection_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 2
+              },
+              "escalation_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "kafka_lag_storm \u00b7 risk_as_code \u00b7 escalation_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 5
+              },
+              "evidence_ready_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "kafka_lag_storm \u00b7 risk_as_code \u00b7 evidence_ready_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 10
+              },
+              "false_positives": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "kafka_lag_storm \u00b7 risk_as_code \u00b7 false_positives \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 1
+              },
+              "human_effort_hours": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "kafka_lag_storm \u00b7 risk_as_code \u00b7 human_effort_hours \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 0.75
+              },
+              "missed_events": {
+                "provenance": {
+                  "assumptions": [
+                    "real event count is upstream; the miss-fraction (0.4/0.35) is operator_calibrated"
+                  ],
+                  "computation": "round(count(kafka_lag_storm events) \u00d7 miss_fraction) \u2014 event count counted, fraction operator-calibrated",
+                  "source_query": "derived_at_adapter",
+                  "source_status": "derived",
+                  "source_system": "adapter",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 1
+              },
+              "slo_response": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Automated alert at threshold crossing"
+              }
+            },
+            "name": "Risk-as-Code \u2014 Automated",
+            "response_timeline": {
+              "entries": [
+                {
+                  "action": "fires with causal context attached: ~88k msg/s consumer deficit (rebalance stall), stuck-generation ids, projected violation of the 4.8M-message backlog SLO in 6 min",
+                  "actor": "DR-02 KRI",
+                  "t_min": 0
+                },
+                {
+                  "action": "acks a page that carries the causal chain, not a bare threshold \u2014 no dashboard archaeology",
+                  "actor": "on-call SRE (S. Iyer)",
+                  "t_min": 2
+                },
+                {
+                  "action": "SEV-2 declared from the pre-filled incident doc; RP-02 pattern + drain runbook linked",
+                  "actor": "incident commander (K. Osei)",
+                  "t_min": 5
+                },
+                {
+                  "action": "confirms the proposed consumer scale-out \u2014 automation proposes, a named human disposes",
+                  "actor": "on-call SRE (human-in-loop)",
+                  "t_min": 8
+                },
+                {
+                  "action": "evidence pack auto-assembled: seeded event stream, KRI timeline, decisions \u2014 sealed and attributable",
+                  "actor": "platform",
+                  "t_min": 10
+                }
+              ],
+              "note": "war-room narrative \u2014 actors and events are illustrative; minute marks are consistent with this regime's operator-calibrated response metrics (same model, same numbers)",
+              "source_status": "illustrative"
+            }
+          },
+          "traditional": {
+            "label": "Manual / checklist response",
+            "metrics": {
+              "audit_trail": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Manual notes + log pulls"
+              },
+              "detection_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "kafka_lag_storm \u00b7 traditional \u00b7 detection_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 12
+              },
+              "escalation_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "kafka_lag_storm \u00b7 traditional \u00b7 escalation_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 22
+              },
+              "evidence_ready_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "kafka_lag_storm \u00b7 traditional \u00b7 evidence_ready_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 90
+              },
+              "false_positives": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "kafka_lag_storm \u00b7 traditional \u00b7 false_positives \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 3
+              },
+              "human_effort_hours": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "kafka_lag_storm \u00b7 traditional \u00b7 human_effort_hours \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 4.0
+              },
+              "missed_events": {
+                "provenance": {
+                  "assumptions": [
+                    "real event count is upstream; the miss-fraction (0.4/0.35) is operator_calibrated"
+                  ],
+                  "computation": "round(count(kafka_lag_storm events) \u00d7 miss_fraction) \u2014 event count counted, fraction operator-calibrated",
+                  "source_query": "derived_at_adapter",
+                  "source_status": "derived",
+                  "source_system": "adapter",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 6
+              },
+              "slo_response": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "After SLO violation, manual confirm"
+              }
+            },
+            "name": "Traditional \u2014 Manual Checklist",
+            "response_timeline": {
+              "entries": [
+                {
+                  "action": "payments-latency page fires \u2014 one of 37 pages that hour; auto-resolved once by the flapping-alert rule",
+                  "actor": "PagerDuty \u2192 on-call SRE (S. Iyer)",
+                  "t_min": 0
+                },
+                {
+                  "action": "correlates checkout-latency complaints with consumer lag on payment-events by hand across 4 dashboards; SEV-2 opened",
+                  "actor": "on-call SRE (S. Iyer)",
+                  "t_min": 12
+                },
+                {
+                  "action": "SEV-1 declared; war room opens \u2014 Payments, Platform, Support on the bridge; exec comms channel spun up",
+                  "actor": "incident commander (K. Osei)",
+                  "t_min": 22
+                },
+                {
+                  "action": "root-cause hypothesis: consumer group stuck mid-rebalance in eu-west-1 \u2014 ~92% of capacity parked; drain plan drafted by hand",
+                  "actor": "war room",
+                  "t_min": 34
+                },
+                {
+                  "action": "approves consumer scale-out \u00d73 under the launch change-freeze exception \u2014 the approval itself takes 12 minutes to hunt down",
+                  "actor": "VP Eng (M. Okonkwo)",
+                  "t_min": 55
+                },
+                {
+                  "action": "evidence pack assembled by hand from 6 dashboards and Slack scrollback; timestamps disagree across sources",
+                  "actor": "on-call + duty analyst",
+                  "t_min": 90
+                }
+              ],
+              "note": "war-room narrative \u2014 actors and events are illustrative; minute marks are consistent with this regime's operator-calibrated response metrics (same model, same numbers)",
+              "source_status": "illustrative"
+            }
+          }
+        },
+        "source_status": "illustrative"
+      },
+      "domain_id": "kafka_lag_storm",
+      "event_count": {
+        "provenance": {
+          "assumptions": [],
+          "computation": "counted events in the stream",
+          "source_query": "count(kafka_lag_storm events)",
+          "source_status": "real_query_synthesized_data",
+          "source_system": "event_generator",
+          "source_timestamp": "2026-06-01T09:00:00Z"
+        },
+        "value": 60
+      },
+      "events": [
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 95097.5,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.13,
+          "downstream_latency_ms": 142,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "build_up",
+          "producer_rate_mps": 96264.9,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 0,
+          "timestamp": "2026-01-01T00:00:00Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 96745.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.05,
+          "downstream_latency_ms": 160,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "build_up",
+          "producer_rate_mps": 96335.7,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 6,
+          "timestamp": "2026-01-01T00:00:06Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 95492.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.26,
+          "downstream_latency_ms": 172,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "build_up",
+          "producer_rate_mps": 95228.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 11,
+          "timestamp": "2026-01-01T00:00:11Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 95847.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.2,
+          "downstream_latency_ms": 148,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 27231,
+          "lag_seconds_of_flow": 0.28,
+          "partitions": 768,
+          "phase": "build_up",
+          "producer_rate_mps": 96382.5,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 26,
+          "timestamp": "2026-01-01T00:00:26Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 95353.4,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.2,
+          "downstream_latency_ms": 148,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 32923,
+          "lag_seconds_of_flow": 0.34,
+          "partitions": 768,
+          "phase": "build_up",
+          "producer_rate_mps": 96491.7,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 31,
+          "timestamp": "2026-01-01T00:00:31Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 95689.5,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.07,
+          "downstream_latency_ms": 133,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 42356,
+          "lag_seconds_of_flow": 0.44,
+          "partitions": 768,
+          "phase": "build_up",
+          "producer_rate_mps": 96868.7,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 39,
+          "timestamp": "2026-01-01T00:00:39Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 64788.3,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.58,
+          "downstream_latency_ms": 211,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 356444,
+          "lag_seconds_of_flow": 3.71,
+          "partitions": 768,
+          "phase": "build_up",
+          "producer_rate_mps": 96197.1,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 49,
+          "timestamp": "2026-01-01T00:00:49Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 24951.0,
+          "domain_affected": "payments",
+          "downstream_error_rate": 1.15,
+          "downstream_latency_ms": 335,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 1129179,
+          "lag_seconds_of_flow": 11.76,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 95199.7,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 60,
+          "timestamp": "2026-01-01T00:01:00Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 8068.7,
+          "domain_affected": "payments",
+          "downstream_error_rate": 1.63,
+          "downstream_latency_ms": 381,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 2009962,
+          "lag_seconds_of_flow": 20.94,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 96147.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 70,
+          "timestamp": "2026-01-01T00:01:10Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 8355.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 2.59,
+          "downstream_latency_ms": 491,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 2807063,
+          "lag_seconds_of_flow": 29.24,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 96921.9,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 79,
+          "timestamp": "2026-01-01T00:01:19Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 7423.2,
+          "domain_affected": "payments",
+          "downstream_error_rate": 3.25,
+          "downstream_latency_ms": 603,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 3873079,
+          "lag_seconds_of_flow": 40.34,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 96257.8,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 91,
+          "timestamp": "2026-01-01T00:01:31Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 8028.7,
+          "domain_affected": "payments",
+          "downstream_error_rate": 3.76,
+          "downstream_latency_ms": 737,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 4668271,
+          "lag_seconds_of_flow": 48.63,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 96383.5,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 100,
+          "timestamp": "2026-01-01T00:01:40Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 7040.5,
+          "domain_affected": "payments",
+          "downstream_error_rate": 4.82,
+          "downstream_latency_ms": 908,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 5830405,
+          "lag_seconds_of_flow": 60.73,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 96435.3,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 113,
+          "timestamp": "2026-01-01T00:01:53Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 7147.3,
+          "domain_affected": "payments",
+          "downstream_error_rate": 5.86,
+          "downstream_latency_ms": 1049,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 7168558,
+          "lag_seconds_of_flow": 74.67,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 96357.5,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 128,
+          "timestamp": "2026-01-01T00:02:08Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 6791.0,
+          "domain_affected": "payments",
+          "downstream_error_rate": 6.22,
+          "downstream_latency_ms": 1057,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 7612029,
+          "lag_seconds_of_flow": 79.29,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 95485.2,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 133,
+          "timestamp": "2026-01-01T00:02:13Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 7807.6,
+          "domain_affected": "payments",
+          "downstream_error_rate": 6.95,
+          "downstream_latency_ms": 1137,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 8323848,
+          "lag_seconds_of_flow": 86.71,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 96785.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 141,
+          "timestamp": "2026-01-01T00:02:21Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 8467.6,
+          "domain_affected": "payments",
+          "downstream_error_rate": 7.68,
+          "downstream_latency_ms": 1268,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 9371856,
+          "lag_seconds_of_flow": 97.62,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 95801.7,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 153,
+          "timestamp": "2026-01-01T00:02:33Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 7754.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 8.36,
+          "downstream_latency_ms": 1368,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 10081548,
+          "lag_seconds_of_flow": 105.02,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 96465.5,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 161,
+          "timestamp": "2026-01-01T00:02:41Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 7146.7,
+          "domain_affected": "payments",
+          "downstream_error_rate": 9.46,
+          "downstream_latency_ms": 1524,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 11322818,
+          "lag_seconds_of_flow": 117.95,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 95808.9,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 175,
+          "timestamp": "2026-01-01T00:02:55Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 8366.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 9.54,
+          "downstream_latency_ms": 1556,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 11851537,
+          "lag_seconds_of_flow": 123.45,
+          "partitions": 768,
+          "phase": "cascade",
+          "producer_rate_mps": 96486.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 181,
+          "timestamp": "2026-01-01T00:03:01Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143170.7,
+          "domain_affected": "payments",
+          "downstream_error_rate": 9.07,
+          "downstream_latency_ms": 1546,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 11141758,
+          "lag_seconds_of_flow": 116.06,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95852.1,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 196,
+          "timestamp": "2026-01-01T00:03:16Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144101.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 8.79,
+          "downstream_latency_ms": 1442,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 10510304,
+          "lag_seconds_of_flow": 109.48,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95527.7,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 209,
+          "timestamp": "2026-01-01T00:03:29Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144070.2,
+          "domain_affected": "payments",
+          "downstream_error_rate": 8.29,
+          "downstream_latency_ms": 1404,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 10223954,
+          "lag_seconds_of_flow": 106.5,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96345.2,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 215,
+          "timestamp": "2026-01-01T00:03:35Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143350.5,
+          "domain_affected": "payments",
+          "downstream_error_rate": 7.95,
+          "downstream_latency_ms": 1377,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 9937496,
+          "lag_seconds_of_flow": 103.52,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95607.7,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 221,
+          "timestamp": "2026-01-01T00:03:41Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144497.7,
+          "domain_affected": "payments",
+          "downstream_error_rate": 7.81,
+          "downstream_latency_ms": 1270,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 9509086,
+          "lag_seconds_of_flow": 99.05,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96896.6,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 230,
+          "timestamp": "2026-01-01T00:03:50Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144264.0,
+          "domain_affected": "payments",
+          "downstream_error_rate": 7.27,
+          "downstream_latency_ms": 1187,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 8779382,
+          "lag_seconds_of_flow": 91.45,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95617.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 245,
+          "timestamp": "2026-01-01T00:04:05Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144529.4,
+          "domain_affected": "payments",
+          "downstream_error_rate": 6.96,
+          "downstream_latency_ms": 1132,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 8440200,
+          "lag_seconds_of_flow": 87.92,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96074.8,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 252,
+          "timestamp": "2026-01-01T00:04:12Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143262.5,
+          "domain_affected": "payments",
+          "downstream_error_rate": 6.52,
+          "downstream_latency_ms": 1164,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 7967358,
+          "lag_seconds_of_flow": 82.99,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95978.4,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 262,
+          "timestamp": "2026-01-01T00:04:22Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143507.7,
+          "domain_affected": "payments",
+          "downstream_error_rate": 6.26,
+          "downstream_latency_ms": 1031,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 7535334,
+          "lag_seconds_of_flow": 78.49,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95505.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 271,
+          "timestamp": "2026-01-01T00:04:31Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144908.2,
+          "domain_affected": "payments",
+          "downstream_error_rate": 5.78,
+          "downstream_latency_ms": 965,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 6955641,
+          "lag_seconds_of_flow": 72.45,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96600.4,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 283,
+          "timestamp": "2026-01-01T00:04:43Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144094.6,
+          "domain_affected": "payments",
+          "downstream_error_rate": 5.09,
+          "downstream_latency_ms": 946,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 6233517,
+          "lag_seconds_of_flow": 64.93,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95953.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 298,
+          "timestamp": "2026-01-01T00:04:58Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144814.9,
+          "domain_affected": "payments",
+          "downstream_error_rate": 4.87,
+          "downstream_latency_ms": 866,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 5706258,
+          "lag_seconds_of_flow": 59.44,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96882.3,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 309,
+          "timestamp": "2026-01-01T00:05:09Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144326.2,
+          "domain_affected": "payments",
+          "downstream_error_rate": 4.37,
+          "downstream_latency_ms": 833,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 5269595,
+          "lag_seconds_of_flow": 54.89,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95808.1,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 318,
+          "timestamp": "2026-01-01T00:05:18Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143476.9,
+          "domain_affected": "payments",
+          "downstream_error_rate": 3.89,
+          "downstream_latency_ms": 735,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 4691231,
+          "lag_seconds_of_flow": 48.87,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95279.9,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 330,
+          "timestamp": "2026-01-01T00:05:30Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143063.7,
+          "domain_affected": "payments",
+          "downstream_error_rate": 3.74,
+          "downstream_latency_ms": 643,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 4316066,
+          "lag_seconds_of_flow": 44.96,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96168.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 338,
+          "timestamp": "2026-01-01T00:05:38Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144683.3,
+          "domain_affected": "payments",
+          "downstream_error_rate": 3.25,
+          "downstream_latency_ms": 624,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 4028588,
+          "lag_seconds_of_flow": 41.96,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96770.3,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 344,
+          "timestamp": "2026-01-01T00:05:44Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144074.5,
+          "domain_affected": "payments",
+          "downstream_error_rate": 2.93,
+          "downstream_latency_ms": 596,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 3307054,
+          "lag_seconds_of_flow": 34.45,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95972.3,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 359,
+          "timestamp": "2026-01-01T00:05:59Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144540.8,
+          "domain_affected": "payments",
+          "downstream_error_rate": 2.42,
+          "downstream_latency_ms": 452,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 2626756,
+          "lag_seconds_of_flow": 27.36,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95948.1,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 373,
+          "timestamp": "2026-01-01T00:06:13Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143723.2,
+          "domain_affected": "payments",
+          "downstream_error_rate": 2.04,
+          "downstream_latency_ms": 478,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 2342229,
+          "lag_seconds_of_flow": 24.4,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96302.1,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 379,
+          "timestamp": "2026-01-01T00:06:19Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144919.9,
+          "domain_affected": "payments",
+          "downstream_error_rate": 1.72,
+          "downstream_latency_ms": 408,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 2099277,
+          "lag_seconds_of_flow": 21.87,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96329.4,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 384,
+          "timestamp": "2026-01-01T00:06:24Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143257.6,
+          "domain_affected": "payments",
+          "downstream_error_rate": 1.38,
+          "downstream_latency_ms": 364,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 1632412,
+          "lag_seconds_of_flow": 17.0,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96571.1,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 394,
+          "timestamp": "2026-01-01T00:06:34Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143579.2,
+          "domain_affected": "payments",
+          "downstream_error_rate": 1.14,
+          "downstream_latency_ms": 358,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 1298318,
+          "lag_seconds_of_flow": 13.52,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95851.6,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": true,
+          "source_topic": "payment-events",
+          "t_seconds": 401,
+          "timestamp": "2026-01-01T00:06:41Z"
+        },
+        {
+          "alert_triggered": true,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144676.3,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.62,
+          "downstream_latency_ms": 265,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 721225,
+          "lag_seconds_of_flow": 7.51,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96585.2,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 413,
+          "timestamp": "2026-01-01T00:06:53Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144891.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.45,
+          "downstream_latency_ms": 207,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 93941,
+          "lag_seconds_of_flow": 0.98,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96638.5,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 426,
+          "timestamp": "2026-01-01T00:07:06Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143964.6,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.36,
+          "downstream_latency_ms": 203,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95822.2,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 433,
+          "timestamp": "2026-01-01T00:07:13Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144922.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.12,
+          "downstream_latency_ms": 192,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95770.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 440,
+          "timestamp": "2026-01-01T00:07:20Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144373.5,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.31,
+          "downstream_latency_ms": 192,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95592.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 452,
+          "timestamp": "2026-01-01T00:07:32Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143344.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.13,
+          "downstream_latency_ms": 209,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96415.0,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 467,
+          "timestamp": "2026-01-01T00:07:47Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143165.8,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.14,
+          "downstream_latency_ms": 126,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96447.9,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 481,
+          "timestamp": "2026-01-01T00:08:01Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144670.2,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.08,
+          "downstream_latency_ms": 208,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96005.4,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 493,
+          "timestamp": "2026-01-01T00:08:13Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143180.2,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.04,
+          "downstream_latency_ms": 199,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96667.6,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 499,
+          "timestamp": "2026-01-01T00:08:19Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144741.5,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.11,
+          "downstream_latency_ms": 175,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95277.8,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 510,
+          "timestamp": "2026-01-01T00:08:30Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144299.0,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.24,
+          "downstream_latency_ms": 150,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95205.8,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 524,
+          "timestamp": "2026-01-01T00:08:44Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144410.8,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.11,
+          "downstream_latency_ms": 157,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95438.1,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 533,
+          "timestamp": "2026-01-01T00:08:53Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 143918.7,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.39,
+          "downstream_latency_ms": 206,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96276.5,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 548,
+          "timestamp": "2026-01-01T00:09:08Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 144947.1,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.41,
+          "downstream_latency_ms": 128,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 19200,
+          "lag_seconds_of_flow": 0.2,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95920.7,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 553,
+          "timestamp": "2026-01-01T00:09:13Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 95301.7,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.16,
+          "downstream_latency_ms": 129,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 24876,
+          "lag_seconds_of_flow": 0.26,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96011.2,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 561,
+          "timestamp": "2026-01-01T00:09:21Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 95349.7,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.36,
+          "downstream_latency_ms": 186,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 28095,
+          "lag_seconds_of_flow": 0.29,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95752.1,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 569,
+          "timestamp": "2026-01-01T00:09:29Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 96583.5,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.24,
+          "downstream_latency_ms": 184,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 32796,
+          "lag_seconds_of_flow": 0.34,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 96919.3,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 583,
+          "timestamp": "2026-01-01T00:09:43Z"
+        },
+        {
+          "alert_triggered": false,
+          "consumer_group": "payment-processor-v2",
+          "consumer_rate_mps": 96310.4,
+          "domain_affected": "payments",
+          "downstream_error_rate": 0.39,
+          "downstream_latency_ms": 134,
+          "event_type": "kafka_lag_storm",
+          "lag_messages": 23805,
+          "lag_seconds_of_flow": 0.25,
+          "partitions": 768,
+          "phase": "recovery",
+          "producer_rate_mps": 95618.8,
+          "regions": "us-east-1 \u00b7 eu-west-1 \u00b7 ap-southeast-1",
+          "slo_violation": false,
+          "source_topic": "payment-events",
+          "t_seconds": 596,
+          "timestamp": "2026-01-01T00:09:56Z"
+        }
+      ],
+      "frameworks": [
+        "Google SRE (SLO / error budget)",
+        "NIST CSF 2.0 RC.RP",
+        "NIST CSF 2.0 DE.CM"
+      ],
+      "hv_id": "HV-01",
+      "kris_fired": [
+        {
+          "id": "DR-02",
+          "name": "Availability & resilience",
+          "role": "primary"
+        },
+        {
+          "id": "PL-04",
+          "name": "Capacity & performance",
+          "role": "also"
+        },
+        {
+          "id": "DR-04",
+          "name": "Observability & detection",
+          "role": "also"
+        }
+      ],
+      "label": "Consumer-Lag Cascade",
+      "metric_provenance": "operator_calibrated",
+      "name": "Kafka Lag Storm",
+      "overall_rag": "critical",
+      "peaks": {
+        "duration_s": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "duration_s counted from the event stream (not the run parameter)",
+            "source_query": "observed duration_s over kafka_lag_storm event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 596
+        },
+        "peak_error_rate": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted peak_error_rate",
+            "source_query": "max/agg over kafka_lag_storm event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 9.54
+        },
+        "peak_lag_msgs": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted peak_lag_msgs",
+            "source_query": "max/agg over kafka_lag_storm event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 11851537
+        },
+        "peak_latency_ms": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted peak_latency_ms",
+            "source_query": "max/agg over kafka_lag_storm event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 1556
+        },
+        "slo_violations": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted slo_violations",
+            "source_query": "max/agg over kafka_lag_storm event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 35
+        }
+      },
+      "phase_counts": {
+        "build_up": 7,
+        "cascade": 13,
+        "recovery": 40
+      },
+      "scope_note": "",
+      "shape_parameter_provenance": "operator_calibrated",
+      "shape_topology_provenance": "source_derived",
+      "stream_chip": {
+        "events": 60,
+        "gen": "event_generator@seed42",
+        "realness": "SEEDED",
+        "telemetry_fields": 7,
+        "window_s": 596
+      }
+    },
+    "velocity_surge": {
+      "comparison": {
+        "regimes": {
+          "risk_as_code": {
+            "label": "Instrumented + automated response",
+            "metrics": {
+              "aml_routing": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Auto-routed to AML review queue with evidence pack"
+              },
+              "audit_trail": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Full telemetry trace, timestamped"
+              },
+              "detection_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "velocity_surge \u00b7 risk_as_code \u00b7 detection_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 2
+              },
+              "escalation_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "velocity_surge \u00b7 risk_as_code \u00b7 escalation_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 5
+              },
+              "evidence_ready_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "velocity_surge \u00b7 risk_as_code \u00b7 evidence_ready_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 10
+              },
+              "false_positives": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "velocity_surge \u00b7 risk_as_code \u00b7 false_positives \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 1
+              },
+              "human_effort_hours": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "velocity_surge \u00b7 risk_as_code \u00b7 human_effort_hours \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 0.7
+              },
+              "missed_events": {
+                "provenance": {
+                  "assumptions": [
+                    "real event count is upstream; the miss-fraction (0.4/0.35) is operator_calibrated"
+                  ],
+                  "computation": "round(count(velocity_surge events) \u00d7 miss_fraction) \u2014 event count counted, fraction operator-calibrated",
+                  "source_query": "derived_at_adapter",
+                  "source_status": "derived",
+                  "source_system": "adapter",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 0
+              }
+            },
+            "name": "Risk-as-Code \u2014 Automated",
+            "response_timeline": {
+              "entries": [
+                {
+                  "action": "fires at 3\u00d7 baseline with corridor breakdown and a promo-calendar cross-check already attached \u2014 'no scheduled promo' is on the page",
+                  "actor": "GV-02 KRI",
+                  "t_min": 0
+                },
+                {
+                  "action": "acks; graduated velocity controls proposed (step-up auth first, hard blocks only above 6\u00d7) instead of a blanket rule",
+                  "actor": "fraud-ops analyst",
+                  "t_min": 2
+                },
+                {
+                  "action": "confirms; AML review-queue routing fires automatically as a fraud-control signal \u2014 explicitly NOT a BSA/AML determination",
+                  "actor": "payments risk duty officer (human-in-loop)",
+                  "t_min": 5
+                },
+                {
+                  "action": "evidence sealed with blocked-txn counts reconciled to the ledger at write time",
+                  "actor": "platform",
+                  "t_min": 10
+                }
+              ],
+              "note": "war-room narrative \u2014 actors and events are illustrative; minute marks are consistent with this regime's operator-calibrated response metrics (same model, same numbers)",
+              "source_status": "illustrative"
+            }
+          },
+          "traditional": {
+            "label": "Manual / checklist response",
+            "metrics": {
+              "aml_routing": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Manual review-queue entry, after the fact"
+              },
+              "audit_trail": {
+                "provenance": {
+                  "source_status": "illustrative"
+                },
+                "value": "Manual notes + review-queue entry"
+              },
+              "detection_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "velocity_surge \u00b7 traditional \u00b7 detection_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 12
+              },
+              "escalation_time_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "velocity_surge \u00b7 traditional \u00b7 escalation_time_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 20
+              },
+              "evidence_ready_min": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "velocity_surge \u00b7 traditional \u00b7 evidence_ready_min \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 85
+              },
+              "false_positives": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "velocity_surge \u00b7 traditional \u00b7 false_positives \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 4
+              },
+              "human_effort_hours": {
+                "provenance": {
+                  "assumptions": [
+                    "operator-calibrated illustration of the response-time gap; NOT measured telemetry"
+                  ],
+                  "computation": "velocity_surge \u00b7 traditional \u00b7 human_effort_hours \u2014 operator-calibrated response model",
+                  "source_query": "synthesized",
+                  "source_status": "illustrative",
+                  "source_system": "operator_calibrated",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 4.0
+              },
+              "missed_events": {
+                "provenance": {
+                  "assumptions": [
+                    "real event count is upstream; the miss-fraction (0.4/0.35) is operator_calibrated"
+                  ],
+                  "computation": "round(count(velocity_surge events) \u00d7 miss_fraction) \u2014 event count counted, fraction operator-calibrated",
+                  "source_query": "derived_at_adapter",
+                  "source_status": "derived",
+                  "source_system": "adapter",
+                  "source_timestamp": "2026-06-01T09:00:00Z"
+                },
+                "value": 2
+              }
+            },
+            "name": "Traditional \u2014 Manual Checklist",
+            "response_timeline": {
+              "entries": [
+                {
+                  "action": "velocity dashboard spikes; analyst is mid-way through a 200-item review queue and the spike alert has a 4-hour SLA",
+                  "actor": "fraud-ops analyst (night shift)",
+                  "t_min": 0
+                },
+                {
+                  "action": "manual triage confirms 8\u00d7 baseline tps concentrated in one corridor; unclear if promo traffic or attack \u2014 asks in three Slack channels",
+                  "actor": "fraud-ops analyst",
+                  "t_min": 12
+                },
+                {
+                  "action": "escalates; fraud rules tightened by hand \u2014 false-positive blocks spike on legitimate customers immediately",
+                  "actor": "payments risk duty officer",
+                  "t_min": 20
+                },
+                {
+                  "action": "AML routing question raised \u2014 'does this need a review-queue disposition?' \u2014 nobody on the bridge owns the answer at 3am",
+                  "actor": "war room",
+                  "t_min": 45
+                },
+                {
+                  "action": "evidence assembled by hand; blocked-transaction counts differ between the fraud tool and the payments ledger by ~4%",
+                  "actor": "duty analyst",
+                  "t_min": 85
+                }
+              ],
+              "note": "war-room narrative \u2014 actors and events are illustrative; minute marks are consistent with this regime's operator-calibrated response metrics (same model, same numbers)",
+              "source_status": "illustrative"
+            }
+          }
+        },
+        "source_status": "illustrative"
+      },
+      "domain_id": "velocity_surge",
+      "event_count": {
+        "provenance": {
+          "assumptions": [],
+          "computation": "counted events in the stream",
+          "source_query": "count(velocity_surge events)",
+          "source_status": "real_query_synthesized_data",
+          "source_system": "event_generator",
+          "source_timestamp": "2026-06-01T09:00:00Z"
+        },
+        "value": 23
+      },
+      "events": [
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.201,
+          "normal_baseline_tps": 9200,
+          "phase": "build_up",
+          "surge_ratio": 1.01,
+          "t_seconds": 0,
+          "timestamp": "2026-01-01T00:00:00Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 9311
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.202,
+          "normal_baseline_tps": 9200,
+          "phase": "build_up",
+          "surge_ratio": 1.02,
+          "t_seconds": 5,
+          "timestamp": "2026-01-01T00:00:05Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 9393
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.198,
+          "normal_baseline_tps": 9200,
+          "phase": "build_up",
+          "surge_ratio": 0.98,
+          "t_seconds": 17,
+          "timestamp": "2026-01-01T00:00:17Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 8978
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.201,
+          "normal_baseline_tps": 9200,
+          "phase": "build_up",
+          "surge_ratio": 1.02,
+          "t_seconds": 25,
+          "timestamp": "2026-01-01T00:00:25Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 9341
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.223,
+          "normal_baseline_tps": 9200,
+          "phase": "build_up",
+          "surge_ratio": 1.28,
+          "t_seconds": 32,
+          "timestamp": "2026-01-01T00:00:32Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 11811
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.256,
+          "normal_baseline_tps": 9200,
+          "phase": "build_up",
+          "surge_ratio": 1.7,
+          "t_seconds": 38,
+          "timestamp": "2026-01-01T00:00:38Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 15649
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.349,
+          "normal_baseline_tps": 9200,
+          "phase": "build_up",
+          "surge_ratio": 2.87,
+          "t_seconds": 49,
+          "timestamp": "2026-01-01T00:00:49Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 26377
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "velocity_surge",
+          "fraud_score_avg": 0.398,
+          "normal_baseline_tps": 9200,
+          "phase": "cascade",
+          "surge_ratio": 3.47,
+          "t_seconds": 54,
+          "timestamp": "2026-01-01T00:00:54Z",
+          "transactions_blocked": 4794,
+          "transactions_per_sec": 31963
+        },
+        {
+          "aml_review_routed": true,
+          "compliance_escalation": true,
+          "domain": "payments",
+          "event_type": "velocity_surge",
+          "fraud_score_avg": 0.533,
+          "normal_baseline_tps": 9200,
+          "phase": "cascade",
+          "surge_ratio": 5.16,
+          "t_seconds": 72,
+          "timestamp": "2026-01-01T00:01:12Z",
+          "transactions_blocked": 7125,
+          "transactions_per_sec": 47501
+        },
+        {
+          "aml_review_routed": true,
+          "compliance_escalation": true,
+          "domain": "payments",
+          "event_type": "velocity_surge",
+          "fraud_score_avg": 0.652,
+          "normal_baseline_tps": 9200,
+          "phase": "cascade",
+          "surge_ratio": 6.66,
+          "t_seconds": 85,
+          "timestamp": "2026-01-01T00:01:25Z",
+          "transactions_blocked": 9184,
+          "transactions_per_sec": 61228
+        },
+        {
+          "aml_review_routed": true,
+          "compliance_escalation": true,
+          "domain": "payments",
+          "event_type": "velocity_surge",
+          "fraud_score_avg": 0.769,
+          "normal_baseline_tps": 9200,
+          "phase": "cascade",
+          "surge_ratio": 8.11,
+          "t_seconds": 90,
+          "timestamp": "2026-01-01T00:01:30Z",
+          "transactions_blocked": 11195,
+          "transactions_per_sec": 74635
+        },
+        {
+          "aml_review_routed": true,
+          "compliance_escalation": true,
+          "domain": "payments",
+          "event_type": "velocity_surge",
+          "fraud_score_avg": 0.767,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 8.09,
+          "t_seconds": 100,
+          "timestamp": "2026-01-01T00:01:40Z",
+          "transactions_blocked": 11158,
+          "transactions_per_sec": 74392
+        },
+        {
+          "aml_review_routed": true,
+          "compliance_escalation": true,
+          "domain": "payments",
+          "event_type": "velocity_surge",
+          "fraud_score_avg": 0.752,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 7.9,
+          "t_seconds": 115,
+          "timestamp": "2026-01-01T00:01:55Z",
+          "transactions_blocked": 10906,
+          "transactions_per_sec": 72711
+        },
+        {
+          "aml_review_routed": true,
+          "compliance_escalation": true,
+          "domain": "payments",
+          "event_type": "velocity_surge",
+          "fraud_score_avg": 0.638,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 6.48,
+          "t_seconds": 126,
+          "timestamp": "2026-01-01T00:02:06Z",
+          "transactions_blocked": 8943,
+          "transactions_per_sec": 59623
+        },
+        {
+          "aml_review_routed": true,
+          "compliance_escalation": true,
+          "domain": "payments",
+          "event_type": "velocity_surge",
+          "fraud_score_avg": 0.545,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 5.31,
+          "t_seconds": 141,
+          "timestamp": "2026-01-01T00:02:21Z",
+          "transactions_blocked": 7333,
+          "transactions_per_sec": 48891
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "velocity_surge",
+          "fraud_score_avg": 0.469,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 4.36,
+          "t_seconds": 149,
+          "timestamp": "2026-01-01T00:02:29Z",
+          "transactions_blocked": 6013,
+          "transactions_per_sec": 40090
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "velocity_surge",
+          "fraud_score_avg": 0.406,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 3.57,
+          "t_seconds": 156,
+          "timestamp": "2026-01-01T00:02:36Z",
+          "transactions_blocked": 4931,
+          "transactions_per_sec": 32874
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.354,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 2.93,
+          "t_seconds": 173,
+          "timestamp": "2026-01-01T00:02:53Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 26957
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.312,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 2.4,
+          "t_seconds": 181,
+          "timestamp": "2026-01-01T00:03:01Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 22104
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.278,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 1.97,
+          "t_seconds": 197,
+          "timestamp": "2026-01-01T00:03:17Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 18125
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.249,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 1.62,
+          "t_seconds": 213,
+          "timestamp": "2026-01-01T00:03:33Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 14863
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.226,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 1.32,
+          "t_seconds": 226,
+          "timestamp": "2026-01-01T00:03:46Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 12187
+        },
+        {
+          "aml_review_routed": false,
+          "compliance_escalation": false,
+          "domain": "payments",
+          "event_type": "normal_traffic",
+          "fraud_score_avg": 0.207,
+          "normal_baseline_tps": 9200,
+          "phase": "recovery",
+          "surge_ratio": 1.09,
+          "t_seconds": 232,
+          "timestamp": "2026-01-01T00:03:52Z",
+          "transactions_blocked": 0,
+          "transactions_per_sec": 9994
+        }
+      ],
+      "frameworks": [
+        "NIST AI RMF MEASURE 2",
+        "EU AI Act Art. 14 (human oversight) \u2014 applies only if the fraud decisioning is high-risk under Annex III"
+      ],
+      "hv_id": "HV-03",
+      "kris_fired": [
+        {
+          "id": "GV-02",
+          "name": "Decision quality & human oversight",
+          "role": "primary"
+        },
+        {
+          "id": "DR-02",
+          "name": "Availability & resilience",
+          "role": "also"
+        },
+        {
+          "id": "GV-01",
+          "name": "Audit trail & non-repudiation",
+          "role": "also"
+        }
+      ],
+      "label": "Transaction-Velocity Surge / Fraud-Control Response",
+      "metric_provenance": "operator_calibrated",
+      "name": "Transaction-Velocity Surge / Fraud-Control Response",
+      "overall_rag": "critical",
+      "peaks": {
+        "duration_s": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "duration_s counted from the event stream (not the run parameter)",
+            "source_query": "observed duration_s over velocity_surge event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 232
+        },
+        "peak_surge_ratio": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted peak_surge_ratio",
+            "source_query": "max/agg over velocity_surge event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 8.11
+        },
+        "total_blocked_txns": {
+          "provenance": {
+            "assumptions": [],
+            "computation": "counted total_blocked_txns",
+            "source_query": "max/agg over velocity_surge event stream",
+            "source_status": "real_query_synthesized_data",
+            "source_system": "event_generator",
+            "source_timestamp": "2026-06-01T09:00:00Z"
+          },
+          "value": 81582
+        }
+      },
+      "phase_counts": {
+        "build_up": 7,
+        "cascade": 4,
+        "recovery": 12
+      },
+      "scope_note": "The simulator makes no BSA/AML compliance assertion. A transactions-per-second surge is a fraud-control signal, not a money-laundering typology; the AML element models only routing to a human review queue. SAR/CTR determinations (31 CFR 1020) are out of scope.",
+      "shape_parameter_provenance": "operator_calibrated",
+      "shape_topology_provenance": "source_derived",
+      "stream_chip": {
+        "events": 23,
+        "gen": "event_generator@seed42",
+        "realness": "SEEDED",
+        "telemetry_fields": 5,
+        "window_s": 232
+      }
+    }
+  },
+  "ia": {
+    "acts": [
+      {
+        "desc": "play the cascade \u00b7 scrub the timeline \u00b7 open the war room",
+        "id": "observatory",
+        "name": "Observatory"
+      }
+    ],
+    "default_role": "basic",
+    "headlines": {},
+    "nodes": [
+      {
+        "act": "observatory",
+        "beat": "BELIEVE",
+        "headline": "60 events replayed \u00b7 detection 12\u21922 min \u00b7 evidence ready 90\u219210 min \u00b7 posture CRITICAL \u2014 play the cascade, scrub the timeline, open the war room.",
+        "id": "kafka_lag_storm",
+        "label": "Consumer-Lag Cascade",
+        "targets": []
+      },
+      {
+        "act": "observatory",
+        "beat": "BELIEVE",
+        "headline": "13 events replayed \u00b7 detection 10\u21922 min \u00b7 evidence ready 100\u219212 min \u00b7 posture CRITICAL \u2014 play the cascade, scrub the timeline, open the war room.",
+        "id": "deployment_cascade",
+        "label": "Change-Induced Cascade",
+        "targets": []
+      },
+      {
+        "act": "observatory",
+        "beat": "BELIEVE",
+        "headline": "23 events replayed \u00b7 detection 12\u21922 min \u00b7 evidence ready 85\u219210 min \u00b7 posture CRITICAL \u2014 play the cascade, scrub the timeline, open the war room.",
+        "id": "velocity_surge",
+        "label": "Transaction-Velocity Surge / Fraud-Control Response",
+        "targets": []
+      },
+      {
+        "act": "observatory",
+        "beat": "BELIEVE",
+        "headline": "49 events replayed \u00b7 detection 3\u21922 min \u00b7 evidence ready 120\u219212 min \u00b7 posture CRITICAL \u2014 play the cascade, scrub the timeline, open the war room.",
+        "id": "identity_outage",
+        "label": "Identity-Plane Lockout",
+        "targets": []
+      }
+    ],
+    "paths": {
+      "audit": [
+        "velocity_surge",
+        "kafka_lag_storm",
+        "deployment_cascade",
+        "identity_outage"
+      ],
+      "basic": [
+        "kafka_lag_storm",
+        "deployment_cascade",
+        "velocity_surge",
+        "identity_outage"
+      ],
+      "engineering": [
+        "kafka_lag_storm",
+        "deployment_cascade",
+        "velocity_surge",
+        "identity_outage"
+      ],
+      "leadership": [
+        "kafka_lag_storm",
+        "deployment_cascade",
+        "velocity_surge",
+        "identity_outage"
+      ]
+    },
+    "source_note": "4 scenarios \u00b7 145 events \u2014 spine and headlines derive from this projection.",
+    "thesis": "The same incident, two regimes: instrumented detection flags in minutes what the manual playbook finds in tens \u2014 and has audit-ready evidence sooner by the length of a war room."
+  },
+  "meta": {
+    "artefact_version": "v2.0-hv-alpha1",
+    "counts": {
+      "events_total": 145,
+      "kris_exercised": 8,
+      "scenarios_total": 4,
+      "slo_violations": 35
+    },
+    "counts_provenance": {
+      "events_total": "real_query_synthesized_data",
+      "kris_exercised": "derived",
+      "scenarios_total": "derived",
+      "slo_violations": "real_query_synthesized_data"
+    },
+    "domain_ids": [
+      "kafka_lag_storm",
+      "deployment_cascade",
+      "velocity_surge",
+      "identity_outage"
+    ],
+    "domain_object": "scenario",
+    "generated_at": "2026-06-01T09:00:00Z",
+    "kris_exercised": [
+      "DR-01",
+      "DR-02",
+      "DR-03",
+      "DR-04",
+      "GV-01",
+      "GV-02",
+      "PL-03",
+      "PL-04"
+    ],
+    "modality": "live-simulation",
+    "overall_posture": "cascade",
+    "period": "2026-06",
+    "platform_context": {
+      "facts": [
+        "multi-cloud \u00b7 multi-region \u00b7 HA built-in \u00b7 data-localization boundaries",
+        "~500 apps on K8s across 1,000+ namespaces \u2014 the platform IS this composition",
+        "1M+ containers; ~70% destroyed and recreated daily (GitOps-driven)",
+        "20M+ policy-as-code checks/day gating IaC and deploys",
+        "Kafka cumulative pipeline 10B+ events/day ACROSS those apps; backlog peaks in the tens of millions on the largest",
+        "etcd fleets riding their size ceiling with autoscale relief \u2014 constant pressure-and-release equilibrium",
+        "100M+ active users; AI/LLM services in the customer-serving path"
+      ],
+      "note": "Scale here means COMPOSITION \u2014 hundreds of apps \u00d7 a thousand-plus namespaces \u00d7 regions \u2014 not one big number. The platform runs tight: horizontal + vertical autoscaling releases pressure as fast as it builds, which means split-brain risk and single-points-of-failure stay HIDDEN under the complexity until an incident surfaces them. That masked class is what the observatory's blind-spot (ghost) node represents.",
+      "source_status": "illustrative"
+    },
+    "run_seed": 42,
+    "schema_version": "1.0"
+  },
+  "source_note": "Input is a seeded scenario simulator (simulator/event_generator.py). Scenario provenance is split at the honest granularity: the failure-mode TOPOLOGY is source_derived from public reporting, but the specific numeric SHAPE PARAMETERS (degradation depth, phase timing) are operator_calibrated \u2014 tuned, not from any cited source. The spreadsheet-vs-signal response-time gap is likewise operator_calibrated ILLUSTRATION (labelled per value), not measured telemetry. Peaks + counts are COUNTED over the seeded event stream (peak_error_rate / peak_latency_ms saturate at an operator-set SLO ceiling). Incident-phase tags (build_up/cascade/recovery) and phase_counts are DERIVED by a trajectory heuristic over the stream (single-dominant-peak; a multi-peak real trace could mis-tag a later surge), not raw event fields. Each scenario maps to a canonical hub KRI via packages/kri-taxonomy. Reproducible under (seed, as_of).",
+  "stream_catalog": [
+    {
+      "chip": {
+        "events": 60,
+        "gen": "event_generator@seed42",
+        "realness": "SEEDED",
+        "telemetry_fields": 7,
+        "window_s": 596
+      },
+      "hv_id": "HV-01",
+      "id": "stream.kafka_lag_storm",
+      "intent": "the Kafka Lag Storm incident replay \u2014 every node value, KPI and KRI on the observatory derives from this stream",
+      "scenario": "Consumer-Lag Cascade"
+    },
+    {
+      "chip": {
+        "events": 13,
+        "gen": "event_generator@seed42",
+        "realness": "SEEDED",
+        "telemetry_fields": 5,
+        "window_s": 1461
+      },
+      "hv_id": "HV-02",
+      "id": "stream.deployment_cascade",
+      "intent": "the Deployment Cascade Failure incident replay \u2014 every node value, KPI and KRI on the observatory derives from this stream",
+      "scenario": "Change-Induced Cascade"
+    },
+    {
+      "chip": {
+        "events": 23,
+        "gen": "event_generator@seed42",
+        "realness": "SEEDED",
+        "telemetry_fields": 5,
+        "window_s": 232
+      },
+      "hv_id": "HV-03",
+      "id": "stream.velocity_surge",
+      "intent": "the Transaction-Velocity Surge / Fraud-Control Response incident replay \u2014 every node value, KPI and KRI on the observatory derives from this stream",
+      "scenario": "Transaction-Velocity Surge / Fraud-Control Response"
+    },
+    {
+      "chip": {
+        "events": 49,
+        "gen": "event_generator@seed42",
+        "realness": "SEEDED",
+        "telemetry_fields": 6,
+        "window_s": 596
+      },
+      "hv_id": "HV-04",
+      "id": "stream.identity_outage",
+      "intent": "the Identity-Plane Lockout incident replay \u2014 every node value, KPI and KRI on the observatory derives from this stream",
+      "scenario": "Identity-Plane Lockout"
+    }
+  ],
+  "telemetry_status": "synthesised"
+}

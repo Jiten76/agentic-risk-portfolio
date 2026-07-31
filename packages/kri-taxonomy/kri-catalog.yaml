@@ -1,0 +1,238 @@
+# Canonical KRI catalog — the hub's shared risk vocabulary.
+#
+# The hub defines ONE canonical vocabulary; each spoke keeps its own reviewed,
+# fact-checked taxonomy and maps onto this catalog via crosswalk.yaml (spokes are
+# NOT rewritten). Organised into 5 domain families. This supersets and extends the
+# original agent-security draft (risk-patterns.yaml → the AS/PL families) to also
+# cover the delivery-risk and governance dimensions the two spokes exercise.
+#
+# Framework refs are family/function-level and standards-accurate; per-finding
+# sub-paragraph citations live in each spoke.
+version: 1.0
+id_scheme: "<FAMILY>-NN  (FAMILY ∈ AS|DP|PL|DR|GV)"
+
+families:
+  AS:
+    name: Agent Security
+    description: Risks intrinsic to autonomous / multi-agent systems.
+    kris:
+      - id: AS-01
+        name: Agent identity & authentication
+        description: A spoofable or unauthenticated agent identity in an agent-to-agent or agent-to-tool call.
+        frameworks: ["NIST CSF 2.0 PR.AA", "NIST AI RMF GOVERN 1"]
+        iso_27001_2022: ['A.5.16', 'A.8.5']
+        nydfs_500: ['500.07', '500.12']
+        ffiec_booklets: ['Information Security']
+        nist_csf_2: ['PR.AA-01']
+        iso_27017: ['9.2']
+      - id: AS-02
+        name: Tool & capability authorization
+        description: An agent invoking a tool/target outside its granted scope or without authorization.
+        frameworks: ["NIST AI RMF GOVERN 1 / MANAGE 1", "EU AI Act Art. 14 (human oversight)"]
+        iso_27001_2022: ['A.5.15', 'A.8.3']
+        nydfs_500: ['500.07']
+        ffiec_booklets: ['Information Security']
+        nist_csf_2: ['PR.AA-05']
+        iso_27017: ['9.4']
+      - id: AS-03
+        name: Prompt injection & instruction integrity
+        description: Untrusted input hijacking agent instructions; tool-definition mutation ("rug pull").
+        frameworks: ["NIST AI 600-1 (GenAI Profile)", "OWASP LLM Top 10"]
+        iso_27001_2022: ['A.8.28']
+        nydfs_500: ['500.08']
+        ffiec_booklets: ['Development & Acquisition']
+        nist_csf_2: ['PR.PS-06']
+        iso_note: 'nearest — Annex A has no prompt-injection control; secure-coding is the closest hook (see NIST AI 600-1 for the direct treatment)'
+      - id: AS-04
+        name: Multi-agent / A2A interaction
+        description: Unbounded delegation loops, cross-framework hand-offs, cascade between agents.
+        frameworks: ["NIST AI RMF MANAGE 2"]
+        iso_27001_2022: ['A.5.14']
+        nydfs_500: ['500.08']
+        ffiec_booklets: ['Architecture, Infrastructure & Operations']
+        nist_csf_2: ['ID.AM-03']
+        iso_27017: ['13.1', 'CLD.13.1.4']
+        iso_note: 'nearest — agent-to-agent interaction maps loosely to information-transfer controls'
+      - id: AS-05
+        name: Model supply-chain integrity
+        description: Compromised or unverified model weights, adapters, or inference dependencies.
+        frameworks: ["NIST AI 600-1", "NIST CSF 2.0 GV.SC"]
+        iso_27001_2022: ['A.5.21', 'A.8.30']
+        nydfs_500: ['500.11']
+        ffiec_booklets: ['Outsourcing Technology Services']
+        nist_csf_2: ['GV.SC-04']
+        iso_27017: ['15.1']
+
+  DP:
+    name: Data Protection & Privacy
+    description: Personal-data and data-flow risks.
+    kris:
+      - id: DP-01
+        name: Unauthorized data egress & exfiltration
+        description: Data (esp. PII) leaving a trust boundary without a lawful/authorized basis.
+        frameworks: ["NIST CSF 2.0 PR.DS", "GDPR Art. 33–34 / Ch. V Art. 44–49"]
+        iso_27001_2022: ['A.8.12', 'A.8.16']
+        nydfs_500: ['500.14(a)', '500.15']
+        ffiec_booklets: ['Information Security']
+        nist_csf_2: ['PR.DS-02', 'DE.CM-01']
+        iso_27017: ['12.4', 'CLD.12.4.5']
+        iso_27018: ['A.9.1']
+      - id: DP-02
+        name: Sensitive data / PII in output
+        description: PII detected in an agent's output or a data-handling action.
+        frameworks: ["GDPR Art. 5 / Art. 32", "CCPA §1798.100"]
+        iso_27001_2022: ['A.8.11', 'A.5.34']
+        nydfs_500: ['500.15']
+        ffiec_booklets: ['Information Security']
+        nist_csf_2: ['PR.DS-01']
+        iso_27018: ['A.5.1']
+      - id: DP-03
+        name: Consent & lawful basis
+        description: Personal data processed without a consent record or other lawful basis.
+        frameworks: ["GDPR Art. 6(1)(a)", "CCPA §1798.120"]
+        iso_27001_2022: ['A.5.34', 'A.5.31']
+        ffiec_booklets: ['Management']
+        nist_csf_2: ['GV.OC-03']
+        iso_27018: ['A.2.1', 'A.7.1']
+      - id: DP-04
+        name: Retention & data minimization
+        description: Data kept beyond necessity / storage-limitation breach.
+        frameworks: ["GDPR Art. 5(1)(e)"]
+        iso_27001_2022: ['A.8.10', 'A.5.33']
+        nydfs_500: ['500.13(b)']
+        ffiec_booklets: ['Information Security']
+        nist_csf_2: ['ID.AM-08']
+        iso_27018: ['A.4.1', 'A.4.2']
+      - id: DP-05
+        name: Data lineage & provenance
+        description: Broken lineage / inability to trace which data moved where (incl. backup/restore integrity).
+        frameworks: ["ISO/IEC 27001:2022 A.8.13 / A.8.15", "NIST CSF 2.0 PR.DS"]
+        iso_27001_2022: ['A.5.33', 'A.8.15']
+        nydfs_500: ['500.06']
+        ffiec_booklets: ['Audit']
+        nist_csf_2: ['ID.AM-07']
+        iso_27017: ['12.4']
+        iso_note: 'lineage/provenance is records+logging territory; no single Annex A control owns it'
+
+  PL:
+    name: Platform & Infrastructure
+    description: Cloud-native platform, workload, and access-control risks.
+    kris:
+      - id: PL-01
+        name: Container & workload integrity
+        description: Unsigned/mutable images, drift from a hardened baseline.
+        frameworks: ["CIS Benchmarks", "NIST CSF 2.0 PR.PS"]
+        iso_27001_2022: ['A.8.9', 'A.8.19']
+        nydfs_500: ['500.08']
+        ffiec_booklets: ['Architecture, Infrastructure & Operations']
+        nist_csf_2: ['PR.PS-01']
+        iso_27017: ['CLD.9.5.2', '12.2']
+      - id: PL-02
+        name: Kubernetes admission & runtime policy
+        description: Policy-as-code gaps — admission bypass, drift from Pod Security Standards.
+        frameworks: ["Kubernetes Pod Security Standards", "CIS Kubernetes Benchmark"]
+        iso_27001_2022: ['A.8.9']
+        nydfs_500: ['500.03', '500.08']
+        ffiec_booklets: ['Architecture, Infrastructure & Operations']
+        nist_csf_2: ['PR.PS-01']
+        iso_27017: ['CLD.12.1.5']
+        iso_note: 'admission/runtime policy-as-code reads as configuration management in Annex A terms'
+      - id: PL-03
+        name: IAM & secrets management
+        description: Standing privilege, orphaned accounts, weak MFA coverage, exposed secrets.
+        frameworks: ["NIST SP 800-63B", "NIST CSF 2.0 PR.AA"]
+        iso_27001_2022: ['A.5.18', 'A.8.2']
+        nydfs_500: ['500.07', '500.12']
+        ffiec_booklets: ['Information Security']
+        nist_csf_2: ['PR.AA-01', 'PR.AA-05']
+        iso_27017: ['9.2', '9.4']
+      - id: PL-04
+        name: Capacity & performance
+        description: Saturation / latency degradation from insufficient headroom.
+        frameworks: ["Google SRE 'Four Golden Signals'", "NIST CSF 2.0 PR.IR"]
+        iso_27001_2022: ['A.8.6']
+        ffiec_booklets: ['Business Continuity Management', 'Architecture, Infrastructure & Operations']
+        nist_csf_2: ['PR.IR-04']
+        iso_27017: ['12.1']
+
+  DR:
+    name: Delivery & Reliability
+    description: Change-delivery and operational-reliability risks.
+    kris:
+      - id: DR-01
+        name: Change & deploy gating
+        description: Ungated/high-failure-rate releases; emergency/unreviewed change.
+        frameworks: ["DORA (change failure rate)", "NIST CSF 2.0 ID.IM / PR.PS"]
+        iso_27001_2022: ['A.8.32']
+        nydfs_500: ['500.08']
+        ffiec_booklets: ['Architecture, Infrastructure & Operations', 'Development & Acquisition']
+        nist_csf_2: ['PR.PS-01']
+        iso_27017: ['12.1']
+      - id: DR-02
+        name: Availability & resilience
+        description: SLO/error-budget breach; single-region or single-point failure.
+        frameworks: ["Google SRE (SLO/error budget)", "NIST CSF 2.0 RC.RP"]
+        iso_27001_2022: ['A.8.14', 'A.5.29']
+        nydfs_500: ['500.16(a)']
+        ffiec_booklets: ['Business Continuity Management']
+        nist_csf_2: ['PR.IR-03']
+        iso_27017: ['17.2']
+      - id: DR-03
+        name: Incident & recovery
+        description: Repeat incidents, RTO breach, weak post-incident learning.
+        frameworks: ["NIST SP 800-61", "NIST CSF 2.0 RS / RC"]
+        iso_27001_2022: ['A.5.24', 'A.5.26', 'A.5.30']
+        nydfs_500: ['500.16']
+        ffiec_booklets: ['Business Continuity Management', 'Information Security']
+        nist_csf_2: ['RS.MA-01', 'RC.RP-01']
+        iso_27017: ['16.1']
+      - id: DR-04
+        name: Observability & detection
+        description: Detection gaps — poor alert coverage, high mean-time-to-detect.
+        frameworks: ["NIST CSF 2.0 DE.CM", "Google SRE (alerting on SLOs)"]
+        iso_27001_2022: ['A.8.16', 'A.8.15']
+        nydfs_500: ['500.14(a)']
+        ffiec_booklets: ['Information Security']
+        nist_csf_2: ['DE.CM-01', 'DE.CM-09']
+        iso_27017: ['12.4', 'CLD.12.4.5']
+
+  GV:
+    name: Governance & Assurance
+    description: Cross-cutting governance, oversight, and assurance risks.
+    kris:
+      - id: GV-01
+        name: Audit trail & non-repudiation
+        description: Missing or tamper-evident-lacking record of who did what to which data.
+        frameworks: ["ISO/IEC 27001:2022 A.8.15", "SOC 2 CC7.x", "NIST CSF 2.0 GV"]
+        iso_27001_2022: ['A.8.15', 'A.5.33']
+        nydfs_500: ['500.06']
+        ffiec_booklets: ['Audit']
+        nist_csf_2: ['PR.PS-04']
+        iso_27017: ['12.4']
+      - id: GV-02
+        name: Decision quality & human oversight
+        description: Low-confidence automated decisions without human-in-the-loop review.
+        frameworks: ["NIST AI RMF MEASURE 2", "EU AI Act Art. 14"]
+        iso_27001_2022: ['A.5.3']
+        nydfs_500: ['500.04(b)']
+        ffiec_booklets: ['Management']
+        nist_csf_2: ['GV.RM-01', 'GV.OC-01']
+        iso_note: 'nearest — human-in-the-loop decision quality has no direct Annex A control; segregation-of-duties is the adjacent discipline (EU AI Act Art. 14 is the direct one)'
+      - id: GV-03
+        name: Vulnerability & patch management
+        description: Unremediated known-exploited or aged vulnerabilities.
+        frameworks: ["CISA BOD 19-02 / BOD 22-01 (KEV)", "NIST CSF 2.0 ID.RA"]
+        iso_27001_2022: ['A.8.8']
+        nydfs_500: ['500.05(a)(2)']
+        ffiec_booklets: ['Information Security']
+        nist_csf_2: ['ID.RA-01']
+        iso_27017: ['12.6']
+      - id: GV-04
+        name: Third-party & vendor / supply-chain risk
+        description: SBOM gaps, unreviewed vendor tiers, third-party agent risk.
+        frameworks: ["NIST CSF 2.0 GV.SC", "SOC 2 CC9.2"]
+        iso_27001_2022: ['A.5.19', 'A.5.20', 'A.5.22']
+        nydfs_500: ['500.11']
+        ffiec_booklets: ['Outsourcing Technology Services']
+        nist_csf_2: ['GV.SC-06', 'GV.SC-07']
+        iso_27017: ['15.1', 'CLD.6.3.1']

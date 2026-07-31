@@ -1,0 +1,570 @@
+{
+ "version": "1.0",
+ "spec": "E1 — the shared-dependency layer. First-class common-cause nodes whose degradation or loss fires MANY risk patterns in the same trial-year. This is the axis pattern-to-pattern cascade edges cannot express: an AWS regional failure, a customer-auth-plane outage, an etcd quorum loss are not contagion BETWEEN risks — they are one structural event underneath several risks at once.",
+ "source_status": "operator_calibrated",
+ "provenance_note": "Annual event frequencies are OPERATOR JUDGMENT anchored to named public incidents — a synthetic demonstrator has no internal dependency-failure history to fit. Fan-out maps (which patterns fire, how hard) encode platform-archetype topology: multi-region, ~500 K8s apps, first-party customer identity, external payment rails. Production replaces frequencies with fitted internal/industry data and fan-outs with the real service-dependency graph. r29 RECALIBRATION: fan-out severity multipliers capped at 2.0 (were up to 3.0) — pattern severity distributions are already material-incident calibrated with their own lognormal tails; multipliers beyond 2 double-count tail mass the distribution carries. Dependency-injected draws are ALSO excluded from the E5 co-movement multiplier for the same double-counting reason. r29: induced_incidents capped at 1 — one structural event yields ONE material incident per affected pattern (the multi-PATTERN spread in the same trial-year is the common-cause mechanism; multi-count per pattern double-counted the event against pattern distributions that already price severity).",
+ "nodes": [
+  {
+   "id": "cloud_region",
+   "name": "Primary cloud region",
+   "layer": "infrastructure",
+   "containment_boundary": "region",
+   "mitigation_note": "Multi-region HA absorbs part of a loss event (the recover-function control row already carries the 'Regional-failure tabletop' gap); the loss frequency below is the RESIDUAL broad-impact rate after that architecture, not the raw provider rate.",
+   "annual_freq": {
+    "degraded": 0.8,
+    "loss": 0.08
+   },
+   "fan_out": {
+    "loss": [
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 2.0
+     },
+     {
+      "pattern_id": "RP-11",
+      "induced_incidents": 1,
+      "severity_mult": 1.6
+     },
+     {
+      "pattern_id": "RP-12",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     },
+     {
+      "pattern_id": "RP-07",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ],
+    "degraded": [
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     },
+     {
+      "pattern_id": "RP-11",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ]
+   },
+   "anchors": [
+    {
+     "name": "AWS us-east-1 outage",
+     "date": "2021-12-07",
+     "summary": "Internal-network device congestion took down a broad slice of us-east-1 for ~7 hours; control-plane APIs unavailable, downstream SaaS worldwide degraded."
+    },
+    {
+     "name": "AWS us-east-1 Lambda/STS event",
+     "date": "2023-06-13",
+     "summary": "Multi-hour us-east-1 degradation of Lambda, STS and console — auth-adjacent blast radius beyond one service."
+    },
+    {
+     "name": "AWS S3 us-east-1 outage",
+     "date": "2017-02-28",
+     "summary": "S3 disruption cascaded into thousands of dependent services — the canonical shared-region common cause."
+    }
+   ],
+   "freq_basis": "loss 0.08/yr ≈ 1-in-12yr RESIDUAL broad-impact rate after multi-region HA — major-provider regional events run near-annual industry-wide (us-east-1 2021/2023, S3 2017); the judgment is the HA haircut, not the provider rate. degraded 0.8/yr ≈ the near-annual class, embedded in base pattern rates per dep_attribution. OPERATOR_CALIBRATED: rates are judgment anchored to the named public incidents; production fits from internal/industry dependency-failure history.",
+   "failover_failure_prob": 0.25,
+   "failover_basis": "E5 — the multi-region term: when the region loss fires, with p=0.25 the FAILOVER ITSELF fails (partial DNS cutover, warm-standby capacity shortfall, split-brain on promotion) and the event ESCALATES ×1.5 across its fan-out. Basis: the recover-function's own DR-exercise rows credit failover well below 100%; GitHub 2018-10-21 (failover produced divergent writes), TSB 2018 (migration cutover failure class). OPERATOR_CALIBRATED; production fits from live failover exercise pass rates."
+  },
+  {
+   "id": "customer_identity_plane",
+   "name": "Customer identity & session plane (first-party)",
+   "layer": "identity",
+   "containment_boundary": "global",
+   "mitigation_note": "First-party authN/session/token issuance for the platform's OWN customers — not workforce SSO. Loss locks customers out of accounts and funds in real time; degraded verification opens the account-takeover / recovery-abuse surface while support channels saturate. E2 adds the BLINDNESS mode — the plane is UP but verification is degraded (weakened fallback auth, degraded risk-scoring, session-validation failures): an account-takeover / recovery-abuse wave, not an outage. Distinct from routine degradation (which stays embedded in base rates per dep_attribution): blindness is a structural common-cause state across every login at once.",
+   "annual_freq": {
+    "degraded": 1.2,
+    "loss": 0.15,
+    "blindness": 0.2
+   },
+   "fan_out": {
+    "loss": [
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.8
+     },
+     {
+      "pattern_id": "RP-05",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     },
+     {
+      "pattern_id": "RP-06",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     },
+     {
+      "pattern_id": "RP-12",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     }
+    ],
+    "degraded": [
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     },
+     {
+      "pattern_id": "RP-05",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ],
+    "blindness": [
+     {
+      "pattern_id": "RP-05",
+      "induced_incidents": 1,
+      "severity_mult": 1.6
+     },
+     {
+      "pattern_id": "RP-06",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     },
+     {
+      "pattern_id": "RP-08",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     }
+    ]
+   },
+   "anchors": [
+    {
+     "name": "Auth0 global outage",
+     "date": "2021-04-20",
+     "summary": "Customer-identity-as-a-service outage — every relying application's login broke simultaneously; the pure form of this node's loss mode."
+    },
+    {
+     "name": "Retail-brokerage login failures under volume",
+     "date": "2021-01-27",
+     "summary": "Multiple major retail brokerages' customer login/session planes degraded or failed during meme-stock volume spikes — customers locked out of positions at the worst possible moment; regulatory and trust consequences followed."
+    },
+    {
+     "name": "Coinbase outage during volatility",
+     "date": "2021-05-19",
+     "summary": "Customer access failures during a market-wide crypto drawdown — the correlation between load, volatility, and identity-plane failure is the point."
+    },
+    {
+     "name": "0ktapus / Twilio smishing wave",
+     "date": "2022-08-04",
+     "summary": "One phishing kit against SMS-OTP verification rolled through 130+ companies — degraded verification exploited industrially, platform-wide, at once."
+    },
+    {
+     "name": "Okta support-system session-token replay",
+     "date": "2023-10-20",
+     "summary": "Stolen session tokens bypassed authentication entirely — the plane was up; the verification was blind."
+    }
+   ],
+   "freq_basis": "loss 0.15/yr ≈ 1-in-7yr full customer-auth outage for a first-party plane under volatility load (Auth0 2021 for the vendor class; 2021-01 brokerage login failures for the first-party-under-load class). blindness 0.2/yr ≈ 1-in-5yr platform-wide degraded-verification state (0ktapus 2022 rolled 130+ firms in one campaign). OPERATOR_CALIBRATED: rates are judgment anchored to the named public incidents; production fits from internal/industry dependency-failure history."
+  },
+  {
+   "id": "api_registry",
+   "name": "API registry / gateway & service discovery",
+   "layer": "platform-control",
+   "containment_boundary": "global",
+   "mitigation_note": "The service-to-service spine: gateway config, discovery, routing, internal authZ between services. A bad push here is a single event that makes MANY healthy services unreachable or mis-routed at once; deploys and rollbacks stall because the control path itself is degraded.",
+   "annual_freq": {
+    "degraded": 0.6,
+    "loss": 0.1
+   },
+   "fan_out": {
+    "loss": [
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.6
+     },
+     {
+      "pattern_id": "RP-01",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     },
+     {
+      "pattern_id": "RP-11",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     },
+     {
+      "pattern_id": "RP-13",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ],
+    "degraded": [
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     },
+     {
+      "pattern_id": "RP-11",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ]
+   },
+   "anchors": [
+    {
+     "name": "Fastly global outage",
+     "date": "2021-06-08",
+     "summary": "One customer config push triggered a latent bug — most of the global edge went down in minutes; gateway-plane loss in its purest public form."
+    },
+    {
+     "name": "Cloudflare WAF regex incident",
+     "date": "2019-07-02",
+     "summary": "A single rule deployment consumed global CPU at the gateway layer — worldwide 502s; the control path took down the data path."
+    },
+    {
+     "name": "Cloudflare API/dashboard outage",
+     "date": "2023-11-02",
+     "summary": "Control-plane datacenter failure degraded the API/config plane for ~2 days — services ran, but nothing could be changed, scaled, or fixed."
+    }
+   ],
+   "freq_basis": "loss 0.1/yr ≈ 1-in-10yr bad-push/config event at the gateway plane (Fastly 2021 and Cloudflare 2019 were single-push global events; per-firm rate is the judgment). OPERATOR_CALIBRATED: rates are judgment anchored to the named public incidents; production fits from internal/industry dependency-failure history."
+  },
+  {
+   "id": "k8s_control_plane",
+   "name": "Kubernetes control plane / etcd",
+   "layer": "platform-control",
+   "containment_boundary": "cell",
+   "mitigation_note": "etcd quorum or apiserver loss: running pods keep serving (data plane persists) but scheduling, scaling, self-healing, admission and deploys stop — degradation compounds with every node failure the platform can no longer route around. Cell/multi-cluster architecture bounds one cluster's blast radius; the frequency below is per-platform (any Tier-1-carrying cluster).",
+   "annual_freq": {
+    "degraded": 0.7,
+    "loss": 0.07
+   },
+   "fan_out": {
+    "loss": [
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.6
+     },
+     {
+      "pattern_id": "RP-11",
+      "induced_incidents": 1,
+      "severity_mult": 1.6
+     },
+     {
+      "pattern_id": "RP-01",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     },
+     {
+      "pattern_id": "RP-12",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     }
+    ],
+    "degraded": [
+     {
+      "pattern_id": "RP-11",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     },
+     {
+      "pattern_id": "RP-01",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ]
+   },
+   "anchors": [
+    {
+     "name": "Reddit Pi-Day outage",
+     "date": "2023-03-14",
+     "summary": "K8s upgrade broke a legacy node-route dependency — control-plane confusion took the site down for hours; the public postmortem is a canonical control-plane failure study."
+    },
+    {
+     "name": "Datadog multi-region outage",
+     "date": "2023-03-08",
+     "summary": "An OS auto-update rebooted nodes fleet-wide across regions and clouds — the orchestration layer itself became the common cause across supposedly independent regions."
+    },
+    {
+     "name": "GitHub metadata-store partition",
+     "date": "2018-10-21",
+     "summary": "43 seconds of network partition in the coordination layer → ~24 hours of degraded service — coordination-plane loss outlasts the trigger by orders of magnitude."
+    }
+   ],
+   "freq_basis": "loss 0.07/yr ≈ 1-in-14yr quorum/apiserver loss on a Tier-1-carrying cluster, per platform across the cell fleet (Reddit 2023 and Datadog 2023 are the observed class; multi-cluster isolation is why loss is rarer than degraded 0.7/yr). OPERATOR_CALIBRATED: rates are judgment anchored to the named public incidents; production fits from internal/industry dependency-failure history."
+  },
+  {
+   "id": "workforce_idp",
+   "name": "Workforce identity provider (SSO)",
+   "layer": "identity",
+   "containment_boundary": "global",
+   "mitigation_note": "Engineer/operator SSO. Distinct failure content from the customer plane: blast radius is internal tooling AND the response function itself — responders locked out of the consoles they need to fix the outage. E2 models the recursion as a mechanism: an active loss multiplies EVERY severity that trial-year ×1.25 (see response_recursion), on top of the RP-12 injection.",
+   "annual_freq": {
+    "degraded": 0.5,
+    "loss": 0.05
+   },
+   "fan_out": {
+    "loss": [
+     {
+      "pattern_id": "RP-05",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     },
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     },
+     {
+      "pattern_id": "RP-12",
+      "induced_incidents": 1,
+      "severity_mult": 1.6
+     }
+    ],
+    "degraded": [
+     {
+      "pattern_id": "RP-05",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ]
+   },
+   "anchors": [
+    {
+     "name": "Okta support-system breach",
+     "date": "2023-10-20",
+     "summary": "Compromise at the workforce-identity vendor propagated to downstream customers — the IdP as shared attack surface, not just shared availability."
+    },
+    {
+     "name": "Azure AD global outage",
+     "date": "2021-03-15",
+     "summary": "Authentication outage locked users out of M365 and dependent apps for hours — workforce identity as a single global choke point."
+    },
+    {
+     "name": "Okta/Lapsus$ incident",
+     "date": "2022-03-22",
+     "summary": "Third-party support-engineer compromise at the IdP — weeks of downstream customer investigation for one vendor event."
+    },
+    {
+     "name": "Meta global outage (BGP + internal lockout)",
+     "date": "2021-10-04",
+     "summary": "The outage locked engineers out of the very tools and buildings needed to fix it — the definitive response-recursion event: the fix path shared the failed dependency."
+    }
+   ],
+   "response_recursion": {
+    "severity_mult_all": 1.25,
+    "note": "E2 — the recursion, as a mechanism: a trial-year containing a workforce-IdP LOSS multiplies the severity of EVERY incident that year ×1.25 — responders are locked out of the consoles they need to respond with, so everything that goes wrong that year goes wrong for longer. Operator judgment, anchored, bounded by the recursion_off lever."
+   },
+   "freq_basis": "loss 0.05/yr ≈ 1-in-20yr full workforce-SSO outage (Azure AD 2021 class); the compromise anchors (Okta 2022/2023) inform severity and the recursion, not this availability rate. OPERATOR_CALIBRATED: rates are judgment anchored to the named public incidents; production fits from internal/industry dependency-failure history."
+  },
+  {
+   "id": "primary_datastore",
+   "name": "Primary transactional datastore cluster",
+   "layer": "data",
+   "containment_boundary": "region",
+   "mitigation_note": "The ledger/order/account store of record. Loss is availability plus INTEGRITY exposure — split-brain and mid-failover writes are how an availability event becomes a data event; reconciliation cost persists long after service restores.",
+   "annual_freq": {
+    "degraded": 0.5,
+    "loss": 0.06
+   },
+   "fan_out": {
+    "loss": [
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.8
+     },
+     {
+      "pattern_id": "RP-06",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     },
+     {
+      "pattern_id": "RP-12",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     }
+    ],
+    "degraded": [
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ]
+   },
+   "anchors": [
+    {
+     "name": "GitHub MySQL failover split",
+     "date": "2018-10-21",
+     "summary": "Cross-region failover produced divergent writes — restoring consistency, not connectivity, drove the ~24h impact."
+    },
+    {
+     "name": "AWS DynamoDB metadata outage",
+     "date": "2015-09-20",
+     "summary": "Storage-layer metadata service degradation cascaded into dependent AWS services region-wide."
+    }
+   ],
+   "freq_basis": "loss 0.06/yr ≈ 1-in-16yr store-of-record failover failure (GitHub 2018 split-brain, DynamoDB 2015) — rarer than region loss because the store rides ON the region node. OPERATOR_CALIBRATED: rates are judgment anchored to the named public incidents; production fits from internal/industry dependency-failure history.",
+   "failover_failure_prob": 0.3,
+   "failover_basis": "E5: store-of-record promotion is the hardest failover in the platform — with p=0.3 a loss event escalates ×1.5 (split-brain, divergent writes, reconciliation tail: GitHub 2018-10-21 is the canonical case — 43s of partition, ~24h of impact BECAUSE the failover path itself misbehaved). OPERATOR_CALIBRATED."
+  },
+  {
+   "id": "payments_processor",
+   "name": "External payments processor / card rails",
+   "layer": "external-vendor",
+   "containment_boundary": "global",
+   "mitigation_note": "The money movement path the platform does not own. Loss means customer-visible payment failure with zero internal remediation lever — pure third-party concentration; the org_context already records that funding a second provider is a board-appetite question, not a TRC ticket.",
+   "annual_freq": {
+    "degraded": 0.8,
+    "loss": 0.1
+   },
+   "fan_out": {
+    "loss": [
+     {
+      "pattern_id": "RP-07",
+      "induced_incidents": 1,
+      "severity_mult": 1.6
+     },
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.6
+     },
+     {
+      "pattern_id": "RP-12",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ],
+    "degraded": [
+     {
+      "pattern_id": "RP-07",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     },
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ]
+   },
+   "anchors": [
+    {
+     "name": "Visa Europe outage",
+     "date": "2018-06-01",
+     "summary": "A hardware failure at the card network declined a large share of European transactions for hours — merchants and issuers had no lever at all."
+    },
+    {
+     "name": "UK Faster Payments/bank rail incidents",
+     "date": "2018-04-20",
+     "summary": "TSB migration failure class — payment-rail unavailability with days-long tail and regulatory aftermath."
+    }
+   ],
+   "freq_basis": "loss 0.1/yr ≈ 1-in-10yr full rail outage from the firm's seat (Visa Europe 2018, TSB 2018 class) — external, so no architecture haircut applies; degraded 0.8/yr brownouts are embedded in base RP-07 rates. OPERATOR_CALIBRATED: rates are judgment anchored to the named public incidents; production fits from internal/industry dependency-failure history."
+  },
+  {
+   "id": "security_agent_vendor",
+   "name": "Security agent / endpoint vendor channel",
+   "layer": "external-vendor",
+   "containment_boundary": "global",
+   "mitigation_note": "The trusted agent with fleet-wide reach and auto-update rights — a vendor content push is functionally an unreviewed global deploy. Rare, but the severity profile is the worst in the catalog because trust plus reach equals blast radius.",
+   "annual_freq": {
+    "degraded": 0.3,
+    "loss": 0.04
+   },
+   "fan_out": {
+    "loss": [
+     {
+      "pattern_id": "RP-01",
+      "induced_incidents": 1,
+      "severity_mult": 1.8
+     },
+     {
+      "pattern_id": "RP-02",
+      "induced_incidents": 1,
+      "severity_mult": 1.6
+     },
+     {
+      "pattern_id": "RP-07",
+      "induced_incidents": 1,
+      "severity_mult": 1.3
+     }
+    ],
+    "degraded": [
+     {
+      "pattern_id": "RP-07",
+      "induced_incidents": 1,
+      "severity_mult": 1.0
+     }
+    ]
+   },
+   "anchors": [
+    {
+     "name": "CrowdStrike Falcon content update",
+     "date": "2024-07-19",
+     "summary": "One trusted security-vendor content push blue-screened ~8.5M Windows hosts globally — airlines, hospitals, banks; the definitive security-vendor-as-SPOF event."
+    },
+    {
+     "name": "SolarWinds Orion compromise",
+     "date": "2020-12-13",
+     "summary": "The same trusted-channel reach exploited deliberately — the update path as supply-chain attack surface."
+    }
+   ],
+   "freq_basis": "loss 0.04/yr ≈ 1-in-25yr catastrophic trusted-channel push (CrowdStrike 2024 is the single observed instance at full severity; SolarWinds 2020 for the deliberate form) — rarest in the catalog, worst severity profile. OPERATOR_CALIBRATED: rates are judgment anchored to the named public incidents; production fits from internal/industry dependency-failure history."
+  }
+ ],
+ "domain_dependencies": {
+  "trading": [
+   "cloud_region",
+   "customer_identity_plane",
+   "api_registry",
+   "k8s_control_plane",
+   "primary_datastore"
+  ],
+  "payments": [
+   "cloud_region",
+   "customer_identity_plane",
+   "api_registry",
+   "k8s_control_plane",
+   "primary_datastore",
+   "payments_processor"
+  ],
+  "custody": [
+   "cloud_region",
+   "customer_identity_plane",
+   "k8s_control_plane",
+   "primary_datastore",
+   "payments_processor"
+  ],
+  "identity": [
+   "cloud_region",
+   "customer_identity_plane",
+   "api_registry",
+   "workforce_idp"
+  ],
+  "platform": [
+   "cloud_region",
+   "api_registry",
+   "k8s_control_plane",
+   "workforce_idp",
+   "security_agent_vendor"
+  ]
+ },
+ "deferred_nodes": {
+  "note": "DECLARED DEFERRALS (external finding, Claude round-27: 'a catalog whose flagship mechanism cites a DNS incident while lacking a DNS node is a coherence seam'): the 8 shipped nodes are the starter set. Deferred node classes, named so their absence is a decision, not a blind spot: dns_resolution (the Meta 2021-10-04 anchor was a BGP/DNS event — its LOCKOUT mechanics are what workforce_idp carries; the routing-plane loss mode itself is deferred and partially folded into cloud_region/api_registry fan-outs), cert_pki_expiry (a top real-world cause class), observability_stack (the reflexive blindness dependency — when monitoring dies every level-KRI goes dark, RP-14's own thesis pointed at the model's instrumentation), kms_secrets, cdn_edge, service_mesh, message_bus, network_fabric. E5 adds tenant_isolation to the deferrals: account/tenant blast-radius topology (one tenant's failure crossing an isolation boundary) is a distinct axis from the shared planes priced here; the containment_boundary fields on nodes and edges carry the coarse version.",
+  "classes": [
+   "dns_resolution",
+   "cert_pki_expiry",
+   "observability_stack",
+   "kms_secrets",
+   "cdn_edge",
+   "service_mesh",
+   "message_bus",
+   "network_fabric",
+   "tenant_isolation"
+  ]
+ }
+}

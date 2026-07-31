@@ -1,0 +1,174 @@
+{
+  "version": "1.0",
+  "port_tag": "Structure from the operator's production 2LoD practice; all names, values, and dates seeded.",
+  "journey": {
+    "id": "J-SIM-001",
+    "name": "Instant Transfer",
+    "breadcrumb": ["Consumer Platform", "Money Movement", "Instant Transfer"],
+    "criticality": "Critical",
+    "posture": "2LoD independent observation · no findings · no verdicts · seeded telemetry",
+    "sor_note": "The GRC system of record retains all ratings; this surface is a read-only lens on signals the platform already runs — no new work, no rating changes.",
+    "description": "A customer moves money from their account to an external destination in near-real-time. The one journey a board can ask about in one sentence: can customers move money, how fast, and what is riding on the path?",
+    "slo": {
+      "end_to_end_p95_target_ms": 5000,
+      "availability_target_pct": 99.9,
+      "basis": "seeded targets in the plausible band for consumer instant-transfer products; production replaces with the journey's real SLO record"
+    }
+  },
+  "stages": [
+    {
+      "id": "initiate",
+      "name": "Initiate",
+      "question": "Can the customer start a transfer?",
+      "services": ["edge-gateway", "transfer-api"]
+    },
+    {
+      "id": "risk-check",
+      "name": "Risk check",
+      "question": "Do we trust this transfer and this customer, right now?",
+      "services": ["risk-scorer", "identity-verifier"]
+    },
+    {
+      "id": "ledger",
+      "name": "Ledger",
+      "question": "Did the money move exactly once, in order, on our books?",
+      "services": ["ledger-writer", "event-bus"]
+    },
+    {
+      "id": "rails",
+      "name": "Rails",
+      "question": "Did the external rail accept it?",
+      "services": ["settlement-engine", "rails-partner"]
+    },
+    {
+      "id": "settle",
+      "name": "Settle & reconcile",
+      "question": "Does everyone — customer, ledger, partner — agree it happened?",
+      "services": ["notify-svc", "recon-batch"]
+    }
+  ],
+  "services": [
+    {
+      "id": "edge-gateway",
+      "stage": "initiate",
+      "layer": "edge",
+      "owner": "team-platform-runtime",
+      "signals": ["sim.rps_edge", "sim.p99_edge"],
+      "patterns": ["RP-02"],
+      "dependency_nodes": ["api_registry"],
+      "non_claim": null
+    },
+    {
+      "id": "transfer-api",
+      "stage": "initiate",
+      "layer": "app",
+      "owner": "team-money-movement",
+      "signals": ["sim.p99_transfer_api", "sim.error_rate_transfer_api"],
+      "patterns": ["RP-02", "RP-12"],
+      "dependency_nodes": [],
+      "non_claim": null
+    },
+    {
+      "id": "risk-scorer",
+      "stage": "risk-check",
+      "layer": "app",
+      "owner": "team-money-movement",
+      "signals": ["sim.p99_risk_score", "sim.decision_conf_p5"],
+      "patterns": ["RP-05"],
+      "dependency_nodes": [],
+      "non_claim": null
+    },
+    {
+      "id": "identity-verifier",
+      "stage": "risk-check",
+      "layer": "app",
+      "owner": "team-identity",
+      "signals": ["sim.auth_failure_rate", "sim.p99_identity"],
+      "patterns": ["RP-08"],
+      "dependency_nodes": ["customer_identity_plane"],
+      "non_claim": null
+    },
+    {
+      "id": "ledger-writer",
+      "stage": "ledger",
+      "layer": "data",
+      "owner": "team-money-movement",
+      "signals": ["sim.p99_ledger_write", "sim.write_retry_rate"],
+      "patterns": ["RP-14", "RP-01"],
+      "dependency_nodes": ["primary_datastore"],
+      "non_claim": null
+    },
+    {
+      "id": "event-bus",
+      "stage": "ledger",
+      "layer": "messaging",
+      "owner": "team-platform-runtime",
+      "signals": ["sim.consumer_lag_p95", "sim.publish_p99"],
+      "patterns": ["RP-11", "RP-14"],
+      "dependency_nodes": ["k8s_control_plane"],
+      "non_claim": null
+    },
+    {
+      "id": "settlement-engine",
+      "stage": "rails",
+      "layer": "app",
+      "owner": "team-treasury-eng",
+      "signals": ["sim.p99_settle", "sim.settle_queue_depth"],
+      "patterns": ["RP-04", "RP-10"],
+      "dependency_nodes": ["payments_processor"],
+      "non_claim": null
+    },
+    {
+      "id": "rails-partner",
+      "stage": "rails",
+      "layer": "external",
+      "owner": "team-treasury-eng",
+      "signals": ["sim.rail_ack_latency"],
+      "patterns": ["RP-10"],
+      "dependency_nodes": ["payments_processor"],
+      "non_claim": "External rail — unobservable beyond acknowledgment. No internal-telemetry claim is made for the partner's side of this hop."
+    },
+    {
+      "id": "notify-svc",
+      "stage": "settle",
+      "layer": "app",
+      "owner": "team-platform-runtime",
+      "signals": ["sim.notify_send_rate"],
+      "patterns": ["RP-09"],
+      "dependency_nodes": [],
+      "non_claim": null
+    },
+    {
+      "id": "recon-batch",
+      "stage": "settle",
+      "layer": "data",
+      "owner": "team-treasury-eng",
+      "signals": ["sim.recon_break_count"],
+      "patterns": ["RP-09", "RP-13"],
+      "dependency_nodes": [],
+      "non_claim": null
+    }
+  ],
+  "incident": {
+    "id": "SIM-0531",
+    "name": "event-bus consumer-lag storm",
+    "date": "2026-05-31",
+    "window_et": "09:40–11:40",
+    "stage": "ledger",
+    "seat_service": "event-bus",
+    "participants": ["event-bus", "ledger-writer", "transfer-api", "settlement-engine", "edge-gateway"],
+    "narrative_steps": [
+      {"step": 1, "label": "Local lag", "text": "event-bus consumer lag builds past its seeded baseline — the work-queue solvency question opens (RP-11's territory).", "signal": "sim.consumer_lag_p95", "do_not_overclaim": "Lag alone does not identify an originating service; the seed of the buildup is not claimed."},
+      {"step": 2, "label": "Business latency", "text": "ledger-writer p99 degrades roughly five-fold as writes queue behind the lag — the customer-visible stage of the path slows.", "signal": "sim.p99_ledger_write", "do_not_overclaim": "Correlation in the same window; per-request causality is not traced."},
+      {"step": 3, "label": "Retry amplification", "text": "write retries climb — retry traffic feeds the queue it is stuck behind: the amplification loop the engine prices as load-dependent induction (β).", "signal": "sim.write_retry_rate", "do_not_overclaim": "Retry-fuel share of total lag is not decomposed."},
+      {"step": 4, "label": "Self-recovery", "text": "The loop drains and every signal returns to baseline within ~2 hours. No customer-visible failure, no page, no ticket — the self-concealing shape. Divergence signals, not level metrics, are what would have caught it early.", "signal": "sim.consumer_lag_p95", "do_not_overclaim": "Self-recovery is observed in the seeded series; operator intervention absence is a property of the simulation, not a claim about production behavior."}
+    ],
+    "so_what": "One seeded event, four steps, zero alerts — the journey's riskiest hour is invisible to level-based monitoring. This is the concrete, dated form of the abstract number the workbench prices.",
+    "hv_cross_reference": {"kafka_lag": "war-room view of this incident class", "identity_outage": "the risk-check stage dark — the journey's other structural failure shape"}
+  },
+  "chain_caveats": {
+    "controls": "control linkage seeded · applicability not validated",
+    "owners": "team handles by design — the A8 named-human gap is a disclosed register finding, not an oversight",
+    "patterns": "pattern linkage is operator judgment on a seeded estate; production validates against incident history"
+  }
+}
