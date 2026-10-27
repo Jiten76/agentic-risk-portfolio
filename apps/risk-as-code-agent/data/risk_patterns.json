@@ -1,0 +1,2003 @@
+{
+ "version": "1.4",
+ "grounding_note": "Thresholds and incident references draw from publicly cited industry sources. See SOURCES.md for full citations. Numbers are illustrative starting points — production deployments should calibrate to local risk appetite and regulatory context. v1.3 adds cascade rules and regulatory-materiality triggers — see DESIGN.md for the locked spec and the cascade-rule rationale per edge. v1.4 / v2.0a adds exposure_model with frequency × severity decomposition per amendment A3 — closes the v1.4 'sum of worst analogs' failure with an explicit exceedance→incident conversion term. See reviews/v2_0a_spec_amendments.md A3. Each pattern carries threshold_provenance: source_derived (RAG bands quote a published standard, e.g. RP-04 CISA BOD KEV/aging clocks), operator_calibrated (framework establishes the signal; RAG numbers are internal-appetite calibration), or mixed. Signals listed beyond a pattern's `thresholds` keys are monitored-context signals (observed but not RAG-graded in this demonstrator); production adds per-firm thresholds for them.",
+ "threshold_governance": {
+  "_note": "Per Path B audit-regulator finding: every threshold must carry change history so a reviewer can answer 'was this threshold loosened between periods to make a finding go away?' — the regulator's first question on any reds-going-green delta. Baseline thresholds were locked at v1.3 and have not been changed since. In production, every threshold edit appends an entry here with actor, prior value, new value, effective period, and rationale, and requires 2LoD countersignature before taking effect.",
+  "baseline_version": "v1.3",
+  "baseline_locked_at": "2026-05-20",
+  "change_control": "2LoD countersignature required; append-only; no retroactive edits.",
+  "threshold_history": [
+   {
+    "effective_period": "2026-Q2",
+    "patterns_changed": [],
+    "summary": "No threshold changes this period. All bounds remain at the v1.3 baseline; no finding moved red→green via a threshold edit.",
+    "set_by": "baseline (v1.3 lock)",
+    "countersigned_by": "n/a — baseline"
+   }
+  ]
+ },
+ "framework_alignment": [
+  "NIST CSF 2.0",
+  "ISO 31000",
+  "DORA"
+ ],
+ "patterns": [
+  {
+   "id": "RP-01",
+   "name": "Deployment & Release Risk",
+   "description": "Risk of service degradation or outage introduced through software releases",
+   "nist_function": "PR.IP",
+   "signals": [
+    "change_failure_rate",
+    "deployment_frequency",
+    "rollback_rate",
+    "lead_time_for_changes"
+   ],
+   "thresholds": {
+    "change_failure_rate": {
+     "green": 5,
+     "amber": 15,
+     "red": 25,
+     "unit": "pct"
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "green anchored to the DORA reference that elite performers report ~5% change failure rate; amber/red (15/25%) are OPERATOR-CALIBRATED delivery-risk escalation bands, NOT DORA cluster boundaries — DORA publishes performance clusters, not RAG thresholds, and its cluster CFR figures vary by year (the 2024 report noted a Medium-below-High inversion). Directional guidance, not a per-band quote. DORA 2025 (AI-assisted development) finds AI amplifies pre-existing delivery quality rather than substituting for it.",
+   "threshold_source_url": "https://dora.dev/research/2025/dora-report/",
+   "incident_reference": [
+    {
+     "name": "CrowdStrike Falcon — global outage (largest IT outage in history)",
+     "date": "2024-07-19",
+     "summary": "Channel File 291 content update crashed ~8.5M Windows systems. Root cause: IPC Template Type defined 21 input fields, sensor code provided 20; Content Validator logic error let it pass. RCA cited missing runtime array-bounds check + insufficient phased rollout.",
+     "url": "https://www.crowdstrike.com/en-us/blog/falcon-content-update-preliminary-post-incident-report/"
+    },
+    {
+     "name": "Knight Capital trading loss",
+     "date": "2012-08-01",
+     "summary": "Botched software deployment activated dormant code; $440M trading loss in ~45 minutes; firm collapsed within a week. Canonical 'change failure rate is a survival metric' case.",
+     "url": "https://www.sec.gov/litigation/admin/2013/34-70694.pdf"
+    },
+    {
+     "name": "GitLab database outage",
+     "date": "2017-01-31",
+     "summary": "Accidental rm -rf on primary during emergency change; ~6 hours of user data lost; five backup methods all found broken during recovery.",
+     "url": "https://about.gitlab.com/blog/postmortem-of-database-outage-of-january-31/"
+    }
+   ],
+   "appetite": "Low — regulated fintech environments require controlled release cadence; phased rollout mandatory for global-blast-radius updates (post-CrowdStrike industry consensus)",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-02",
+     "strength": "high",
+     "rationale": "Bad deploy crashes service or degrades SLO (CrowdStrike 2024-07-19; Knight Capital 2012-08-01)",
+     "propagation_layer": "app",
+     "containment_boundary": "region"
+    },
+    {
+     "pattern_id": "RP-12",
+     "strength": "medium",
+     "rationale": "Repeated deployment failures elevate repeat-incident rate and erode RTO confidence",
+     "propagation_layer": "app",
+     "containment_boundary": "global"
+    },
+    {
+     "pattern_id": "RP-14",
+     "strength": "low",
+     "rationale": "Partial rollouts leave version skew between cohorts — the pair that must agree stops agreeing (Knight 2012)",
+     "propagation_layer": "platform",
+     "containment_boundary": "cell"
+    }
+   ],
+   "cascade_from": [
+    {
+     "pattern_id": "RP-09",
+     "strength": "high",
+     "rationale": "Emergency changes bypass review and drive deploy failure rate up (GitLab 2017-01-31)"
+    },
+    {
+     "pattern_id": "RP-08",
+     "strength": "low",
+     "rationale": "Observability gaps delay detection of bad deploys, extending blast radius"
+    }
+   ],
+   "materiality_trigger": {
+    "sec_8k": true,
+    "occ_12cfr30": true,
+    "gdpr_art33": false,
+    "eu_ai_act": false,
+    "note": "Material outage triggers SEC Item 1.05 (cybersecurity); OCC heightened standards require release-failure reporting for systemically important institutions.",
+    "dora": true,
+    "fca_opres": false,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": false,
+    "sea_17a4": false,
+    "reg_sci": true
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.6,
+     "p95": 2.0,
+     "derivation": {
+      "derivation_status": "SUPERSEDED STARTING POINT — this base-rate formula computes ~1.2/yr p50 (0.15 × 78,000 × 0.0001), the pre-v2.0b illustrative value, NOT the stored p50 of 0.8; the stored values are the v2.0b re-anchored operator judgment (see recalibration_note). Kept for the intellectual trail, not as the provenance of the stored number.",
+      "base_metric": "change_failure_rate",
+      "base_metric_unit": "fraction of deploys that fail",
+      "base_metric_p50": 0.15,
+      "base_metric_p95": 0.64,
+      "base_metric_source": "DORA 2024 — Medium-performer (15%) → Low-performer (64%) cluster boundaries",
+      "deploys_per_year_assumption": 78000,
+      "deploys_per_year_basis": "multi-service continuous delivery — ~1,500 deploys/week across ~300 services (global-fintech CD scale; illustrative). The prior draft said 52/yr — a weekly release train, which contradicted the platform's own hypervelocity premise; corrected in the round-8 depth pass.",
+      "conversion_to_material_incident": 0.0001,
+      "conversion_basis": "fraction of FAILED deploys that become MATERIAL incidents (board-visible, not customer-visible blips). At CD scale most failures are caught by canary/ring rollback in minutes; material conversion is orders of magnitude below the ~15% visible-incident rate. 0.0001 is an illustrative anchor — production fits this from incident:deploy history."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add). r29: p50 0.8→0.6/yr — MATERIAL-tier only (Uptime Institute 2023: severe/serious outages run ~1-2/yr for large orgs; the prior value counted significant-but-recoverable events the severity re-anchor now excludes by definition)."
+    },
+    "severity_distribution": {
+     "p50_usd": 3000000,
+     "p95_usd": 21000000,
+     "worst_anchor_usd": 440000000,
+     "worst_anchor_basis": "Knight Capital 2012-08-01 — $440M / 45 min",
+     "derivation": "P50 = typical bad-release cost (SLA credits + remediation + comms). P95 = significant outage with customer-visible impact lasting hours. worst_anchor = comparable real catastrophic event.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Median material deploy incident re-anchored to multi-hour large-enterprise outage cost (ITIC 2024: >$300k/hr for 90% of mid-large firms; Uptime Institute 2023: 16% of significant outages exceed $1M) — the CrowdStrike-affected-enterprise class holds the P95. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "CAB review",
+      "effectiveness_pct": 92,
+      "evidence_basis": "Change-control logs: 100% of high-risk releases GATED (coverage) — but gated is not caught; CAB review misses regressions that pass review (change control passed the 2024 CrowdStrike release). Effectiveness credited below coverage by design."
+     },
+     {
+      "name": "Automated rollback",
+      "effectiveness_pct": 88,
+      "evidence_basis": "Deploy pipeline rollback success rate (trailing 90d)"
+     },
+     {
+      "name": "Canary deploy",
+      "effectiveness_pct": 75,
+      "evidence_basis": "% of releases shipped behind canary stage (coverage) — a canary only catches what the sampled cohort exercises; regressions outside that traffic pass clean. Credited at the observed catch profile, not at coverage."
+     }
+    ],
+    "gaps": [
+     {
+      "name": "KPI-driven kill-switch",
+      "planned": "Q3",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 70.4,
+    "defense_depth_layers": 3,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   }
+  },
+  {
+   "id": "RP-02",
+   "name": "Availability & Resilience Risk",
+   "description": "Risk of service unavailability exceedanceing SLA or regulatory restoration objectives",
+   "nist_function": "RC.RP",
+   "signals": [
+    "error_rate_p99",
+    "mttr_minutes",
+    "availability_pct",
+    "incident_count"
+   ],
+   "thresholds": {
+    "availability_pct": {
+     "green": 99.9,
+     "amber": 99.5,
+     "red": 99.0
+    },
+    "mttr_minutes": {
+     "green": 60,
+     "amber": 240,
+     "red": 480
+    }
+   },
+   "threshold_provenance": "mixed",
+   "threshold_source": "Google SRE conventions: 99.9% SLO = 43 min/month error budget; 99.99% = 4.3 min/month. MTTR tiers anchored to DORA failed-deployment recovery: Elite <1h, High <1d.",
+   "threshold_source_url": "https://sre.google/workbook/implementing-slos/",
+   "incident_reference": [
+    {
+     "name": "AWS US-EAST-1 outage",
+     "date": "2021-12-07",
+     "summary": "Automated scaling event triggered network congestion in US-EAST-1; cascading impact across AWS services for ~9 hours; downstream impact on Disney+, Coinbase, and numerous consumer platforms.",
+     "url": "https://aws.amazon.com/message/12721/"
+    },
+    {
+     "name": "Cloudflare global outage",
+     "date": "2019-07-02",
+     "summary": "WAF rule deployment with catastrophic regex backtracking spiked CPU to 100% globally; ~27 min of 502 errors served.",
+     "url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/"
+    }
+   ],
+   "appetite": "Very Low — customer-facing financial services require ≥99.9% availability",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-12",
+     "strength": "high",
+     "rationale": "Availability SLO violations feed repeat-incident rate and RTO miss count (Atlassian 2022 14-day outage)",
+     "propagation_layer": "app",
+     "containment_boundary": "region"
+    }
+   ],
+   "cascade_from": [
+    {
+     "pattern_id": "RP-01",
+     "strength": "high",
+     "rationale": "Deploy regressions are the most common availability root cause"
+    },
+    {
+     "pattern_id": "RP-11",
+     "strength": "high",
+     "rationale": "Capacity saturation = outage (Cloudflare 2019-07-02 regex CPU exhaustion)"
+    },
+    {
+     "pattern_id": "RP-08",
+     "strength": "medium",
+     "rationale": "Detection gaps extend availability exceedance duration (SolarWinds — 9-month dwell time)"
+    }
+   ],
+   "materiality_trigger": {
+    "sec_8k": true,
+    "occ_12cfr30": true,
+    "gdpr_art33": false,
+    "eu_ai_act": false,
+    "note": "Sustained SLA exceedance is materially disclosable under SEC 8-K Item 1.05; OCC requires resilience event reporting.",
+    "dora": true,
+    "fca_opres": true,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": true,
+    "sea_17a4": false,
+    "reg_sci": true
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 1.2,
+     "p95": 4.0,
+     "derivation": {
+      "base_metric": "availability_pct (1 - SLO target)",
+      "base_metric_unit": "fraction of time service is unavailable",
+      "base_metric_p50": 0.001,
+      "base_metric_p95": 0.005,
+      "base_metric_source": "Google SRE 99.9% / 99.5% SLO boundaries → error-budget exhaustion events",
+      "incidents_per_year_methodology": "events_count where SLO budget exceeded",
+      "calibration_basis": "Median well-run SaaS observes ~4 customer-visible availability incidents/year; struggling teams 12+."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add). r29: p50 2.0→1.2/yr — MATERIAL-tier only (Uptime Institute 2023: severe/serious outages run ~1-2/yr for large orgs; the prior value counted significant-but-recoverable events the severity re-anchor now excludes by definition)."
+    },
+    "severity_distribution": {
+     "p50_usd": 1500000,
+     "p95_usd": 10000000,
+     "worst_anchor_usd": 150000000,
+     "worst_anchor_basis": "AWS US-EAST-1 2021-12-07 — multi-hour regional outage. No single loss figure was disclosed; $150M is an ILLUSTRATIVE aggregate of downstream customer-side impact (Coinbase/Disney+ et al.), not a disclosed number.",
+     "derivation": "P50 = brief customer-facing degradation. P95 = sustained outage with measurable revenue + SLA cost. worst_anchor = AWS-class blast radius event.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Uptime Institute 2023 Annual Outage Analysis: most significant outages land $100k–$1M; the material (reportable) subset median ~$1.5M at platform scale; P95 = the multi-day degradation class. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "SLO budgets",
+      "effectiveness_pct": 90,
+      "evidence_basis": "Error-budget burndown · SRE workbook"
+     },
+     {
+      "name": "Circuit breakers",
+      "effectiveness_pct": 85,
+      "evidence_basis": "Resilience-pattern coverage on critical services (coverage) — a breaker that trips still sheds load; it converts cascade into degradation, not into zero impact. Credited for blast-radius containment, not prevention."
+     },
+     {
+      "name": "Multi-region failover",
+      "effectiveness_pct": 78,
+      "evidence_basis": "Last DR exercise pass rate"
+     }
+    ],
+    "gaps": [
+     {
+      "name": "Chaos-test cadence",
+      "planned": "unplanned",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 67.2,
+    "defense_depth_layers": 3,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   }
+  },
+  {
+   "id": "RP-03",
+   "name": "Policy-as-Code Compliance Risk",
+   "description": "Risk of infrastructure drift from approved policy baselines",
+   "nist_function": "PR.PT",
+   "signals": [
+    "policy_violation_count",
+    "drift_detected_count",
+    "iac_scan_failures",
+    "admission_webhook_denials"
+   ],
+   "thresholds": {
+    "policy_violation_count": {
+     "green": 0,
+     "amber": 5,
+     "red": 20
+    },
+    "drift_detected_count": {
+     "green": 0,
+     "amber": 3,
+     "red": 10
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "Kubernetes Pod Security Standards (GA 1.25, baseline/restricted profiles) + OPA Gatekeeper / Kyverno admission control conventions. CIS Benchmarks v8 IG1 zero-tolerance drift posture. By 2025–2026, Pod Security Admission is the K8s-native default and admission_webhook_denials is the leading-indicator signal for policy-as-code maturity.",
+   "threshold_source_url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/",
+   "incident_reference": [
+    {
+     "name": "Capital One data breach",
+     "date": "2019-07-19",
+     "summary": "Misconfigured AWS WAF allowed SSRF attack to reach EC2 metadata service; ~106M records exposed; $80M OCC fine; lack of preventive IaC policy gate cited in consent order.",
+     "url": "https://www.occ.treas.gov/news-issuances/news-releases/2020/nr-occ-2020-101.html"
+    }
+   ],
+   "appetite": "Zero Tolerance — policy violations require same-day remediation",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-06",
+     "strength": "high",
+     "rationale": "Policy gaps allow misconfigurations to expose data (Capital One 2019-07-19 WAF SSRF)",
+     "propagation_layer": "data",
+     "containment_boundary": "global"
+    },
+    {
+     "pattern_id": "RP-05",
+     "strength": "medium",
+     "rationale": "Missing admission policy lets over-privileged identities enter production",
+     "propagation_layer": "account",
+     "containment_boundary": "global"
+    }
+   ],
+   "cascade_from": [],
+   "materiality_trigger": {
+    "sec_8k": false,
+    "occ_12cfr30": true,
+    "gdpr_art33": false,
+    "eu_ai_act": false,
+    "note": "Internal-control failures rarely meet 8-K materiality alone but feed OCC's MRA / MRIA escalation path.",
+    "dora": false,
+    "fca_opres": false,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": false,
+    "sea_17a4": false,
+    "reg_sci": false
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.4,
+     "p95": 1.5,
+     "derivation": {
+      "base_metric": "policy_violation_count (open admission denials)",
+      "base_metric_unit": "violations per week",
+      "base_metric_p50": 5,
+      "base_metric_p95": 20,
+      "base_metric_source": "CIS Controls v8 IG1 — zero-tolerance drift posture",
+      "incidents_per_year_methodology": "fraction of policy violations that materialize as exploitable misconfigurations",
+      "calibration_basis": "Policy drift events are detected upstream of customer-visible incident; conversion rate is low."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add)."
+    },
+    "severity_distribution": {
+     "p50_usd": 2000000,
+     "p95_usd": 14000000,
+     "worst_anchor_usd": 270000000,
+     "worst_anchor_basis": "Capital One 2019-07-19 — $80M OCC civil penalty (2020) + $190M consumer class-action settlement (2021); aggregate ~$270M.",
+     "derivation": "P50 = MRA-class examination finding cost. P95 = consent-order remediation + reputational cost. worst_anchor = Capital One-class exceedance with OCC + private-litigation exposure.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Policy-drift events are config-exposure class — median below breach class (no confirmed exfiltration); P95 = Capital One-adjacent misconfiguration path. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "Change-control audit",
+      "effectiveness_pct": 88,
+      "evidence_basis": "Quarterly ITGC audit of CAB adherence — finds nonconformance in arrears (quarterly, not in-flight); deters and corrects process drift but cannot intercept a bad change. Credited well below its audit coverage."
+     },
+     {
+      "name": "Break-glass approver list",
+      "effectiveness_pct": 80,
+      "evidence_basis": "Named approvers + dual-control attestation (attestation) — attestation proves the list exists, not that break-glass use is rare or scrutinized; the after-action audit row is the effectiveness signal. Credited below the attested coverage."
+     }
+    ],
+    "gaps": [
+     {
+      "name": "After-the-fact bypass detection",
+      "planned": "Q3",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 70.4,
+    "defense_depth_layers": 2,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   }
+  },
+  {
+   "id": "RP-04",
+   "name": "Vulnerability & Patch Risk",
+   "description": "Risk from unpatched critical/high vulnerabilities aging beyond SLA",
+   "nist_function": "RS.MI",
+   "signals": [
+    "critical_vuln_count",
+    "vuln_aging_days_p90",
+    "vuln_aging_kev_days",
+    "kev_listed_open_count",
+    "sast_findings_open",
+    "sbom_drift_count"
+   ],
+   "thresholds": {
+    "vuln_aging_days_p90": {
+     "green": 15,
+     "amber": 30,
+     "red": 60
+    },
+    "vuln_aging_kev_days": {
+     "green": 7,
+     "amber": 10,
+     "red": 14,
+     "_note": "CISA BOD 22-01 KEV clock: 14 calendar days. Distinct from BOD 19-02 critical/high SLA (vuln_aging_days_p90). A KEV-listed CVE fires amber as it approaches the clock (>10d) and red once it violates the 14-day boundary (>14d), independent of the p90 aging metric — per SRE finding C16."
+    },
+    "kev_listed_open_count": {
+     "green": 0,
+     "amber": 2,
+     "red": 5,
+     "_note": "Count of open KEV-listed CVEs (CISA Known Exploited Vulnerabilities catalog). Volume signal; the vuln_aging_kev_days clock enforces the per-CVE 14-day SLA separately."
+    },
+    "critical_vuln_count": {
+     "green": 0,
+     "amber": 3,
+     "red": 10
+    }
+   },
+   "threshold_provenance": "source_derived",
+   "kev_listed": {
+    "_note": "First-class KEV flag per SRE finding C16. A finding carries kev_listed=true when any open CVE is in the CISA KEV catalog; the vuln_aging_kev_days signal then enforces the BOD 22-01 14-day clock separately from BOD 19-02 aging. In production wired to the live CISA KEV feed.",
+    "source": "CISA Known Exploited Vulnerabilities Catalog",
+    "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+    "clock_days": 14,
+    "directive": "CISA BOD 22-01"
+   },
+   "threshold_source": "CISA BOD 19-02: critical 15 days, high 30 days. CISA BOD 22-01: KEV-listed CVEs (2021+) 14 days. The vuln_aging_days_p90 red threshold (60+ days) = 2× CISA high-severity SLA (BOD 19-02); the vuln_aging_kev_days red threshold (14 days) enforces the BOD 22-01 KEV clock directly and fires independently of the p90 metric. KEV catalog added on the order of ~1,000+ new entries in 2025 (the specific count and YoY rate here are illustrative, not pinned to a dated CISA release) — the patch-aging surface is expanding faster than most enterprise programs scale, making this an increasingly load-bearing control.",
+   "threshold_source_url": "https://www.cisa.gov/news-events/directives/bod-22-01-reducing-significant-risk-known-exploited-vulnerabilities",
+   "incident_reference": [
+    {
+     "name": "Equifax exceedance — Apache Struts",
+     "date": "2017-09-07",
+     "summary": "Apache Struts CVE-2017-5638 disclosed March 2017; Equifax failed to patch internal scanner gaps; vulnerability remained unpatched ~60 days when exploited; 147.9M records exposed; $700M+ settlement.",
+     "url": "https://www.gao.gov/products/gao-18-559"
+    },
+    {
+     "name": "Log4Shell (CVE-2021-44228)",
+     "date": "2021-12-10",
+     "summary": "Critical RCE in Apache Log4j; CISA estimated hundreds of millions of devices affected; canonical 'how fast can you patch your software bill of materials' stress test.",
+     "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"
+    }
+   ],
+   "appetite": "Low — critical vulnerabilities must be remediated within 15 days (CISA BOD 19-02)",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-07",
+     "strength": "medium",
+     "rationale": "Critical CVEs in shared libraries cascade through SBOM (Log4Shell 2021-12-10)",
+     "propagation_layer": "platform",
+     "containment_boundary": "global"
+    },
+    {
+     "pattern_id": "RP-06",
+     "strength": "medium",
+     "rationale": "Unpatched vulnerabilities exploited to access PII (Equifax 2017-09-07, CVE-2017-5638)",
+     "propagation_layer": "data",
+     "containment_boundary": "global"
+    }
+   ],
+   "cascade_from": [
+    {
+     "pattern_id": "RP-07",
+     "strength": "medium",
+     "rationale": "Third-party vendor CVEs land in the patch backlog (SolarWinds, MOVEit)"
+    },
+    {
+     "pattern_id": "RP-08",
+     "strength": "low",
+     "rationale": "Observability gaps hide vulnerable asset inventory"
+    }
+   ],
+   "materiality_trigger": {
+    "sec_8k": "conditional",
+    "occ_12cfr30": true,
+    "gdpr_art33": "conditional",
+    "eu_ai_act": false,
+    "note": "Critical vuln becomes 8-K-material if actively exploited; GDPR Art. 33 triggered if exploitation leads to data breach.",
+    "dora": true,
+    "fca_opres": false,
+    "nydfs_500": true,
+    "pci_dss": true,
+    "finra_4370": false,
+    "sea_17a4": false,
+    "reg_sci": true
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.2,
+     "p95": 1.0,
+     "derivation": {
+      "base_metric": "critical_vuln_count beyond CISA SLA",
+      "base_metric_unit": "open critical CVEs past SLA",
+      "base_metric_p50": 3,
+      "base_metric_p95": 15,
+      "base_metric_source": "CISA BOD 19-02 / 22-01 + KEV catalog tempo",
+      "incidents_per_year_methodology": "fraction of overdue critical CVEs that are actively exploited",
+      "calibration_basis": "CISA KEV inclusion = active exploitation. 2025 KEV catalog added ~1,000+ items (illustrative; exact CISA year-end count not pinned here)."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add)."
+    },
+    "severity_distribution": {
+     "p50_usd": 8000000,
+     "p95_usd": 60000000,
+     "worst_anchor_usd": 700000000,
+     "worst_anchor_basis": "Equifax 2017-09-07 — $700M+ FTC settlement (CVE-2017-5638 unpatched 60+ days)",
+     "derivation": "P50 = single-CVE exploitation + remediation. P95 = chained exploitation with data exfiltration. worst_anchor = Equifax-class settlement.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): IBM Cost of a Data Breach 2024: US average $9.36M — the material vuln-exploitation median re-anchored to it; P95 $120M = Capital One 2019 (~$300M total over years) discounted to single-year recognition; Equifax stays the worst anchor, not the P95. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "Patch automation",
+      "effectiveness_pct": 90,
+      "evidence_basis": "Patch-cycle SLA attainment trailing 90d (completion) — attainment is not exposure closed: the SLA window itself is the residual (KEV items sit exploitable inside it). Credited for cycle-time reduction, not elimination."
+     },
+     {
+      "name": "KEV scanner",
+      "effectiveness_pct": 93,
+      "evidence_basis": "CISA KEV coverage on production CVEs (coverage) — catches only KNOWN-exploited vulns by definition; zero-days and non-KEV chains pass unseen. Credited for the known-exploited class only."
+     },
+     {
+      "name": "WAF / virtual patching",
+      "effectiveness_pct": 80,
+      "evidence_basis": "WAF rule coverage · OWASP Top 10 (coverage) — signature rules lag novel exploit variants and misconfiguration bypasses them; virtual patching narrows the window, it does not close it. Credited for the known-signature class."
+     },
+     {
+      "name": "Network segmentation",
+      "effectiveness_pct": 75,
+      "evidence_basis": "East-west micro-segmentation coverage (coverage) — segments are only as tight as their broadest allowed flow; lateral movement rides approved paths. Credited for slowing propagation, not stopping it."
+     }
+    ],
+    "gaps": [],
+    "avg_effectiveness_pct": 68.0,
+    "defense_depth_layers": 4,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   }
+  },
+  {
+   "id": "RP-05",
+   "name": "Access & Identity Risk",
+   "description": "Risk from excessive, stale, or unreviewed access privileges",
+   "nist_function": "PR.AC",
+   "signals": [
+    "orphaned_account_count",
+    "privileged_access_exceptions",
+    "access_review_overdue",
+    "mfa_coverage_pct"
+   ],
+   "thresholds": {
+    "orphaned_account_count": {
+     "green": 0,
+     "amber": 5,
+     "red": 20
+    },
+    "mfa_coverage_pct": {
+     "green": 100,
+     "amber": 98,
+     "red": 95
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "NIST SP 800-63B (Digital Identity, MFA AAL2/AAL3). Zero-standing-privilege convention from CISA Zero Trust Maturity Model v2.",
+   "threshold_source_url": "https://www.cisa.gov/zero-trust-maturity-model",
+   "incident_reference": [
+    {
+     "name": "Uber exceedance — MFA fatigue",
+     "date": "2022-09-15",
+     "summary": "Contractor compromise via repeated MFA push notifications; attacker accepted into VPN, escalated to AWS/GCP admin via hardcoded creds in PowerShell scripts; access controls and credential hygiene cited as primary failures.",
+     "url": "https://www.uber.com/newsroom/security-update/"
+    },
+    {
+     "name": "Okta — Lapsus$ third-party support compromise",
+     "date": "2022-01-21",
+     "summary": "Lapsus$ compromised a Sitel support engineer's laptop; ~366 Okta customers potentially exposed; raised industry questions about delegated admin trust boundaries.",
+     "url": "https://sec.okta.com/articles/2022/04/okta-concludes-its-investigation-into-the-january-2022-compromise"
+    }
+   ],
+   "appetite": "Very Low — zero standing privileged access; JIT required for all elevated roles",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-06",
+     "strength": "high",
+     "rationale": "Excess access = data breach blast radius (Uber 2022-09-15 MFA fatigue; Capital One 2019)",
+     "propagation_layer": "account",
+     "containment_boundary": "global"
+    },
+    {
+     "pattern_id": "RP-13",
+     "strength": "medium",
+     "rationale": "Over-scoped tokens cascade into agent tool misuse (MCP rug-pull pattern)",
+     "propagation_layer": "account",
+     "containment_boundary": "global"
+    }
+   ],
+   "cascade_from": [
+    {
+     "pattern_id": "RP-03",
+     "strength": "medium",
+     "rationale": "Policy gaps allow standing-privileged access patterns"
+    }
+   ],
+   "materiality_trigger": {
+    "sec_8k": "conditional",
+    "occ_12cfr30": true,
+    "gdpr_art33": "conditional",
+    "eu_ai_act": false,
+    "note": "Identity compromise alone is not 8-K material; coupled with data access it triggers GDPR Art. 33 and likely 8-K.",
+    "dora": true,
+    "fca_opres": false,
+    "nydfs_500": true,
+    "pci_dss": true,
+    "finra_4370": false,
+    "sea_17a4": false,
+    "reg_sci": false
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.3,
+     "p95": 1.2,
+     "derivation": {
+      "base_metric": "orphaned_account_count + mfa_coverage_pct gaps",
+      "base_metric_unit": "stale-credential exposure events",
+      "base_metric_p50": 5,
+      "base_metric_p95": 20,
+      "base_metric_source": "NIST SP 800-63B AAL2/AAL3 + CISA ZTMM v2",
+      "incidents_per_year_methodology": "fraction of access events leading to lateral movement",
+      "calibration_basis": "Strong identity controls (hardware MFA + JIT) push P50 frequency low; weak controls (legacy accounts, SMS MFA) drive P95."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add)."
+    },
+    "severity_distribution": {
+     "p50_usd": 3500000,
+     "p95_usd": 25000000,
+     "worst_anchor_usd": 100000000,
+     "worst_anchor_basis": "Uber 2022-09-15 (MFA-fatigue exceedance) — no single loss figure disclosed; $100M is ILLUSTRATIVE. NB: the often-cited $148M Uber settlement was the SEPARATE 2016 exceedance (settled 2018), not this event.",
+     "derivation": "P50 = compromised-account remediation + comms. P95 = lateral-movement exceedance with data access. worst_anchor = Uber-class with extended forensics + regulatory scrutiny.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Access-abuse median between CODB average and the fraud-loss class; P95 = Uber 2022 / broad-entitlement compromise. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "SCIM provisioning",
+      "effectiveness_pct": 88,
+      "evidence_basis": "% identities provisioned via SCIM vs manual (coverage) — automated provisioning proves entitlements are consistent, not that they are right; a wrong-by-design grant replicates faster. Credited for drift elimination, not entitlement correctness."
+     },
+     {
+      "name": "Quarterly access review",
+      "effectiveness_pct": 70,
+      "evidence_basis": "Q-cadence attestation completion rate (completion) — completion measures that reviewers clicked, not that they looked; bulk-approve is the known failure mode. Credited well below completion."
+     },
+     {
+      "name": "MFA enforcement",
+      "effectiveness_pct": 96,
+      "evidence_basis": "MFA coverage on privileged accounts (coverage) — MFA does not stop AiTM phishing kits, session-token theft, or consent abuse riding an authenticated session. Credited below coverage for the post-auth residual."
+     }
+    ],
+    "gaps": [
+     {
+      "name": "Just-in-time access",
+      "planned": "Q3",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 68.0,
+    "defense_depth_layers": 3,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   }
+  },
+  {
+   "id": "RP-06",
+   "name": "Data & Privacy Risk",
+   "description": "Risk of unauthorized data access, PII exposure, or consent violations",
+   "nist_function": "PR.DS",
+   "signals": [
+    "dlp_alert_count",
+    "pii_scan_findings",
+    "data_retention_violations",
+    "consent_record_gaps"
+   ],
+   "thresholds": {
+    "dlp_alert_count": {
+     "green": 0,
+     "amber": 2,
+     "red": 10
+    },
+    "pii_scan_findings": {
+     "green": 0,
+     "amber": 1,
+     "red": 5
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "GDPR Article 33 (72-hour breach notification). State breach laws (e.g., CA, NY) similarly require prompt notification. Zero-tolerance posture reflects regulatory reality, not internal preference.",
+   "threshold_source_url": "https://gdpr-info.eu/art-33-gdpr/",
+   "incident_reference": [
+    {
+     "name": "Equifax — PII exposure",
+     "date": "2017-09-07",
+     "summary": "147.9M consumer records including SSN, DOB, addresses, driver's license numbers. FTC settlement up to $700M.",
+     "url": "https://www.ftc.gov/enforcement/refunds/equifax-data-exceedance-settlement"
+    },
+    {
+     "name": "T-Mobile — 37M customer records",
+     "date": "2023-01-19",
+     "summary": "API abuse exposed PII for ~37M customers; followed multiple prior T-Mobile exceedances; FCC and state AG action.",
+     "url": "https://www.t-mobile.com/news/business/customer-information"
+    }
+   ],
+   "appetite": "Zero Tolerance — PII exposure triggers regulatory notification obligations",
+   "cascade_to": [],
+   "cascade_from": [
+    {
+     "pattern_id": "RP-05",
+     "strength": "high",
+     "rationale": "Most PII exceeds are access-control failures upstream"
+    },
+    {
+     "pattern_id": "RP-04",
+     "strength": "medium",
+     "rationale": "CVE exploitation → data exfiltration (Equifax)"
+    },
+    {
+     "pattern_id": "RP-13",
+     "strength": "high",
+     "rationale": "Agentic AI processes PII through unauthorized external endpoints (Samsung 2023-04-30)"
+    },
+    {
+     "pattern_id": "RP-03",
+     "strength": "high",
+     "rationale": "Missing data-handling policy lets PII flow unchecked (Capital One)"
+    }
+   ],
+   "materiality_trigger": {
+    "sec_8k": "conditional",
+    "occ_12cfr30": true,
+    "gdpr_art33": true,
+    "eu_ai_act": false,
+    "note": "GDPR Art. 33 mandates 72-hour notification of personal-data breaches; CCPA §1798.82 has parallel state-level obligations.",
+    "dora": false,
+    "fca_opres": false,
+    "nydfs_500": true,
+    "pci_dss": true,
+    "finra_4370": false,
+    "sea_17a4": true,
+    "reg_sci": false
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.2,
+     "p95": 1.0,
+     "derivation": {
+      "base_metric": "dlp_alert_count + pii_scan_findings",
+      "base_metric_unit": "PII exposure events",
+      "base_metric_p50": 2,
+      "base_metric_p95": 10,
+      "base_metric_source": "GDPR Art. 33 (72-hour notification) + state breach-law thresholds",
+      "incidents_per_year_methodology": "fraction of DLP signals that meet regulatory reporting threshold",
+      "calibration_basis": "Many DLP signals are below reporting threshold; only a fraction become reportable incidents."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add)."
+    },
+    "severity_distribution": {
+     "p50_usd": 6000000,
+     "p95_usd": 45000000,
+     "worst_anchor_usd": 700000000,
+     "worst_anchor_basis": "Equifax 2017-09-07 — $700M+ FTC settlement (147.9M records)",
+     "derivation": "P50 = notification + identity-monitoring cost. P95 = significant PII exposure with regulatory + class-action cost. worst_anchor = Equifax-class total cost.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): IBM CODB 2024 mega-breach tiering: 1–10M records $50M+; material PII event median ~ US average $9.4M haircut for non-breach outcomes; P95 = the reportable multi-million-record class. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "Adversarial test suite",
+      "effectiveness_pct": 60,
+      "evidence_basis": "Red-team eval coverage on production models (coverage) — evals catch the attack classes they encode; novel jailbreaks sit outside the suite by construction. Credited at the evaluated-class boundary."
+     },
+     {
+      "name": "Drift detector",
+      "effectiveness_pct": 40,
+      "evidence_basis": "Distribution-shift monitoring coverage (coverage) — detection lag and threshold tuning mean drift is flagged after exposure begins; alerting is not adaptation. Credited as a late detective control."
+     },
+     {
+      "name": "Eval gating",
+      "effectiveness_pct": 55,
+      "evidence_basis": "% deploys blocked by eval-gate exceedance (coverage of the gate) — a block rate proves the gate fires, not that its thresholds catch the harms that matter; miscalibrated gates block noise and pass signal. Credited at, not above, eval quality."
+     }
+    ],
+    "gaps": [
+     {
+      "name": "Continuous eval cadence",
+      "planned": "Q3",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 41.6,
+    "defense_depth_layers": 3,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   }
+  },
+  {
+   "id": "RP-07",
+   "name": "Third-Party & Supply Chain Risk",
+   "description": "Risk from vendor failures, SLA exceedances, or software supply chain compromises",
+   "nist_function": "GV.SC",
+   "signals": [
+    "vendor_sla_exceedance_count",
+    "sbom_new_components",
+    "dependency_vuln_count",
+    "tprm_overdue_reviews"
+   ],
+   "thresholds": {
+    "vendor_sla_exceedance_count": {
+     "green": 0,
+     "amber": 2,
+     "red": 5
+    },
+    "tprm_overdue_reviews": {
+     "green": 0,
+     "amber": 3,
+     "red": 10
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "NIST CSF 2.0 GV.SC (Cybersecurity Supply Chain Risk Management) — formal SBOM and vendor-tier review obligations. EO 14028 SBOM requirements for federal software suppliers. CISA KEV catalog added ~1,000+ new entries in 2025 (illustrative; exact count not pinned) — supply-chain blast radius is widening, not narrowing.",
+   "threshold_source_url": "https://www.nist.gov/cyberframework",
+   "incident_reference": [
+    {
+     "name": "CrowdStrike Falcon — security-vendor as single point of failure",
+     "date": "2024-07-19",
+     "summary": "A single trusted security-vendor content update became the supply-chain risk it was meant to mitigate; ~8.5M Windows systems crashed worldwide. Re-framed the question 'who governs your governance vendor's release process?'",
+     "url": "https://www.cisa.gov/news-events/alerts/2024/07/19/widespread-it-outage-due-crowdstrike-update"
+    },
+    {
+     "name": "First malicious MCP package on public registries",
+     "date": "2025-09-01",
+     "summary": "Typosquatted Model Context Protocol server published to public registry; classic supply-chain pattern now applied to the agent-tool ecosystem. CVE-2025-49596 (CVSS 9.4) — MCP Inspector RCE — followed shortly.",
+     "url": "https://authzed.com/blog/timeline-mcp-exceedances"
+    },
+    {
+     "name": "SolarWinds SUNBURST",
+     "date": "2020-12-13",
+     "summary": "Trojanized SolarWinds Orion updates distributed to ~18,000 customers; nation-state attackers accessed ~100 organizations including US federal agencies; dwell time pre-detection ~9 months.",
+     "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a"
+    },
+    {
+     "name": "Log4Shell supply chain blast radius",
+     "date": "2021-12-10",
+     "summary": "Single transitive dependency required emergency SBOM audits across most enterprise software stacks; canonical case for SBOM as control.",
+     "url": "https://www.cisa.gov/news-events/news/apache-log4j-vulnerability-guidance"
+    }
+   ],
+   "appetite": "Low — critical vendors require quarterly review; Tier 1 SLA exceedance escalates immediately; security-vendor releases reviewed as third-party changes (post-CrowdStrike)",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-04",
+     "strength": "medium",
+     "rationale": "Vendor CVEs become patch obligations (SolarWinds 2020-12, Log4Shell)",
+     "propagation_layer": "platform",
+     "containment_boundary": "global"
+    },
+    {
+     "pattern_id": "RP-01",
+     "strength": "low",
+     "rationale": "Compromised vendor releases (CrowdStrike 2024-07-19) become deploy events",
+     "propagation_layer": "platform",
+     "containment_boundary": "global"
+    }
+   ],
+   "cascade_from": [
+    {
+     "pattern_id": "RP-13",
+     "strength": "medium",
+     "rationale": "Malicious MCP packages enter the agent-tool supply chain (Sept 2025)"
+    }
+   ],
+   "materiality_trigger": {
+    "sec_8k": true,
+    "occ_12cfr30": true,
+    "gdpr_art33": false,
+    "eu_ai_act": false,
+    "note": "Supply-chain compromise is 8-K Item 1.05 material (SolarWinds-class); OCC TPRM expectations apply.",
+    "dora": true,
+    "fca_opres": false,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": true,
+    "sea_17a4": false,
+    "reg_sci": false
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.3,
+     "p95": 1.2,
+     "derivation": {
+      "base_metric": "vendor_sla_exceedance_count + dependency_vuln_count",
+      "base_metric_unit": "TPRM events per quarter",
+      "base_metric_p50": 2,
+      "base_metric_p95": 8,
+      "base_metric_source": "NIST CSF 2.0 GV.SC + EO 14028 SBOM requirements",
+      "incidents_per_year_methodology": "fraction of vendor events causing internal incident",
+      "calibration_basis": "SolarWinds-class events are infrequent but devastating; routine vendor SLA exceeds are common but contained."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add)."
+    },
+    "severity_distribution": {
+     "p50_usd": 5000000,
+     "p95_usd": 35000000,
+     "worst_anchor_usd": 500000000,
+     "worst_anchor_basis": "SolarWinds 2020-12-13 — illustrative multi-firm remediation aggregate",
+     "derivation": "P50 = vendor incident response + service-level impact. P95 = supply-chain compromise with internal exposure. worst_anchor = SolarWinds-class blast-radius event.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Vendor-failure median = pass-through of one critical vendor's outage; P95 = SolarWinds-class response cost (public estimates $10s–100M per affected major). Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "Model registry",
+      "effectiveness_pct": 90,
+      "evidence_basis": "% production models with registry entry (coverage) — a registry entry proves traceability, not that the registered lineage is complete or the model behaves. Credited for reconstruction speed, not prevention."
+     },
+     {
+      "name": "Dataset versioning",
+      "effectiveness_pct": 80,
+      "evidence_basis": "% training runs with pinned dataset version (coverage) — a pin proves which data was used, not that the data was sound; poisoned-but-pinned reproduces perfectly. Credited for forensics speed, not data integrity."
+     }
+    ],
+    "gaps": [
+     {
+      "name": "Lineage chain integrity check",
+      "planned": "Q4",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 68.0,
+    "defense_depth_layers": 2,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   }
+  },
+  {
+   "id": "RP-08",
+   "name": "Observability & Detection Risk",
+   "description": "Risk of insufficient telemetry coverage to detect incidents or control failures",
+   "nist_function": "DE.CM",
+   "signals": [
+    "alert_coverage_pct",
+    "mean_time_to_detect",
+    "log_ingestion_lag_seconds",
+    "trace_sampling_rate"
+   ],
+   "thresholds": {
+    "alert_coverage_pct": {
+     "green": 95,
+     "amber": 85,
+     "red": 70
+    },
+    "mean_time_to_detect": {
+     "green": 5,
+     "amber": 15,
+     "red": 30
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "Mean-time-to-detect in minutes — Google SRE 'alerting on SLOs' workbook conventions for operational signals. For security-breach dwell time (days/months), see IBM Cost of a Data Breach Report 2024 (global lifecycle 258 days; top-quartile <30 days).",
+   "threshold_source_url": "https://sre.google/workbook/alerting-on-slos/",
+   "incident_reference": [
+    {
+     "name": "SolarWinds — dwell time",
+     "date": "2020-12-13",
+     "summary": "Mandiant/FireEye detected the intrusion only after ~9 months of attacker access; canonical case for the cost of detection gaps.",
+     "url": "https://www.mandiant.com/resources/blog/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor"
+    }
+   ],
+   "appetite": "Low — blind spots in observability are treated as open risk items",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-02",
+     "strength": "medium",
+     "rationale": "Detection gaps extend outage duration (IBM 2024 — 258-day exceedance lifecycle)",
+     "propagation_layer": "app",
+     "containment_boundary": "region"
+    },
+    {
+     "pattern_id": "RP-04",
+     "strength": "low",
+     "rationale": "Can't patch what you can't see — asset-inventory gaps",
+     "propagation_layer": "platform",
+     "containment_boundary": "global"
+    },
+    {
+     "pattern_id": "RP-01",
+     "strength": "low",
+     "rationale": "Deploy regressions go un-noticed until customer-visible",
+     "propagation_layer": "app",
+     "containment_boundary": "region"
+    }
+   ],
+   "cascade_from": [],
+   "materiality_trigger": {
+    "sec_8k": false,
+    "occ_12cfr30": true,
+    "gdpr_art33": false,
+    "eu_ai_act": false,
+    "note": "Detection gaps surface only via OCC heightened-standards examinations and SOC 2 CC7.x criteria.",
+    "dora": true,
+    "fca_opres": false,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": false,
+    "sea_17a4": true,
+    "reg_sci": false
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.5,
+     "p95": 1.6,
+     "derivation": {
+      "base_metric": "alert_coverage_pct gaps + mean_time_to_detect",
+      "base_metric_unit": "detection-gap events per quarter",
+      "base_metric_p50": 3,
+      "base_metric_p95": 10,
+      "base_metric_source": "Google SRE alerting workbook + IBM Cost of Breach lifecycle data",
+      "incidents_per_year_methodology": "detection gaps amplify incident severity; baseline ~1 customer-visible detection-gap-driven event/year for moderate observability maturity",
+      "calibration_basis": "Telemetry-mature orgs catch incidents pre-customer-visible; gaps in coverage drive P95 up."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add). r29: p50 0.6→0.5/yr — MATERIAL-tier only (Uptime Institute 2023: severe/serious outages run ~1-2/yr for large orgs; the prior value counted significant-but-recoverable events the severity re-anchor now excludes by definition)."
+    },
+    "severity_distribution": {
+     "p50_usd": 2500000,
+     "p95_usd": 18000000,
+     "worst_anchor_usd": 200000000,
+     "worst_anchor_basis": "SolarWinds 2020 — 9-month dwell time amplified exceedance impact across affected firms",
+     "derivation": "P50 = extended-detection cost. P95 = significant detection-gap-driven extended exposure. worst_anchor = SolarWinds dwell-time amplification.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Observability gaps are a COST MULTIPLIER on other events more than a direct loss; direct median kept low, IBM CODB's +$1.8M-when-detection-slow delta informs the P95. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "DLP",
+      "effectiveness_pct": 85,
+      "evidence_basis": "DLP rule coverage on egress channels (coverage) — rules match patterns, not intent; novel encodings and approved-channel exfiltration pass. Credited below coverage for the pattern-evasion residual."
+     },
+     {
+      "name": "Encryption at rest / in transit",
+      "effectiveness_pct": 95,
+      "evidence_basis": "TLS + KMS coverage attestation (coverage) — encryption defeats interception, not exfiltration over an authorized, authenticated path (that is DLP's row). Credited high for its class, not as a data-loss control."
+     },
+     {
+      "name": "SSRF protection",
+      "effectiveness_pct": 90,
+      "evidence_basis": "Egress-allowlist coverage on outbound calls (coverage) — an allowlist is only as tight as its broadest entry (wildcard domains, shared object stores). Credited below coverage for allowlist-shape residual."
+     },
+     {
+      "name": "Scope-based auth",
+      "effectiveness_pct": 88,
+      "evidence_basis": "Scope-enforcement on internal APIs"
+     },
+     {
+      "name": "Audit logs",
+      "effectiveness_pct": 90,
+      "evidence_basis": "Log retention + integrity attestation (coverage) — logs prove what happened, they do not stop it; detection value depends on the alert coverage that queries them. Credited as a detective, not preventive, control."
+     }
+    ],
+    "gaps": [
+     {
+      "name": "Behavioral exfil detection",
+      "planned": "Q3",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 72.0,
+    "defense_depth_layers": 5,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   },
+   "depth_note": "Coverage pattern — RAG thresholds are floors/defaults, less deeply calibrated than the vertical-slice patterns (RP-04 KEV clocks, RP-13 agentic). Production calibrates per firm from observed distributions."
+  },
+  {
+   "id": "RP-09",
+   "name": "Change Management Risk",
+   "description": "Risk from undocumented, unauthorized, or emergency changes bypassing controls",
+   "nist_function": "PR.IP",
+   "signals": [
+    "emergency_change_rate",
+    "change_without_ticket_count",
+    "post_change_incident_rate"
+   ],
+   "thresholds": {
+    "emergency_change_rate": {
+     "green": 2,
+     "amber": 8,
+     "red": 15
+    },
+    "change_without_ticket_count": {
+     "green": 0,
+     "amber": 2,
+     "red": 10
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "ITIL 4 + DORA correlation: high-performing teams sustain low change failure rate (≤15%) without elevated change-advisory friction. Emergency changes are a leading indicator of process drift.",
+   "threshold_source_url": "https://dora.dev/research/2024/dora-report/",
+   "incident_reference": [
+    {
+     "name": "GitLab database outage — emergency change cascade",
+     "date": "2017-01-31",
+     "summary": "Emergency response to replication lag escalated into directory deletion on the primary; postmortem documented the change-control bypass and broken backup verification.",
+     "url": "https://about.gitlab.com/blog/postmortem-of-database-outage-of-january-31/"
+    }
+   ],
+   "appetite": "Low — all production changes require ticket; emergency changes reviewed within 24h",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-01",
+     "strength": "high",
+     "rationale": "Emergency changes drive deploy failure rate (GitLab 2017-01-31)",
+     "propagation_layer": "app",
+     "containment_boundary": "region"
+    },
+    {
+     "pattern_id": "RP-12",
+     "strength": "medium",
+     "rationale": "Unreviewed changes increase post-incident workload",
+     "propagation_layer": "app",
+     "containment_boundary": "global"
+    },
+    {
+     "pattern_id": "RP-14",
+     "strength": "medium",
+     "rationale": "Emergency changes bypass the paved path and leave drift behind — accumulation the next incident inherits (GitLab 2017)",
+     "propagation_layer": "platform",
+     "containment_boundary": "cell"
+    }
+   ],
+   "cascade_from": [],
+   "materiality_trigger": {
+    "sec_8k": false,
+    "occ_12cfr30": true,
+    "gdpr_art33": false,
+    "eu_ai_act": false,
+    "note": "Change-management failures feed OCC MRA / MRIA; not directly 8-K-disclosable.",
+    "dora": true,
+    "fca_opres": false,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": false,
+    "sea_17a4": true,
+    "reg_sci": false
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.4,
+     "p95": 1.3,
+     "derivation": {
+      "derivation_status": "SUPERSEDED STARTING POINT — this formula computes ~0.62/yr p50 (0.08 × 78,000 × 0.0001), the pre-v2.0b illustrative value, NOT the stored p50 of 0.5; the stored values are the v2.0b re-anchored operator judgment (see recalibration_note).",
+      "base_metric": "emergency_change_rate + change_without_ticket_count",
+      "base_metric_unit": "fraction of changes that bypass review",
+      "base_metric_p50": 0.08,
+      "base_metric_p95": 0.3,
+      "base_metric_source": "ITIL 4 emergency-change discipline + DORA 2024 elite-team boundaries",
+      "deploys_per_year_assumption": 78000,
+      "conversion_to_material_incident": 0.0001,
+      "conversion_basis": "fraction of review-bypassing changes that become MATERIAL incidents. Emergency changes carry higher per-change risk than reviewed ones, but at CD scale the material conversion is still ~1e-4; illustrative anchor, production fits from change history."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add). r29: p50 0.5→0.4/yr — MATERIAL-tier only (Uptime Institute 2023: severe/serious outages run ~1-2/yr for large orgs; the prior value counted significant-but-recoverable events the severity re-anchor now excludes by definition)."
+    },
+    "severity_distribution": {
+     "p50_usd": 2000000,
+     "p95_usd": 14000000,
+     "worst_anchor_usd": 200000000,
+     "worst_anchor_basis": "GitLab 2017-01-31 — emergency-change / primary-DB-loss cascade; $200M is an ILLUSTRATIVE GitLab-class data-loss + recovery figure (no disclosed number).",
+     "derivation": "P50 = post-hoc CAB + remediation cost. P95 = cascade-driven extended outage. worst_anchor = GitLab-class data-loss + recovery.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Unauthorized-change median = rollback + rework + minor customer impact; P95 = GitLab 2017 / prolonged-restore class. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "CAB override audit",
+      "effectiveness_pct": 75,
+      "evidence_basis": "After-action audit on emergency-change overrides"
+     },
+     {
+      "name": "Automated rollback",
+      "effectiveness_pct": 88,
+      "evidence_basis": "Deploy pipeline rollback success rate"
+     },
+     {
+      "name": "Canary deploy",
+      "effectiveness_pct": 60,
+      "evidence_basis": "% emergency releases shipped behind canary (coverage) — emergency releases skip soak time; a canary minutes old proves crash-free, not correct. Credited low by design."
+     }
+    ],
+    "gaps": [
+     {
+      "name": "KPI-driven kill-switch",
+      "planned": "Q3",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 59.2,
+    "defense_depth_layers": 3,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   }
+  },
+  {
+   "id": "RP-10",
+   "name": "AI & Model Risk",
+   "description": "Risk from unvalidated model outputs, data drift, or AI system failures in production",
+   "nist_function": "GV.RM",
+   "signals": [
+    "model_accuracy_drift_pct",
+    "inference_error_rate",
+    "model_review_overdue",
+    "bias_detection_alerts"
+   ],
+   "thresholds": {
+    "model_accuracy_drift_pct": {
+     "green": 2,
+     "amber": 5,
+     "red": 10
+    },
+    "inference_error_rate": {
+     "green": 0.1,
+     "amber": 1.0,
+     "red": 3.0
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "NIST AI RMF 1.0 (Jan 2023) + NIST AI 600-1 Generative AI Profile (Jul 2024) — 12 GenAI-specific risk categories (confabulation, prompt injection, data poisoning, IP, toxic content, etc.). EU AI Act in force 2024-08-01; high-risk system obligations (risk management, data governance, logging, human oversight, accuracy, robustness, cybersecurity) phase in through 2026 — 2026 is the decisive compliance year. NIST released AI RMF Profile on Trustworthy AI in Critical Infrastructure 2026-04-07.",
+   "threshold_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+   "incident_reference": [
+    {
+     "name": "Zillow Offers wind-down",
+     "date": "2021-11-02",
+     "summary": "iBuying model drift in volatile housing market drove overpaying for inventory; Zillow announced wind-down of Offers with ~$304M Q3 inventory write-down and ~25% workforce reduction. Pre-LLM canonical 'model drift in production' case.",
+     "url": "https://www.sec.gov/Archives/edgar/data/1617640/000161764021000067/zillowgroup-shareholderletter.htm"
+    }
+   ],
+   "appetite": "Medium — AI systems in customer-facing flows require monthly validation; high-risk systems under EU AI Act require continuous post-market monitoring",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-06",
+     "strength": "medium",
+     "rationale": "Model drift in production touches PII boundaries (Zillow 2021-11-02)",
+     "propagation_layer": "data",
+     "containment_boundary": "global"
+    },
+    {
+     "pattern_id": "RP-13",
+     "strength": "high",
+     "rationale": "Untrustworthy models in agentic context amplify tool-use risk",
+     "propagation_layer": "app",
+     "containment_boundary": "global"
+    }
+   ],
+   "cascade_from": [],
+   "materiality_trigger": {
+    "sec_8k": "conditional",
+    "occ_12cfr30": true,
+    "gdpr_art33": false,
+    "eu_ai_act": "conditional",
+    "note": "EU AI Act high-risk system obligations apply from 2026; SEC 8-K materiality if model failure causes financial loss (Zillow 2021).",
+    "dora": false,
+    "fca_opres": false,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": false,
+    "sea_17a4": false,
+    "reg_sci": false
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.3,
+     "p95": 1.2,
+     "derivation": {
+      "base_metric": "model_accuracy_drift_pct + inference_error_rate",
+      "base_metric_unit": "model events per quarter",
+      "base_metric_p50": 3,
+      "base_metric_p95": 12,
+      "base_metric_source": "NIST AI RMF MEASURE-2 + AI 600-1 GenAI Profile",
+      "incidents_per_year_methodology": "fraction of model events that materialize as customer-facing harm",
+      "calibration_basis": "Pre-deployment eval + production monitoring catch most issues; uncaught drift drives P95."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add)."
+    },
+    "severity_distribution": {
+     "p50_usd": 6000000,
+     "p95_usd": 40000000,
+     "worst_anchor_usd": 304000000,
+     "worst_anchor_basis": "Zillow Offers 2021-11-02 — $304M Q3 inventory write-down (model drift in iBuying)",
+     "derivation": "P50 = model-incident remediation cost. P95 = sustained model harm with regulatory + reputational cost. worst_anchor = Zillow-class business-line shutdown.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Model-risk median = remediation + restitution on a bounded cohort; P95 = the Zillow-class direction discounted to the op-risk slice (their $500M+ was business-model, not op loss). Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "Scope-enforced auth",
+      "effectiveness_pct": 90,
+      "evidence_basis": "Capability-token scope coverage on agent calls (coverage) — enforcement is only as tight as the granted scope; an over-broad grant passes enforcement cleanly (the exact RE-04 class). Credited below coverage for grant-shape residual."
+     },
+     {
+      "name": "Scope linter",
+      "effectiveness_pct": 50,
+      "evidence_basis": "Pre-merge linter on agent-tool manifests"
+     },
+     {
+      "name": "Audit logs",
+      "effectiveness_pct": 85,
+      "evidence_basis": "Agent-action trace retention + replay"
+     }
+    ],
+    "gaps": [
+     {
+      "name": "Capability-token rotation",
+      "planned": "Q4",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 60.0,
+    "defense_depth_layers": 3,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   }
+  },
+  {
+   "id": "RP-11",
+   "name": "Capacity & Performance Risk",
+   "description": "Risk of service degradation from resource exhaustion or traffic surges",
+   "nist_function": "PR.PT",
+   "signals": [
+    "cpu_saturation_pct",
+    "memory_saturation_pct",
+    "latency_p99_ms",
+    "queue_depth"
+   ],
+   "thresholds": {
+    "cpu_saturation_pct": {
+     "green": 70,
+     "amber": 85,
+     "red": 95
+    },
+    "latency_p99_ms": {
+     "green": 200,
+     "amber": 500,
+     "red": 1000
+    }
+   },
+   "threshold_provenance": "mixed",
+   "threshold_source": "Google SRE 'Four Golden Signals' (latency, traffic, errors, saturation). 30% capacity headroom convention from SRE Workbook. Kubernetes Horizontal Pod Autoscaler default CPU target = 80% (DORA 2024–2025 elite teams typically auto-scale below that). Cloud-native API gateways (Envoy, Istio, Cilium) now dominate post-2024 enterprise topologies — latency_p99 at the gateway is the canonical capacity-signal entry point.",
+   "threshold_source_url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+   "incident_reference": [
+    {
+     "name": "GitHub MySQL replication incident",
+     "date": "2018-10-21",
+     "summary": "Brief network partition during routine maintenance triggered ~24h degraded service; recovery limited by capacity headroom and replication topology.",
+     "url": "https://github.blog/2018-10-30-oct21-post-incident-analysis/"
+    },
+    {
+     "name": "Cloudflare regex CPU exhaustion",
+     "date": "2019-07-02",
+     "summary": "Single regex spiked CPU saturation to 100% across the global WAF tier within seconds — saturation as a leading indicator.",
+     "url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/"
+    }
+   ],
+   "appetite": "Medium — capacity headroom of 30% required; auto-scaling must be validated quarterly",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-02",
+     "strength": "high",
+     "rationale": "Capacity saturation = outage (Cloudflare 2019-07-02; GitHub 2018-10-21)",
+     "propagation_layer": "app",
+     "containment_boundary": "region"
+    },
+    {
+     "pattern_id": "RP-12",
+     "strength": "medium",
+     "rationale": "Sustained capacity stress increases repeat incidents",
+     "propagation_layer": "app",
+     "containment_boundary": "region"
+    }
+   ],
+   "cascade_from": [
+    {
+     "pattern_id": "RP-09",
+     "strength": "medium",
+     "rationale": "Emergency changes elevate capacity volatility"
+    }
+   ],
+   "materiality_trigger": {
+    "sec_8k": "conditional",
+    "occ_12cfr30": true,
+    "gdpr_art33": false,
+    "eu_ai_act": false,
+    "note": "Capacity-driven outage becomes 8-K material when customer-facing services exceedance SLA.",
+    "dora": true,
+    "fca_opres": true,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": true,
+    "sea_17a4": false,
+    "reg_sci": true
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 1.0,
+     "p95": 3.3,
+     "derivation": {
+      "base_metric": "cpu_saturation_pct + latency_p99_ms (Four Golden Signals — saturation + latency)",
+      "base_metric_unit": "capacity events per quarter",
+      "base_metric_p50": 3,
+      "base_metric_p95": 10,
+      "base_metric_source": "Google SRE Four Golden Signals + 30% headroom convention",
+      "incidents_per_year_methodology": "fraction of capacity events causing customer-visible degradation",
+      "calibration_basis": "Well-tuned autoscaling catches most; capacity events visible at SLO violation drive P95."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add). r29: p50 1.5→1.0/yr — MATERIAL-tier only (Uptime Institute 2023: severe/serious outages run ~1-2/yr for large orgs; the prior value counted significant-but-recoverable events the severity re-anchor now excludes by definition)."
+    },
+    "severity_distribution": {
+     "p50_usd": 1500000,
+     "p95_usd": 10000000,
+     "worst_anchor_usd": 40000000,
+     "worst_anchor_basis": "Cloudflare 2019-07-02 — 27-min global edge outage from CPU saturation (regex backtracking)",
+     "derivation": "P50 = brief capacity-driven degradation. P95 = sustained capacity event with SLA cost. worst_anchor = Cloudflare-class global edge event.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Capacity events are the shortest-duration class (autoscaling bounds them); ITIC hourly basis over 2–6h. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "DR exercise cadence",
+      "effectiveness_pct": 88,
+      "evidence_basis": "Quarterly tabletop completion, last 4 quarters (completion = participation, not capability) — the live-failover pass rate on the row below is the effectiveness signal; tabletops rehearse coordination. Credited well below completion."
+     },
+     {
+      "name": "Multi-region failover",
+      "effectiveness_pct": 90,
+      "evidence_basis": "Last live-failover pass rate"
+     },
+     {
+      "name": "Backup verification",
+      "effectiveness_pct": 88,
+      "evidence_basis": "Restore-test coverage on critical datastores (coverage) — a passed restore test proves the tested path at the tested scale; full-scale cross-region restore under incident load is the untested residual. Credited below test coverage."
+     }
+    ],
+    "gaps": [
+     {
+      "name": "Regional-failure tabletop",
+      "planned": "Q3",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 72.8,
+    "defense_depth_layers": 3,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   },
+   "depth_note": "Coverage pattern — RAG thresholds are floors/defaults, less deeply calibrated than the vertical-slice patterns (RP-04 KEV clocks, RP-13 agentic). Production calibrates per firm from observed distributions."
+  },
+  {
+   "id": "RP-12",
+   "name": "Incident & Recovery Risk",
+   "description": "Risk of inadequate incident response, unmet RTO/RPO, or recurring failure patterns",
+   "nist_function": "RC.CO",
+   "signals": [
+    "repeat_incident_rate",
+    "rto_exceedance_count",
+    "postmortem_overdue",
+    "runbook_coverage_pct"
+   ],
+   "thresholds": {
+    "repeat_incident_rate": {
+     "green": 5,
+     "amber": 15,
+     "red": 30
+    },
+    "rto_exceedance_count": {
+     "green": 0,
+     "amber": 1,
+     "red": 3
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "Google SRE blameless postmortem + DORA failed-deployment recovery: Elite <1h, High <1d. Repeat-incident rate is the standard 'learning from incidents' indicator.",
+   "threshold_source_url": "https://sre.google/sre-book/postmortem-culture/",
+   "incident_reference": [
+    {
+     "name": "Atlassian Cloud — 14-day outage",
+     "date": "2022-04-04",
+     "summary": "Scripted maintenance deleted ~775 customer sites; recovery took up to 14 days for some customers due to lack of per-tenant restore tooling — canonical RTO-exceedance lesson.",
+     "url": "https://www.atlassian.com/engineering/post-incident-review-april-2022-outage"
+    }
+   ],
+   "appetite": "Low — RTO ≤4h for Tier 1 services; all Sev-1 incidents require postmortem within 5 days",
+   "cascade_to": [],
+   "cascade_from": [
+    {
+     "pattern_id": "RP-02",
+     "strength": "high",
+     "rationale": "Repeat availability exceedances feed repeat-incident metric"
+    },
+    {
+     "pattern_id": "RP-01",
+     "strength": "medium",
+     "rationale": "Deploy regressions account for the largest share of post-incident workload"
+    },
+    {
+     "pattern_id": "RP-11",
+     "strength": "medium",
+     "rationale": "Capacity events drive Sev-1 incident frequency"
+    }
+   ],
+   "materiality_trigger": {
+    "sec_8k": true,
+    "occ_12cfr30": true,
+    "gdpr_art33": false,
+    "eu_ai_act": false,
+    "note": "Extended outage (Atlassian 2022 14-day) is 8-K Item 1.05 material; OCC requires Sev-1 postmortem within 5 days.",
+    "dora": true,
+    "fca_opres": true,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": true,
+    "sea_17a4": false,
+    "reg_sci": true
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.5,
+     "p95": 2.0,
+     "derivation": {
+      "base_metric": "repeat_incident_rate + rto_exceedance_count",
+      "base_metric_unit": "Sev-1 recovery events per quarter",
+      "base_metric_p50": 2,
+      "base_metric_p95": 8,
+      "base_metric_source": "Google SRE postmortem culture + DORA failed-deployment-recovery clusters",
+      "incidents_per_year_methodology": "Sev-1 incident frequency baseline + RTO-exceedance amplification",
+      "calibration_basis": "Strong runbook + DR culture reduces frequency; gaps drive P95."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add)."
+    },
+    "severity_distribution": {
+     "p50_usd": 3500000,
+     "p95_usd": 25000000,
+     "worst_anchor_usd": 300000000,
+     "worst_anchor_basis": "Atlassian 2022-04-04 — 14-day customer impact + SLA credits + churn",
+     "derivation": "P50 = standard Sev-1 recovery cost. P95 = extended RTO miss with revenue impact. worst_anchor = Atlassian-class extended outage.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Recovery-failure median = extended-restoration premium over the base outage; P95 = TSB 2018-class prolonged recovery (£330M total as the beyond-P95 reference). Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "Post-mortem cadence",
+      "effectiveness_pct": 85,
+      "evidence_basis": "% SEV-1/SEV-2 with published post-mortem (completion) — publication is learning-loop existence, not prevention; recurrence turns on the action items the closure-rate row tracks. Credited for the loop, not the outcome."
+     },
+     {
+      "name": "Action-item tracker",
+      "effectiveness_pct": 70,
+      "evidence_basis": "Post-mortem AI closure rate within SLA"
+     }
+    ],
+    "gaps": [
+     {
+      "name": "Cross-team learning loop",
+      "planned": "Q4",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 62.4,
+    "defense_depth_layers": 2,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   },
+   "depth_note": "Coverage pattern — RAG thresholds are floors/defaults, less deeply calibrated than the vertical-slice patterns (RP-04 KEV clocks, RP-13 agentic). Production calibrates per firm from observed distributions."
+  },
+  {
+   "id": "RP-13",
+   "name": "Agentic AI & Tool-Use Risk",
+   "description": "Risk from autonomous LLM agents using tools (MCP, function-calling, code execution) — prompt injection, tool poisoning, tool mutation, confused-deputy, unauthorized tool invocation",
+   "nist_function": "GV.RM",
+   "signals": [
+    "prompt_injection_detected_count",
+    "tool_invocation_rejected_count",
+    "mcp_tool_mutation_count",
+    "agent_session_anomaly_score",
+    "unauthorized_tool_access_attempts"
+   ],
+   "thresholds": {
+    "prompt_injection_detected_count": {
+     "green": 0,
+     "amber": 5,
+     "red": 20
+    },
+    "mcp_tool_mutation_count": {
+     "green": 0,
+     "amber": 1,
+     "red": 5
+    },
+    "unauthorized_tool_access_attempts": {
+     "green": 0,
+     "amber": 2,
+     "red": 10
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "Practical DevSecOps MCP Security Guide (2025) — first formal classification of MCP risks. NIST AI 600-1 Generative AI Profile (Jul 2024) — prompt injection and data poisoning listed as primary GenAI risks. MCP specification 'SHOULD' on human-in-loop is widely treated as a 'MUST' by security practitioners (Anthropic, Authzed, Practical DevSecOps).",
+   "threshold_source_url": "https://www.practical-devsecops.com/mcp-security-guide/",
+   "incident_reference": [
+    {
+     "name": "CVE-2025-49596 — MCP Inspector RCE (CVSS 9.4)",
+     "date": "2025-06-01",
+     "summary": "Unauthenticated MCP Inspector instances allowed arbitrary command execution. Canonical 'agent tooling deployed without auth, treated as developer-local but exposed to network' failure.",
+     "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-49596"
+    },
+    {
+     "name": "First malicious MCP package on public registries",
+     "date": "2025-09-01",
+     "summary": "Typosquatted MCP server published to public registry; demonstrated that tool-poisoning is now a live supply-chain pattern, not a theoretical one. MCPTox benchmark (20 LLM agents × 45 real MCP servers) found most agents vulnerable to prompt injection via tool descriptions.",
+     "url": "https://authzed.com/blog/timeline-mcp-exceedances"
+    },
+    {
+     "name": "Tool-mutation / rug-pull pattern",
+     "date": "2025-04-09",
+     "summary": "MCP tools can mutate their own definitions after install — a tool approved on Day 1 can be re-pointed to exfiltrate API keys by Day 7 with no re-approval. Documented by Simon Willison (Apr 2025) and catalogued in the Practical DevSecOps MCP guide.",
+     "url": "https://simonwillison.net/2025/Apr/9/mcp-prompt-injection/"
+    }
+   ],
+   "appetite": "Very Low — agentic AI in production requires: pinned tool-definition hashes (no silent mutation), explicit HITL for any non-read tool invocation, scoped tokens (no admin:* / files:* / db:* without per-call justification), tool-output sanitization, and per-session audit trail",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-06",
+     "strength": "high",
+     "rationale": "Agentic AI tool-use exfiltrates PII (Samsung 2023-04-30; ChatGPT Redis bug 2023-03-20)",
+     "propagation_layer": "data",
+     "containment_boundary": "global"
+    },
+    {
+     "pattern_id": "RP-07",
+     "strength": "medium",
+     "rationale": "Malicious MCP packages enter the tool supply chain (Sept 2025 first malicious package)",
+     "propagation_layer": "platform",
+     "containment_boundary": "global"
+    }
+   ],
+   "cascade_from": [
+    {
+     "pattern_id": "RP-05",
+     "strength": "medium",
+     "rationale": "Over-scoped tokens are the precondition for MCP rug-pull abuse"
+    },
+    {
+     "pattern_id": "RP-10",
+     "strength": "high",
+     "rationale": "Untrusted model outputs become agentic tool-use vectors"
+    }
+   ],
+   "materiality_trigger": {
+    "sec_8k": "conditional",
+    "occ_12cfr30": true,
+    "gdpr_art33": "conditional",
+    "eu_ai_act": true,
+    "note": "Agentic AI in EU high-risk context: EU AI Act post-market monitoring obligations from 2026; PII exfiltration via agent tools triggers GDPR Art. 33.",
+    "dora": false,
+    "fca_opres": false,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": false,
+    "sea_17a4": false,
+    "reg_sci": false
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.4,
+     "p95": 1.5,
+     "derivation": {
+      "base_metric": "prompt_injection_detected_count + mcp_tool_mutation_count + unauthorized_tool_access_attempts",
+      "base_metric_unit": "agent-event count per quarter",
+      "base_metric_p50": 5,
+      "base_metric_p95": 25,
+      "base_metric_source": "Practical DevSecOps MCP Security Guide (2025) + NIST AI 600-1 GenAI Profile",
+      "incidents_per_year_methodology": "fraction of agent events with material consequence; high uncertainty given novelty of surface",
+      "calibration_basis": "Tool-mutation + injection events are newly-tracked; conversion rate has high uncertainty (illustrative range)."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "v2.0b recalibration: material-incident frequency re-anchored to a large US consumer/crypto fintech (~$2-4B revenue) risk appetite — OPERATOR JUDGMENT, not a sourced peer study (no public source publishes a firm's incident-frequency appetite; the sensitivity appendix shows how far the answer moves if this judgment is wrong). It supersedes the illustrative base-rate starting point above. Major incidents of this severity are rare (<1-2/yr for most patterns); the prior values implied an unrealistic ~$100M/yr expected loss. Portfolio totals are computed by seeded Monte-Carlo aggregation of Poisson(frequency) x lognormal(severity) with one-generation cascade propagation along declared cascade_to edges (v2.0c), NOT by summing per-pattern P95 tails (percentiles do not add)."
+    },
+    "severity_distribution": {
+     "p50_usd": 3500000,
+     "p95_usd": 25000000,
+     "worst_anchor_usd": 200000000,
+     "worst_anchor_basis": "Samsung 2023-04-30 IP exfil + CVE-2025-49596 MCP Inspector RCE supply-chain class",
+     "derivation": "P50 = single agent-action incident remediation. P95 = supply-chain or scope-violation event with broader exposure. worst_anchor = Samsung-class IP loss + supply-chain compromise.",
+     "source_status": "illustrative",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Agentic tool-misuse median = contained exfiltration/abuse event (Samsung 2023 class); P95 = agent-driven data exposure at CODB mega-breach entry tier. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "In production effectiveness from CCT, pen-test, observed incident-frequency reduction.",
+    "in_place": [
+     {
+      "name": "HITL on writes",
+      "effectiveness_pct": 90,
+      "evidence_basis": "Human-in-the-loop on all write-class agent verbs (100% coverage) — but reviewer attention decays and sign-off can be pro-forma (the exact rubber-stamp failure the A8 justification gates exist to resist). Effectiveness credited below coverage."
+     },
+     {
+      "name": "Hash-pinning MCP",
+      "effectiveness_pct": 71,
+      "evidence_basis": "% connected MCP servers with pinned hash (coverage) — a pin blocks silent swaps, not a malicious server pinned in good faith. Credited for supply-chain drift, not vetting."
+     },
+     {
+      "name": "Safety classifier",
+      "effectiveness_pct": 92,
+      "evidence_basis": "Classifier coverage on agent prompt/response stream (coverage) — classifiers carry measured miss rates and degrade against novel attacks; coverage says scanned, not caught. Credited at, not above, its evaluated recall."
+     },
+     {
+      "name": "Canary cohort",
+      "effectiveness_pct": 80,
+      "evidence_basis": "% LLM-feature rollouts gated by canary cohort (coverage) — cohort metrics catch aggregate regressions, not rare-input harms below the cohort's statistical floor. Credited at the cohort's detection power."
+     }
+    ],
+    "gaps": [
+     {
+      "name": "Output exfil detection",
+      "planned": "Q3",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 68.8,
+    "defense_depth_layers": 4,
+    "_avg_note": "avg_effectiveness_pct = round(mean(in_place effectiveness_pct)); computed, not hand-set",
+    "_validation_haircut_note": "v2.0b: independent-validation haircut (×0.80) applied to self-assessed effectiveness — realized aggregate op-risk control effectiveness runs below the sum of in-place control strengths (coverage gaps + tail penetration: regulatory fines and novel attacks bypass even strong controls, as the $50-100M fines this firm class has paid demonstrate). Residual = inherent × (1 − realized_effectiveness)."
+   }
+  },
+  {
+   "id": "RP-14",
+   "name": "Skew & Backpressure Accumulation",
+   "description": "Risk from drift between things that must agree — version skew (control plane vs node, cohort vs cohort mid-rollout), schema skew, config drift across regions, replica lag — and from backpressure accumulating behind self-healing. The defining property: LEVEL metrics stay green while DIVERGENCE grows, because the platform heals levels; the incident arrives when an incompatible pair finally meets or absorption is exhausted.",
+   "nist_function": "DE.CM",
+   "signals": [
+    "absorption_vs_arrival_delta_mps",
+    "max_version_skew_age_hours",
+    "retry_ratio",
+    "config_drift_pct_fleet",
+    "replica_lag_trend_mps"
+   ],
+   "thresholds": {
+    "max_version_skew_age_hours": {
+     "green": 24,
+     "amber": 72,
+     "red": 168
+    },
+    "retry_ratio": {
+     "green": 0.05,
+     "amber": 0.15,
+     "red": 0.3
+    },
+    "config_drift_pct_fleet": {
+     "green": 2,
+     "amber": 5,
+     "red": 10
+    },
+    "absorption_vs_arrival_delta_mps": {
+     "green": 0,
+     "amber": -5000,
+     "red": -20000
+    }
+   },
+   "threshold_provenance": "operator_calibrated",
+   "threshold_source": "Kubernetes version-skew policy (kubelet within n-2 of apiserver) — the platform's own definition of 'things that must agree'. Google SRE on retry amplification — sustained retry ratio r amplifies offered load by 1/(1−r), so r=0.3 is +43% synthetic load. Knight Capital SEC order (2013) — one of eight servers left on old code: the definitive skew loss. KRIs are deliberately DIVERGENCE/TREND-form, not level-form: in self-healing environments, level-KRIs are exactly what the healing masks; divergence-KRIs survive it.",
+   "threshold_source_url": "https://kubernetes.io/releases/version-skew-policy/",
+   "incident_reference": [
+    {
+     "name": "Knight Capital",
+     "date": "2012-08-01",
+     "summary": "A repurposed feature flag met stale code on 1 of 8 servers — $440M in 45 minutes. Version skew between things that must agree, as a going-concern event.",
+     "public_loss_usd": 440000000
+    },
+    {
+     "name": "Reddit Pi-Day outage",
+     "date": "2023-03-14",
+     "summary": "K8s upgrade met a years-old node-route dependency nobody remembered — accumulated skew between cluster generations, detonating on contact."
+    },
+    {
+     "name": "Datadog multi-region outage",
+     "date": "2023-03-08",
+     "summary": "A fleet-wide OS auto-update — config drift management itself as the common cause across regions and clouds."
+    },
+    {
+     "name": "Roblox 73-hour outage",
+     "date": "2021-10-28",
+     "summary": "A new streaming feature plus a latent BoltDB compaction issue — accumulation behind a healthy-looking coordination layer until absorption exhausted."
+    }
+   ],
+   "appetite": "Low — divergence KRIs instrumented in TREND form (absorption-vs-arrival, skew-age, retry ratio, drift %): the platform heals levels, so governance must instrument the derivative of the absorption, not the level of the symptom.",
+   "cascade_to": [
+    {
+     "pattern_id": "RP-02",
+     "strength": "high",
+     "rationale": "Exhausted absorption converts masked accumulation into the availability year (Knight 2012-08-01; Reddit 2023-03-14)",
+     "propagation_layer": "platform",
+     "containment_boundary": "region"
+    },
+    {
+     "pattern_id": "RP-11",
+     "strength": "medium",
+     "rationale": "Retry amplification consumes capacity at 1/(1−r) — the backlog becomes the load (Google SRE retry budgets)",
+     "propagation_layer": "app",
+     "containment_boundary": "cell"
+    }
+   ],
+   "cascade_from": [
+    "RP-01",
+    "RP-09"
+   ],
+   "materiality_trigger": {
+    "sec_8k": "conditional",
+    "occ_12cfr30": true,
+    "gdpr_art33": false,
+    "eu_ai_act": false,
+    "note": "Skew-borne availability events reach 8-K materiality only at Knight scale (conditional); OCC-style resilience discipline and DORA/FCA operational-resilience map directly.",
+    "dora": true,
+    "fca_opres": true,
+    "nydfs_500": false,
+    "pci_dss": false,
+    "finra_4370": true,
+    "sea_17a4": false,
+    "reg_sci": true
+   },
+   "exposure_model": {
+    "incident_frequency_per_year": {
+     "p50": 0.6,
+     "p95": 2.0,
+     "derivation": {
+      "base_metric": "accumulation events maturing into customer-visible incidents (skew-age > red, retry_ratio > red, sustained negative absorption)",
+      "base_metric_unit": "matured accumulation events per year",
+      "base_metric_p50": 0.6,
+      "base_metric_p95": 2.0,
+      "base_metric_source": "operator judgment — divergence events are chronic, matured LOSSES are rare",
+      "incidents_per_year_methodology": "only accumulation that DETONATES counts — the chronic divergence itself is the KRI surface, not the incident",
+      "calibration_basis": "Knight-class is once-a-decade industry-wide; Reddit/Datadog-class within a large platform ~sub-annual."
+     },
+     "source_status": "illustrative",
+     "recalibration_note": "E4 pattern — calibrated directly at material-incident level (the v2.0b re-anchor discipline): OPERATOR JUDGMENT, bounded by the freq levers like every pattern."
+    },
+    "severity_distribution": {
+     "p50_usd": 2000000,
+     "p95_usd": 15000000,
+     "worst_anchor_usd": 440000000,
+     "worst_anchor_basis": "Knight Capital 2012-08-01 — $440M in 45 minutes (SEC settlement order 2013); the ceiling for skew-borne loss at a trading-adjacent platform",
+     "basis": "skew losses are bimodal: most matured events are contained degradations; the tail is Knight",
+     "reanchor_basis": "r29 AGGREGATE RECALIBRATION (operator challenge: 'defensible in scenario, math and refs'): Matured skew events are bimodal: median = contained degradation + reconciliation; the tail belongs to Knight ($440M worst anchor unchanged) — P95 held below it by an order of magnitude deliberately. Prior medians ran above the reference data (IBM CODB 2024 US avg $9.36M; Uptime Institute 2023; ITIC 2024) and, summed with frequencies, implied ~$91M/yr inherent EXPECTED loss — indefensible at a $2-4B-revenue archetype. r29b SHAPE FIX: p95/p50 ratio tightened to ~7× (σ≈1.18) — op-risk severity lognormals run σ≈1.0-1.4 in Basel/ORX practice; the first re-anchor left ratios near 15× (σ≈1.65), which kept the mean ~4× the median and defeated the median re-anchor. The industry-decade events (Knight, Equifax, Capital One, TSB) live in worst_anchor and in the MC's COMPOSITION of frequency, dependency common-cause and co-movement — not inside a single incident's severity distribution."
+    }
+   },
+   "compensating_controls": {
+    "source_status": "illustrative",
+    "source_note": "DELIBERATELY the lowest credit in the catalog: level-instrumented controls do not see divergence — the class exists BECAUSE the standard control set is blind to it.",
+    "in_place": [
+     {
+      "name": "Version-skew admission gate (n-2 enforced at deploy)",
+      "effectiveness_pct": 55,
+      "evidence_basis": "Admission-controller rejection rate on skew-violating deploys (coverage of the deploy path only — drift arriving OUTSIDE deploys is unguarded; credited well below)"
+     },
+     {
+      "name": "Expand-contract schema migration policy",
+      "effectiveness_pct": 50,
+      "evidence_basis": "Shipped-migration compliance rate on an audited sample — whether a breaking pair actually reached production, NOT whether the review checklist was completed; credited below the sampled rate"
+     },
+     {
+      "name": "GitOps drift reconciliation with trend alerting",
+      "effectiveness_pct": 45,
+      "evidence_basis": "Reconciliation-loop convergence rate; the TREND alert on divergence age is the effectiveness signal, and it is newly instrumented"
+     },
+     {
+      "name": "Retry budgets + circuit breakers",
+      "effectiveness_pct": 40,
+      "evidence_basis": "Breaker trip tests in staging (bounds the 1/(1−r) amplification; production trip behaviour under real thundering herd is untested)"
+     }
+    ],
+    "gaps": [
+     {
+      "name": "Fleet-wide max-skew-age KRI (divergence form)",
+      "planned": "Q4",
+      "effectiveness_pct": 0
+     },
+     {
+      "name": "Cross-region config-drift detonation tabletop",
+      "planned": "Q4",
+      "effectiveness_pct": 0
+     }
+    ],
+    "avg_effectiveness_pct": 38,
+    "defense_depth_layers": 2,
+    "_avg_note": "mean of in-place credited effectiveness, dragged down by the two declared gaps' zero credit",
+    "_validation_haircut_note": "self-assessed values already conservative; the E4 thesis is that this class's controls are structurally weaker than the catalog average — 38% vs ~62% mean"
+   }
+  }
+ ]
+}

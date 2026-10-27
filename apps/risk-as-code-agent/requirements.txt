@@ -1,0 +1,17 @@
+# Risk-as-Code Agent — runtime dependencies.
+# Minimums chosen for May 2026 reality; floors permit incremental upgrades.
+#
+# Core (the Monte-Carlo engine, projection, audits, and OSCAL are stdlib-only
+# beyond pyyaml — the reproducibility/audit suite runs on a clean checkout with
+# just this file's non-optional lines).
+pyyaml>=6.0
+
+# Optional. The LangGraph pipeline (graph/risk_graph.py) is a convenience
+# orchestration; it degrades to a stdlib sequential fallback when langgraph is
+# absent (see _HAS_LANGGRAPH), so it is NOT required to run the engine or audits.
+langgraph>=0.2.0            # optional — graph orchestration; stdlib fallback if absent
+langchain-core>=0.3.0       # optional — pulled in by langgraph
+anthropic>=0.40.0           # optional — only for live LLM narratives (mock by default)
+streamlit>=1.40.0           # optional — the dev UI harness only
+reportlab>=4.2.0            # optional — PDF export only
+python-dotenv>=1.0.0        # optional — .env convenience

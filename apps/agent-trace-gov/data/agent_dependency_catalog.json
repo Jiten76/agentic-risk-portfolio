@@ -1,0 +1,129 @@
+{
+  "version": "1.0",
+  "description": "Shared-dependency layer for the AGENT estate — the common-cause nodes every workflow rides on. The structural twin of rac's data/dependency_catalog.json: same mechanism (one structural event UNDER many risks at once), different substrate (the agent layer instead of the infrastructure layer).",
+  "units_note": "STRUCTURAL LAYER, NOT A LOSS MODEL: atg's currency is workflows, traced actions and findings — there is deliberately NO frequency×severity dollar model here (the rac spoke prices the infrastructure analogs; production would attach fitted agent-incident history before pricing this layer). Blast radii are DERIVED at build time from the same traces and lineage the dashboard renders — the catalog declares WHAT each node underlies (lineage node or action types), never the counts.",
+  "provenance_note": "OPERATOR_CALIBRATED structure anchored to named public incidents. Where the class has no public incident of record at this archetype (a first-party agent orchestrator), anchors are labeled CLASS_ANALOG and borrow the nearest control-plane precedent — declared, not hidden.",
+  "nodes": [
+    {
+      "id": "agent_orchestrator",
+      "name": "Agent orchestrator (routing & delegation plane)",
+      "layer": "control",
+      "lineage_node": "agent-orchestrator",
+      "rac_analog": "k8s_control_plane",
+      "containment_boundary": "estate-global",
+      "modes": {
+        "loss": {
+          "effect": "Every workflow stalls — no delegation, no tool calls, no decisions. The estate's single structural hub: its loss IS the estate's loss.",
+          "fan_out_re": []
+        },
+        "blindness": {
+          "effect": "Routing continues but trace emission breaks — actions still happen, UNGOVERNED. A lineage break at estate scale: every downstream evidence trail is severed while work continues, and multi-agent loops run uncounted.",
+          "fan_out_re": ["RE-06", "RE-08"]
+        }
+      },
+      "anchors": [
+        {"date": "2021-10-04", "name": "Meta control-plane loss", "label": "CLASS_ANALOG", "summary": "The control plane that routes everything goes down and takes the tools that would fix it — no public agent-orchestrator incident of record at this archetype; this is the nearest control-plane precedent, declared as an analog."},
+        {"date": "2023-03-14", "name": "Reddit Pi-Day K8s control-plane outage", "label": "CLASS_ANALOG", "summary": "A control-plane upgrade takes the whole estate down for hours — the orchestrator is the agent estate's etcd."}
+      ],
+      "mitigation_note": "The one node whose blast radius the lineage graph itself proves: it transits every workflow. Isolation options are structural (per-domain orchestrators, static fallback routing), not control tweaks."
+    },
+    {
+      "id": "model_provider",
+      "name": "Model provider (hosted LLM inference)",
+      "layer": "substrate",
+      "depends_on_actions": ["model_inference"],
+      "rac_analog": "cloud_region",
+      "containment_boundary": "provider-global",
+      "modes": {
+        "loss": {
+          "effect": "Every agent that reasons stops reasoning — inference is the substrate the estate runs on, and a provider outage is a same-hour, all-workflows event.",
+          "fan_out_re": []
+        },
+        "blindness": {
+          "effect": "The provider degrades SILENTLY — a model swap, a quality regression, a routing change. Agents keep producing output that clears no bar: low-confidence decisions ship and PII discipline slips, with nothing down to alarm on.",
+          "fan_out_re": ["RE-01", "RE-05"]
+        }
+      },
+      "anchors": [
+        {"date": "2023-11-08", "name": "OpenAI major API outage", "summary": "API and ChatGPT down for hours (DDoS-attributed) — every dependent product's agent layer stalled at once; the pure form of this node's loss mode."},
+        {"date": "2024-06-04", "name": "ChatGPT/API multi-hour degradation", "summary": "Elevated errors across the API during peak hours — dependent workflows degraded together, not independently."}
+      ],
+      "mitigation_note": "Multi-provider failover is the region-failover of the agent estate — and carries the same failover-failure risk class rac prices on cloud_region (the fallback model behaves differently under the same prompts)."
+    },
+    {
+      "id": "mcp_registry",
+      "name": "Tool / MCP registry (agent supply chain)",
+      "layer": "supply_chain",
+      "depends_on_actions": ["tool_execution", "external_api_call"],
+      "rac_analog": "api_registry",
+      "containment_boundary": "estate-global",
+      "modes": {
+        "loss": {
+          "effect": "Tool resolution fails — every workflow that executes a tool or calls an external API stalls at the call site.",
+          "fan_out_re": []
+        },
+        "blindness": {
+          "effect": "The registry is POISONED rather than down — a malicious or tampered tool description executes with the agent's authority: data exfiltrates through 'legitimate' tool calls, scope walks outward one plausible call at a time, copies accumulate where no policy looks.",
+          "fan_out_re": ["RE-03", "RE-04", "RE-07"]
+        }
+      },
+      "anchors": [
+        {"date": "2025-09-25", "name": "postmark-mcp — first malicious MCP package on a public registry", "summary": "A typosquatted MCP server BCC'd every email it relayed to an attacker domain — tool-supply-chain compromise executing with full agent authority."},
+        {"date": "2025-06-13", "name": "CVE-2025-49596 · MCP Inspector RCE (CVSS 9.4)", "summary": "RCE in the standard MCP debugging tool — the tooling AROUND the agent supply chain is itself attack surface."}
+      ],
+      "mitigation_note": "Hash-pinned tool manifests and registry attestation are the lockfile discipline of the agent layer; the ai-gov panel's hash-pin compliance metric reads on exactly this node."
+    },
+    {
+      "id": "safety_classifier",
+      "name": "Safety / governance classifier plane (the detection layer itself)",
+      "layer": "governance",
+      "governs_all_traces": true,
+      "rac_analog": "security_agent_vendor",
+      "containment_boundary": "estate-global",
+      "modes": {
+        "loss": {
+          "effect": "The evaluation pipeline is DOWN — visibly. A gap opens in the finding log and everyone knows the estate is running unwatched; painful but honest.",
+          "fan_out_re": []
+        },
+        "blindness": {
+          "effect": "THE defining mode: the classifier still routes traffic but no longer catches. Detections drop to zero while violations continue — absorbed violations accumulate unlogged, and the dashboard reads GREEN precisely because the control watching the agents went dark. The divergence thesis rac prices on its skew-and-backpressure pattern, replayed on the agent substrate: level-metrics are what a silent classifier masks.",
+          "fan_out_re": ["RE-01", "RE-02", "RE-03", "RE-04", "RE-05", "RE-06", "RE-07", "RE-08"]
+        }
+      },
+      "anchors": [
+        {"date": "2024-07-19", "name": "CrowdStrike Falcon content update", "summary": "The defense plane itself became the outage — the class precedent for 'the control watching the estate is the single point of failure'; rac prices the infrastructure twin as security_agent_vendor."},
+        {"date": "2019-07-02", "name": "Cloudflare WAF regex CPU exhaustion", "summary": "A safety-layer rule change took the protected estate down globally in minutes — the governance layer as common cause, not just common observer."}
+      ],
+      "mitigation_note": "Canary violations (synthetic known-bad traces injected continuously) are the only honest heartbeat for a detection plane — a classifier that stops flagging the canaries is dark, whatever its uptime says."
+    },
+    {
+      "id": "credential_broker",
+      "name": "Credential broker (agent secrets & token issuance)",
+      "layer": "identity",
+      "depends_on_actions": ["data_read", "data_write", "external_api_call"],
+      "rac_analog": "workforce_idp",
+      "containment_boundary": "estate-global",
+      "modes": {
+        "loss": {
+          "effect": "Agents cannot authenticate to the systems they read and write — every data-touching workflow stalls at first credential refresh.",
+          "fan_out_re": []
+        },
+        "blindness": {
+          "effect": "COMPROMISE rather than outage: agent credentials exfiltrated or the issuer breached — actions execute with stolen agent authority, indistinguishable from governed work until the trail is audited. The agent estate's account-takeover.",
+          "fan_out_re": ["RE-03", "RE-04"]
+        }
+      },
+      "anchors": [
+        {"date": "2023-10-20", "name": "Okta support-system breach", "summary": "Session tokens lifted from support artifacts — the issuer of trust as the breach vector; every relying integration inherited the compromise."},
+        {"date": "2023-01-04", "name": "CircleCI secrets compromise", "summary": "'Rotate everything' — one broker-level compromise invalidated every secret it had ever held; the blast radius is the credential graph, not the incident."},
+        {"date": "2025-03-14", "name": "tj-actions/changed-files supply-chain compromise", "summary": "A compromised CI action exfiltrated repository secrets at scale — automation credentials as the soft target of the estate."}
+      ],
+      "mitigation_note": "Short-lived per-workflow tokens bound to declared scopes turn a broker compromise from estate-wide to workflow-wide — the same containment-boundary move rac prices on the infrastructure side."
+    }
+  ],
+  "deferred_nodes": {
+    "note": "DECLARED DEFERRALS (same discipline as rac C30.6): agent-layer common-cause classes recognized but not yet modeled as first-class nodes — deferred, not denied.",
+    "classes": ["vector_store_memory", "prompt_registry", "eval_harness", "sandbox_runtime", "a2a_gateway", "model_gateway_router"]
+  },
+  "cross_substrate_note": "Every node names its rac_analog: the SAME failure mechanism priced in dollars on the infrastructure substrate (rac dependency_catalog.json) appears here in structural units on the agent substrate. One portfolio, one mechanism, two substrates."
+}

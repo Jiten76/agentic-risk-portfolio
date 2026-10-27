@@ -1,0 +1,59 @@
+{
+  "version": "1.0",
+  "domains": [
+    {
+      "id": "trading",
+      "name": "Trading & Execution",
+      "tier": 1,
+      "services": [
+        {"id": "order-router", "name": "Order Router", "language": "go", "replicas": 12},
+        {"id": "execution-engine", "name": "Execution Engine", "language": "java", "replicas": 8},
+        {"id": "market-data-feed", "name": "Market Data Feed", "language": "go", "replicas": 6},
+        {"id": "position-ledger", "name": "Position Ledger", "language": "java", "replicas": 4}
+      ]
+    },
+    {
+      "id": "payments",
+      "name": "Payments & Transfers",
+      "tier": 1,
+      "services": [
+        {"id": "payment-gateway", "name": "Payment Gateway", "language": "python", "replicas": 8},
+        {"id": "ach-processor", "name": "ACH Processor", "language": "java", "replicas": 4},
+        {"id": "wire-transfer", "name": "Wire Transfer Service", "language": "java", "replicas": 3},
+        {"id": "balance-service", "name": "Balance Service", "language": "go", "replicas": 6}
+      ]
+    },
+    {
+      "id": "custody",
+      "name": "Custody & Settlement",
+      "tier": 1,
+      "services": [
+        {"id": "asset-custody", "name": "Asset Custody Service", "language": "java", "replicas": 4},
+        {"id": "settlement-engine", "name": "Settlement Engine", "language": "java", "replicas": 3},
+        {"id": "reconciliation", "name": "Reconciliation Service", "language": "python", "replicas": 2}
+      ]
+    },
+    {
+      "id": "identity",
+      "name": "Identity & Access",
+      "tier": 1,
+      "services": [
+        {"id": "auth-service", "name": "Auth Service", "language": "go", "replicas": 10},
+        {"id": "kyc-engine", "name": "KYC Engine", "language": "python", "replicas": 4},
+        {"id": "session-manager", "name": "Session Manager", "language": "go", "replicas": 8},
+        {"id": "mfa-service", "name": "MFA Service", "language": "go", "replicas": 6}
+      ]
+    },
+    {
+      "id": "platform",
+      "name": "Platform & Infrastructure",
+      "tier": 2,
+      "services": [
+        {"id": "api-gateway", "name": "API Gateway", "language": "go", "replicas": 16},
+        {"id": "config-service", "name": "Config Service", "language": "go", "replicas": 3},
+        {"id": "secret-manager", "name": "Secret Manager", "language": "go", "replicas": 3},
+        {"id": "audit-log", "name": "Audit Log Service", "language": "java", "replicas": 4}
+      ]
+    }
+  ]
+}

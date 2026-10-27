@@ -1,0 +1,134 @@
+version: 1.0
+spokes:
+  risk-as-code-agent:
+    id_field: RP
+    map:
+    - from: RP-01
+      name: Deployment & Release Risk
+      primary: DR-01
+      also: []
+    - from: RP-02
+      name: Availability & Resilience Risk
+      primary: DR-02
+      also: []
+    - from: RP-03
+      name: Policy-as-Code Compliance Risk
+      primary: PL-02
+      also:
+      - GV-04
+    - from: RP-04
+      name: Vulnerability & Patch Risk
+      primary: GV-03
+      also: []
+    - from: RP-05
+      name: Access & Identity Risk
+      primary: PL-03
+      also:
+      - AS-01
+    - from: RP-06
+      name: Data & Privacy Risk
+      primary: DP-01
+      also:
+      - DP-02
+    - from: RP-07
+      name: Third-Party & Supply Chain Risk
+      primary: GV-04
+      also:
+      - AS-05
+    - from: RP-08
+      name: Observability & Detection Risk
+      primary: DR-04
+      also:
+      - GV-01
+    - from: RP-09
+      name: Change Management Risk
+      primary: DR-01
+      also: []
+    - from: RP-10
+      name: AI & Model Risk
+      primary: AS-05
+      also:
+      - AS-03
+    - from: RP-11
+      name: Capacity & Performance Risk
+      primary: PL-04
+      also: []
+    - from: RP-12
+      name: Incident & Recovery Risk
+      primary: DR-03
+      also: []
+    - from: RP-13
+      name: Agentic AI & Tool-Use Risk
+      primary: AS-02
+      also:
+      - AS-03
+    - from: RP-14
+      name: Skew & Backpressure Accumulation
+      primary: DR-04
+      also:
+      - PL-02
+      - DR-02
+  agent-trace-gov:
+    id_field: RE
+    map:
+    - from: RE-01
+      name: PII Detected in Agent Output
+      primary: DP-02
+      also: []
+    - from: RE-02
+      name: Consent Record Missing
+      primary: DP-03
+      also: []
+    - from: RE-03
+      name: Unauthorized External Data Flow
+      primary: DP-01
+      also:
+      - AS-02
+    - from: RE-04
+      name: Agent Scope Exceeded
+      primary: AS-02
+      also: []
+    - from: RE-05
+      name: Low-Confidence Automated Decision
+      primary: GV-02
+      also: []
+    - from: RE-06
+      name: Data Lineage Break
+      primary: DP-05
+      also:
+      - GV-01
+    - from: RE-07
+      name: Excessive Data Retention by Agent
+      primary: DP-04
+      also: []
+    - from: RE-08
+      name: Multi-Agent Loop Detected
+      primary: AS-04
+      also: []
+  hypervelocity-risk-sim:
+    id_field: HV
+    map:
+    - from: HV-01
+      name: Consumer-Lag Cascade
+      primary: DR-02
+      also:
+      - PL-04
+      - DR-04
+    - from: HV-02
+      name: Change-Induced Cascade
+      primary: DR-01
+      also:
+      - DR-02
+      - DR-03
+    - from: HV-03
+      name: Transaction-Velocity Surge / Fraud-Control Response
+      primary: GV-02
+      also:
+      - DR-02
+      - GV-01
+    - from: HV-04
+      name: Identity-Plane Lockout
+      primary: PL-03
+      also:
+      - DR-02
+      - DR-03

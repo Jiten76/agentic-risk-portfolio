@@ -1,0 +1,31 @@
+{
+ "_contract": "journey_aggregator \u00b7 verbatim \u00b7 unmodified \u2014 canonical sha256 below is recomputed by audit C38.2 and bundle gate B12.4; a consumer that modifies the payload fails the build",
+ "sha256": "096750391a8a6fae58b1c58e5a869089bf2671d33ce0b602276c53b20802a7b1",
+ "payload": {
+  "journey": "J-SIM-001",
+  "window": {
+   "start": "2026-03-15",
+   "end": "2026-06-13",
+   "days": 90
+  },
+  "incident": {
+   "id": "SIM-0531",
+   "date": "2026-05-31",
+   "window_et": "09:40\u201311:40",
+   "peaks": {
+    "sim.consumer_lag_p95": 9015.2,
+    "sim.error_rate_transfer_api": 0.6,
+    "sim.p99_edge": 155.1,
+    "sim.p99_identity": 150.8,
+    "sim.p99_ledger_write": 943.2,
+    "sim.p99_risk_score": 189.8,
+    "sim.p99_settle": 566.4,
+    "sim.p99_transfer_api": 471.0,
+    "sim.publish_p99": 68.7,
+    "sim.settle_queue_depth": 501.8,
+    "sim.write_retry_rate": 3.7
+   }
+  },
+  "generated_by": "journey_signal_gen@seed42"
+ }
+}

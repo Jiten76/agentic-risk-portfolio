@@ -1,0 +1,24 @@
+{
+ "spec": "reviews/ia_stage_a_role_spine.md v2.2 \u00a76 (applied to agent-trace-gov; invariant as amended round-15)",
+ "run_at": "2026-07-20 (round-22: ia_runtime role-switch now preserves the current node when it exists on the new path (chrome behavior, no fingerprint surface) \u2014 runtime is inlined at build, so both spokes rebuilt and probes re-run against these exact builds) | 2026-07-22 LAYOUT REPAIR (operator finding: the DECIDE act read as a blank panel \u2014 the vocabulary legend was a sibling walk unit, becoming an uncaptioned 'PANEL 1' that hid the 16-finding disposition queue behind the next arrow). The verbs section is now ONE panel: queue first, legend as footer; the sub-walker auto-hides. Probe vs atg classic: ZERO diffs on all 14 targets (numbers and text untouched \u2014 DOM arrangement only, no epoch); atg matrix 32/32 re-run incl. a live acknowledge-verb click asserting the A8 named-human modal. | 2026-07-22 r31 ADDITIVE STAGE (agent-dependency layer): the estate's 5 common-cause nodes (orchestrator/model provider/MCP registry/classifier plane/credential broker) as the third PROPAGATE panel \u2014 blast radii DERIVED from traces+lineage, orchestrator 16/16 workflows, no dollars by declared design. Probe vs atg classic: zero missing/numDiff/textChanged on all 14 existing targets; exactly ONE newOnly target (agent-dependencies) \u2014 the additive signature. Matrix 32/32; walker paginates 1/3-3/3 with computed captions, content-asserted live. | r42: navigation drawer injected (chrome outside data-targets; classic untouched). | r42b: runtime nav-link resolution; shipped bytes = audited bytes. | r43: read \u2192 redirect stub (read was a duplicate of the lineage hero; pre-fold page frozen at docs/archive/read_pre_r43.html, classic moved to docs/archive/ via git mv). | r48: direction chevrons on every lineage flow (RAG-colored, loops included).",
+ "method": "in-browser own-text fingerprints (scripts/conservation_probe.js reducer) \u2014 classic.html vs index.html#canonical, settled-state double-take",
+ "C26a_missing": [],
+ "C26a_numeric_diffs": [],
+ "C26b_role_minting": {},
+ "C26b_method": "structural \u2014 every role path is a full permutation of all 5 nodes (roles re-sequence, never hide), gated by audit C20.2",
+ "C26d_text_changed": [],
+ "new_only_targets": [],
+ "C26e_banner": true,
+ "C26f_acts": true,
+ "verdict": "PASS",
+ "read_disposition": "read.html is the narrative front door over the SAME sealed projection \u2014 gated by read_sha256 freshness here and by verify_bundle B10 (numeric-leaf multiset equality across classic / index / read).",
+ "inputs": {
+  "classic_sha256": "49b40094a73a502bcd43f1f77147aa941fcc11b50f54e674378f6b551bd81e00",
+  "new_sha256": "ba3f44b4f2c0892b1dc1f0e43f5e0f52ca04452afc90c11adc9452a21466cae4",
+  "read_sha256": "01c93950c1731a28aa878b0a5f6420eeb9358da65270d1d647598c4cfadad497"
+ },
+ "prose_drift_limit": "ACCEPTED LIMIT (GROK round-14 #4, decided round-15): prose beyond numeric/protected tokens is surfaced, not semantically gated \u2014 C26d records a full-text hash per target and any change emits a changelist that must be acknowledged in the commit. Gating meaning would freeze copy the grammar is deliberately rewriting; visibility-with-acknowledgment is the chosen contract.",
+ "interaction_matrix": "qa/interaction_matrix.json \u2014 156 checks, 0 fail (E2 sweep)",
+ "role_tiering_acknowledged": "role-tiered affordances (round-16, C26d-class acknowledgment): leadership hides operator chrome \u2014 keyboard hints, per-row verb buttons, the domain rail \u2014 via display:none ONLY. textContent and these fingerprints are untouched (verified: canonical + 4-role probe re-run after the change, zero diffs beyond the known acknowledgments); every number stays in the DOM. The spine also gains a chrome '\u219e the read' backlink (no data).",
+ "e_severity_recal_epoch": "r56 EPOCH \u2014 CONSERVATION CONTRACT RESET, operator-ratified: severity moved from category to CONSEQUENCE (every rating derives from its traces with a basis; the class value is a floor), the seeded estate gained the finance/conduct shapes (payments tool grab, comms past the gate, ledger write with broken lineage \u2014 RE-06 first activation), findings re-keyed 16\u219214. Prior classic ARCHIVED as classic_pre_severity_recal.html; classic RE-FROZEN at the r56 build (hv E2 precedent). Gates: C22.1\u2013C22.6 hold the derived model to its contract; C5.2 re-anchored from category to derivation."
+}

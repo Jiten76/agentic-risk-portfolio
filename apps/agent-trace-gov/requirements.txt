@@ -1,0 +1,9 @@
+# Agent Trace Gov — runtime dependencies.
+# Minimums chosen for May 2026 reality; floors permit incremental upgrades.
+
+langgraph>=0.2.0
+langchain-core>=0.3.0
+anthropic>=0.40.0
+streamlit>=1.40.0
+python-dotenv>=1.0.0
+pyyaml>=6.0

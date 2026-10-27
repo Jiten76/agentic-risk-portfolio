@@ -1,0 +1,14 @@
+{
+ "_generated_by": "hand-reviewed structural mapping (r83) — the cross-substrate pivot: each hv cascade is the LIVE replay of one rac register pattern. Do not extend without review; both sides are machine-gated (rac audit C40 checks rp ids + names against the pattern catalog and hv ids against the shipped scenarios; hv audit C7 re-derives each scenario's register_ref from this file).",
+ "note": "structural mapping (same failure shape), not statistical correlation. HV-03 maps to the capacity/performance pattern: a transaction-velocity surge is a load shape; its fraud-control element is routing, not an AML typology (the scenario says so itself).",
+ "hv_to_rp": {
+  "HV-01": {"rp": "RP-14", "rp_name": "Skew & Backpressure Accumulation",
+            "why": "the consumer-lag cascade IS the skew/backpressure accumulation shape, replayed minute by minute"},
+  "HV-02": {"rp": "RP-01", "rp_name": "Deployment & Release Risk",
+            "why": "a bad deploy propagating through the fleet — the register's deployment pattern, replayed"},
+  "HV-03": {"rp": "RP-11", "rp_name": "Capacity & Performance Risk",
+            "why": "a transaction-velocity surge is the capacity/performance shape under real load"},
+  "HV-04": {"rp": "RP-05", "rp_name": "Access & Identity Risk",
+            "why": "the identity provider is the shared plane the register prices; here it goes down for real"}
+ }
+}

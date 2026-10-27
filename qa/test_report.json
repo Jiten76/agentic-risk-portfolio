@@ -1,0 +1,366 @@
+{
+ "build": "a6d4d80+overlay-fix",
+ "date": "2026-07-10",
+ "method": "browser-driven, content-diff assertions",
+ "summary": {
+  "total": 40,
+  "pass": 39,
+  "findings": 1
+ },
+ "cases": [
+  {
+   "id": "U-01",
+   "page": "rac",
+   "case": "act tabs switch visible sections",
+   "verdict": "PASS",
+   "expected": "distinct per act; aria-pressed exclusive",
+   "actual": "4/4/9/8/5 visible; exclusive"
+  },
+  {
+   "id": "U-02",
+   "page": "rac",
+   "case": "act click scrolls to content",
+   "verdict": "PASS",
+   "expected": "scroll past ~2.5-viewport hero",
+   "actual": "smooth-scroll to panel header",
+   "note": "fixed a6d4d80"
+  },
+  {
+   "id": "U-03",
+   "page": "rac",
+   "case": "domain rail filters queue/register/monday",
+   "verdict": "PASS",
+   "expected": "content changes; 'all' restores",
+   "actual": "custody 0-AI/62ch/nothing-to-force; payments own; all restores byte-equal",
+   "note": "fixed a6d4d80 \u2014 was inert"
+  },
+  {
+   "id": "U-04",
+   "page": "rac",
+   "case": "persona chips",
+   "verdict": "PASS",
+   "expected": "lens+default-act+ribbon",
+   "actual": "exec\u2192impact, ribbon S. Khoury"
+  },
+  {
+   "id": "U-05",
+   "page": "rac",
+   "case": "group pivot",
+   "verdict": "PASS",
+   "expected": "active panel switches",
+   "actual": "team\u2192function"
+  },
+  {
+   "id": "U-06",
+   "page": "rac",
+   "case": "lineage modal",
+   "verdict": "PASS",
+   "expected": "opens w/ provenance; closes",
+   "actual": "data-open=true, >100 chars"
+  },
+  {
+   "id": "U-07",
+   "page": "rac",
+   "case": "verb modal A8 validation",
+   "verdict": "PASS",
+   "expected": "team handle rejected",
+   "actual": "'@release-engineering is not a named human'"
+  },
+  {
+   "id": "U-08",
+   "page": "rac",
+   "case": "seal verify affordance",
+   "verdict": "PASS_AFTER_FIX",
+   "expected": "non-blocking summary",
+   "actual": "was native alert() (blocked >=30s); now dismissible overlay",
+   "note": "defect QA-1"
+  },
+  {
+   "id": "U-09",
+   "page": "rac",
+   "case": "keyboard j/k",
+   "verdict": "PASS",
+   "expected": "selection moves with wrap",
+   "actual": "1\u21922\u21921 over 4 rows",
+   "note": "dispatch on element, not document"
+  },
+  {
+   "id": "U-10",
+   "page": "atg",
+   "case": "acts distinct",
+   "verdict": "PASS",
+   "expected": "5 distinct views",
+   "actual": "WATCH/PROPAGATE/MAGNITUDE/vocab/ATTEST"
+  },
+  {
+   "id": "U-11",
+   "page": "atg",
+   "case": "workflow rail",
+   "verdict": "PASS",
+   "expected": "re-renders",
+   "actual": "17 items, content changes"
+  },
+  {
+   "id": "U-12",
+   "page": "hv",
+   "case": "scenario rail",
+   "verdict": "PASS",
+   "expected": "stage swaps",
+   "actual": "HV-01\u2192HV-02"
+  },
+  {
+   "id": "U-13",
+   "page": "hv",
+   "case": "scrub",
+   "verdict": "PASS",
+   "expected": "accepts + updates",
+   "actual": "0\u219218, clock updates"
+  },
+  {
+   "id": "U-14",
+   "page": "hv",
+   "case": "moment jump",
+   "verdict": "PASS",
+   "expected": "scrub jumps",
+   "actual": "18\u219216"
+  },
+  {
+   "id": "U-15",
+   "page": "hv",
+   "case": "play advances",
+   "verdict": "PASS",
+   "expected": "playhead advances",
+   "actual": "16\u219219 over 6s in throttled pane",
+   "note": "env: setInterval throttled in test pane"
+  },
+  {
+   "id": "U-16",
+   "page": "hv",
+   "case": "tour",
+   "verdict": "PASS",
+   "expected": "restarts guided run",
+   "actual": "t=0 build-up"
+  },
+  {
+   "id": "U-17",
+   "page": "hv",
+   "case": "speed selector",
+   "verdict": "PASS",
+   "expected": "1x/4x selector",
+   "actual": "active-option click is no-op",
+   "note": "QA-3 cosmetic note"
+  },
+  {
+   "id": "U-18",
+   "page": "landing",
+   "case": "strip hydration",
+   "verdict": "PASS",
+   "expected": "6 values from projections",
+   "actual": "18.1M/52.4M/11.7M/5/2/2min-vs-10"
+  },
+  {
+   "id": "U-19",
+   "page": "landing",
+   "case": "links resolve",
+   "verdict": "PASS",
+   "expected": "only the 3 dashboards",
+   "actual": "9/9; bundle copy rewritten"
+  },
+  {
+   "id": "U-20",
+   "page": "all",
+   "case": "mobile 375px overflow",
+   "verdict": "PASS",
+   "expected": "0 body overflow",
+   "actual": "0 (landing this session; dashboards prior rounds)"
+  },
+  {
+   "id": "U-21",
+   "page": "rac",
+   "case": "app-nav mounts",
+   "verdict": "FINDING",
+   "expected": "tabs exist + switch",
+   "actual": "0 elements in DOM; CSS+JS dead",
+   "note": "defect QA-2"
+  },
+  {
+   "id": "F-01",
+   "page": "rac",
+   "case": "hero residual P95",
+   "verdict": "PASS",
+   "expected": "135200000",
+   "actual": "$135.2M"
+  },
+  {
+   "id": "F-02",
+   "page": "rac",
+   "case": "hero inherent P95",
+   "verdict": "PASS",
+   "expected": "354200000",
+   "actual": "$354.2M"
+  },
+  {
+   "id": "F-03",
+   "page": "rac",
+   "case": "findings count",
+   "verdict": "PASS",
+   "expected": "24",
+   "actual": "24 findings"
+  },
+  {
+   "id": "F-04",
+   "page": "rac",
+   "case": "trajectory delta + synth tag",
+   "verdict": "PASS",
+   "expected": "+3, synthesized prior",
+   "actual": "+3 findings \u00b7 prior: synthesized"
+  },
+  {
+   "id": "F-05",
+   "page": "rac",
+   "case": "queue count",
+   "verdict": "PASS",
+   "expected": "4 AI-pattern red/amber",
+   "actual": "4 AI-relevant"
+  },
+  {
+   "id": "F-06",
+   "page": "rac",
+   "case": "monday \u2264$",
+   "verdict": "PASS",
+   "expected": "22.62+18.12+11.67=52.41M",
+   "actual": "\u2264$52.4M",
+   "note": "investigated; reconciles exactly"
+  },
+  {
+   "id": "F-07",
+   "page": "rac",
+   "case": "chain status",
+   "verdict": "PASS",
+   "expected": "3-entry window verifies",
+   "actual": "chain \u00b7 intact 3/3"
+  },
+  {
+   "id": "F-08",
+   "page": "atg",
+   "case": "meta counts",
+   "verdict": "PASS",
+   "expected": "16/16",
+   "actual": "shown"
+  },
+  {
+   "id": "F-09",
+   "page": "hv",
+   "case": "kafka peak lag",
+   "verdict": "PASS",
+   "expected": "5695",
+   "actual": "5,695 shown"
+  },
+  {
+   "id": "F-10",
+   "page": "landing",
+   "case": "strip values == projections",
+   "verdict": "PASS",
+   "expected": "see U-18",
+   "actual": "all match"
+  },
+  {
+   "id": "A-01",
+   "page": "all",
+   "case": "substance audits",
+   "verdict": "PASS",
+   "expected": "0 FAIL",
+   "actual": "rac 59/59 \u00b7 atg 51/51 \u00b7 hv 25/25"
+  },
+  {
+   "id": "A-02",
+   "page": "all",
+   "case": "embedded==standalone",
+   "verdict": "PASS",
+   "expected": "byte-equal \u00d73",
+   "actual": "verified"
+  },
+  {
+   "id": "A-03",
+   "page": "all",
+   "case": "in-browser seals",
+   "verdict": "PASS",
+   "expected": "verify passes",
+   "actual": "atg+hv '\u2713 projection verified'; rac overlay summary"
+  },
+  {
+   "id": "A-04",
+   "page": "all",
+   "case": "reproducibility",
+   "verdict": "PASS",
+   "expected": "seeded outputs re-derivable",
+   "actual": "MC 38.3/135.2/242.6; gen-2 148.3; hv replay; atg classifier \u2014 externally re-executed"
+  },
+  {
+   "id": "A-05",
+   "page": "all",
+   "case": "disclosure banners",
+   "verdict": "PASS",
+   "expected": "present",
+   "actual": "3 dashboards + landing"
+  },
+  {
+   "id": "A-06",
+   "page": "all",
+   "case": "IP hygiene",
+   "verdict": "PASS",
+   "expected": "employer name absent",
+   "actual": "only the audit guard"
+  },
+  {
+   "id": "A-07",
+   "page": "all",
+   "case": "a11y basics",
+   "verdict": "PASS",
+   "expected": "h1/aria-pressed/aria-live/role=dialog/reduced-motion",
+   "actual": "asserted"
+  },
+  {
+   "id": "A-08",
+   "page": "all",
+   "case": "console errors",
+   "verdict": "PASS",
+   "expected": "0",
+   "actual": "0 on all four pages after interactions"
+  },
+  {
+   "id": "A-09",
+   "page": "bundles",
+   "case": "bundle integrity",
+   "verdict": "PASS",
+   "expected": "assertions clean",
+   "actual": "review zip + cold zip clean"
+  }
+ ],
+ "defects": [
+  {
+   "id": "QA-0",
+   "sev": "major",
+   "desc": "rac domain rail inert + act switches invisible below always-on hero (all apps)",
+   "status": "FIXED a6d4d80"
+  },
+  {
+   "id": "QA-1",
+   "sev": "moderate",
+   "desc": "rac seal-verify used blocking native alert()",
+   "status": "FIXED this commit"
+  },
+  {
+   "id": "QA-2",
+   "sev": "minor",
+   "desc": "rac app-nav CSS+showApp() JS never mounted \u2014 dead code",
+   "status": "OPEN"
+  },
+  {
+   "id": "QA-3",
+   "sev": "trivial",
+   "desc": "hv speed control active-state legibility",
+   "status": "OPEN"
+  }
+ ]
+}

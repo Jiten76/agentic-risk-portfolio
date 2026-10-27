@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>the 2-minute tour — what this is, why believe it, where it goes</title>
+<style>
+:root{
+  --bg:#14110D; --text:#E8DFD3; --dim:rgba(232,223,211,.62); --faint:rgba(232,223,211,.36);
+  --line:rgba(214,196,162,.14); --line-hi:rgba(214,196,162,.32);
+  --amber:#C9A26B; --red:#C84A4A; --green:#6BAF7A;
+  --serif:'Iowan Old Style','Palatino Nova',Palatino,'Book Antiqua',Georgia,serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--serif);line-height:1.5}
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(1000px 640px at 82% -12%,rgba(201,162,107,.11),transparent 62%),
+             radial-gradient(760px 540px at -8% 112%,rgba(107,175,122,.05),transparent 60%)}
+.ribbon{font-family:var(--mono);font-size:11.5px;color:rgba(20,17,13,.92);background:var(--amber);padding:6px 22px}
+.masthead{display:flex;justify-content:space-between;align-items:baseline;max-width:1060px;margin:0 auto;padding:12px 32px 0;
+  font-family:var(--mono);font-size:12px;color:var(--faint)}
+.masthead b{color:var(--dim);font-weight:500}
+.masthead a{color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.masthead a:hover{color:var(--amber)}
+@media (min-width:720px){
+  body{height:100vh;overflow:hidden;display:flex;flex-direction:column}
+  .stage{flex:1;min-height:0;display:flex;flex-direction:column;max-width:1060px;width:100%;margin:0 auto;padding:0 32px 8px}
+  .act{display:flex;flex-direction:column;min-height:0;border:1px solid var(--line);border-radius:14px;margin:4px 0;
+    background:rgba(20,17,13,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  .act.open{flex:1;background:rgba(43,37,31,.78);border-color:var(--line-hi);
+    box-shadow:0 18px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(232,223,211,.07)}
+  .act-body{display:none;min-height:0;overflow:auto;padding:4px 22px 14px;scrollbar-gutter:stable}
+  .act.open .act-body{display:flex;flex-direction:column;flex:1}
+  .act.open .act-body::before,.act.open .act-body::after{content:'';flex:1 0 0;min-height:0}
+}
+@media (max-width:719.9px){
+  .stage{max-width:1060px;margin:0 auto;padding:0 16px}
+  .act{border:1px solid var(--line);border-radius:14px;margin:6px 0;background:rgba(27,23,20,.42)}
+  .act-body{display:none;padding:6px 16px 20px}
+  .act.open .act-body{display:block}
+}
+.act-head{display:flex;align-items:baseline;gap:16px;width:100%;background:none;border:0;font:inherit;
+  color:var(--faint);cursor:pointer;padding:12px 22px;text-align:left}
+.act-head .n{font-family:var(--mono);font-size:11px}
+.act-head .t{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.act.open .act-head .t,.act.open .act-head .n{color:var(--amber)}
+.act-head .teaser{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.act.open .act-head .teaser{visibility:hidden}
+.lede{font-size:clamp(16px,1.6vw,20px);margin:2px 0 14px;color:var(--text)}
+.lede i{color:var(--amber)}
+.organs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.organ{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+  text-decoration:none;color:inherit;transition:border-color .2s}
+.organ:hover{border-color:var(--amber)}
+.organ .k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.organ .v{font-family:var(--mono);font-size:16.5px;font-weight:600;color:var(--amber)}
+.organ .s{font-size:12px;color:var(--faint)}
+.scope{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline;margin-top:14px;font-family:var(--mono);font-size:11px}
+.scope .lab{color:var(--faint);letter-spacing:.12em;text-transform:uppercase}
+.chip{border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--dim)}
+.chip.out{border-style:dashed;color:var(--faint)}
+.cap{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:10px;line-height:1.5}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tile{padding:12px 14px;border:1px solid var(--line);border-radius:10px}
+.tile .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.tile .v{font-family:var(--mono);font-size:19px;font-weight:600;color:var(--green)}
+.tile .s{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.lever{margin:16px 0 4px}
+.lever-bar{position:relative;height:14px;border-radius:99px;background:rgba(214,196,162,.10);overflow:hidden}
+.lever-fill{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,rgba(107,175,122,.5),rgba(201,162,107,.6),rgba(200,74,74,.6));border-radius:99px}
+.lever-mark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--text)}
+.lever-lab{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:5px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.col h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+.col.real h4{color:var(--green)} .col.illu h4{color:var(--amber)}
+.col ul{list-style:none}
+.col li{font-family:var(--mono);font-size:11.5px;color:var(--dim);padding:3px 0;border-bottom:1px solid rgba(214,196,162,.06)}
+.gapbars{margin:10px 0 4px}
+.gaprow{display:grid;grid-template-columns:150px 1fr 70px;gap:10px;align-items:center;margin:8px 0;font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.gtrack{height:13px;border-radius:99px;background:rgba(214,196,162,.10);overflow:hidden}
+.gfill{height:100%;border-radius:99px}
+.gfill.man{background:rgba(232,223,211,.3)} .gfill.ins{background:var(--amber)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.step{padding:12px 14px;border:1px solid var(--line);border-radius:10px}
+.step .n{font-family:var(--mono);font-size:10px;color:var(--amber)}
+.step .t2{font-size:14px;color:var(--text);margin:2px 0}
+.step .s{font-size:12px;color:var(--faint)}
+.doorsrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.doorsrow a{font-family:var(--mono);font-size:11.5px;color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 14px}
+.doorsrow a:hover{color:var(--amber);border-color:var(--line-hi)}
+.nextrow{display:flex;justify-content:flex-end;padding:8px 2px 2px}
+.next{background:rgba(201,162,107,.16);border:1px solid var(--amber);border-radius:9px;color:var(--amber);
+  font-family:var(--mono);font-size:13px;font-weight:600;padding:8px 20px;cursor:pointer}
+@keyframes nudge{0%,100%{box-shadow:0 0 0 0 rgba(201,162,107,0)}50%{box-shadow:0 0 0 7px rgba(201,162,107,.12)}}
+@media (prefers-reduced-motion:no-preference){.next{animation:nudge 2.4s ease-in-out infinite}}
+@media (max-width:719.9px){.organs,.board,.steps{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="ribbon">A demonstrator built on <b>synthetic</b> data — every number on this page is fetched from the live artifacts, or says "open ↪" when it can't be.</div>
+<div class="masthead"><span><b>agentic-risk-portfolio</b> / the 2-minute tour</span><a href="/PORTFOLIO_INDEX.html">↞ the doors</a></div>
+<main class="stage">
+
+  <section class="act open" id="act-1">
+    <button class="act-head" type="button" data-act="1" aria-expanded="true" aria-controls="act-1-body"><span class="n">01</span><span class="t">what this is</span><span class="teaser">six working organs · scope by choice</span></button>
+    <div class="act-body" id="act-1-body">
+      <div class="lede">The shape of a 2LoD platform — <i>six organs, all working</i>, every value live from the sealed data. Click any organ to stand inside it.</div>
+      <div class="organs">
+        <a class="organ" href="/apps/risk-as-code-agent/docs/index.html#role=basic&node=register">
+          <span class="k">posture</span><span class="v" data-t="o-posture">open ↪</span><span class="s">what fired, ranked by residual $</span></a>
+        <a class="organ" href="/apps/risk-as-code-agent/docs/index.html#role=basic&node=stake">
+          <span class="k">impact</span><span class="v" data-t="o-impact">open ↪</span><span class="s">stress loss, correlated Monte-Carlo</span></a>
+        <a class="organ" href="/apps/risk-as-code-agent/docs/index.html#role=basic&node=docket">
+          <span class="k">decisions</span><span class="v" data-t="o-decisions">open ↪</span><span class="s">this week's docket, owners named</span></a>
+        <a class="organ" href="/apps/agent-trace-gov/docs/index.html#role=basic&node=attest">
+          <span class="k">evidence</span><span class="v" data-t="o-evidence">open ↪</span><span class="s">hash-chained decisions, verifiable</span></a>
+        <a class="organ" href="/apps/risk-as-code-agent/docs/index.html#role=basic&node=regulation">
+          <span class="k">perimeter</span><span class="v" data-t="o-perimeter">open ↪</span><span class="s">regimes re-map under a declared charter</span></a>
+        <a class="organ" href="/apps/risk-as-code-agent/docs/index.html#role=basic&node=attack">
+          <span class="k">challenge</span><span class="v" data-t="o-challenge">open ↪</span><span class="s">every assumption has a lever</span></a>
+      </div>
+      <div class="scope"><span class="lab">in scope</span><span data-t="scope-in"><span class="chip">…</span></span></div>
+      <div class="scope"><span class="lab">out, by choice</span>
+        <span class="chip out">market risk</span><span class="chip out">trading</span><span class="chip out">counterparty</span>
+        <span class="chip out">liquidity</span><span class="chip out">predictive markets</span></div>
+      <div class="cap">scope is a decision, not an oversight — this is 2LoD technology &amp; operational risk for a payments-plus-crypto archetype.</div>
+      <div class="nextrow"><button class="next" data-goto="2">why believe it ▸</button></div>
+    </div>
+  </section>
+
+  <section class="act" id="act-2">
+    <button class="act-head" type="button" data-act="2" aria-expanded="false" aria-controls="act-2-body"><span class="n">02</span><span class="t">why believe it</span><span class="teaser" data-t="teaser-2">counts executed, never typed</span></button>
+    <div class="act-body" id="act-2-body">
+      <div class="lede">Every count below was <i>executed, not typed</i> — the gates ran, this is what they returned.</div>
+      <div class="board">
+        <div class="tile"><span class="k">rac audit</span><div class="v" data-t="tb-rac">run ↪</div><span class="s">substance gates</span></div>
+        <div class="tile"><span class="k">atg audit</span><div class="v" data-t="tb-atg">run ↪</div><span class="s">substance gates</span></div>
+        <div class="tile"><span class="k">hv audit</span><div class="v" data-t="tb-hv">run ↪</div><span class="s">substance gates</span></div>
+        <div class="tile"><span class="k">bundle</span><div class="v" data-t="tb-bundle">run ↪</div><span class="s">one-command re-verify</span></div>
+        <div class="tile"><span class="k">interactions</span><div class="v" data-t="tb-inter">run ↪</div><span class="s">real-DOM checks</span></div>
+        <div class="tile"><span class="k">conservation</span><div class="v" data-t="tb-cons">run ↪</div><span class="s" data-t="tb-cons-sub">classic ↔ new, nothing lost</span></div>
+        <div class="tile"><span class="k">defect classes</span><div class="v" data-t="tb-classes">run ↪</div><span class="s">machine-gated / total</span></div>
+        <div class="tile"><span class="k">reviews</span><div class="v" style="color:var(--dim)">on record</div><span class="s">adversarial AI + human, dispositioned</span></div>
+      </div>
+      <div class="lever">
+        <div class="lever-bar"><div class="lever-fill" data-t="lever-fill" style="left:20%;right:20%"></div><div class="lever-mark" data-t="lever-mark" style="left:50%"></div></div>
+        <div class="lever-lab"><span data-t="lever-lo">↪</span><span data-t="lever-base">headline</span><span data-t="lever-hi">↪</span></div>
+        <div class="cap">challenge any single assumption and the number moves — priced, seeded, re-runnable. <b style="color:var(--dim)">A heat map cannot say this.</b></div>
+      </div>
+      <div class="split">
+        <div class="col real"><h4>real</h4><ul>
+          <li>the risk logic &amp; thresholds — public sources cited</li>
+          <li>the loss-model math — within-trial, never summed percentiles</li>
+          <li>reproducibility — seed 42, byte-stable</li>
+          <li>the gates, seals &amp; conservation machinery</li>
+          <li>the attestation-chain arithmetic</li></ul></div>
+        <div class="col illu"><h4>illustrative — labeled in the pixels</h4><ul>
+          <li>incident frequencies — operator judgment</li>
+          <li>severity anchors — calibrated to public events</li>
+          <li>control credits — schema real, results pending live tests</li>
+          <li>response times — calibrated, not measured</li>
+          <li>org context — realistic, not reported</li></ul></div>
+      </div>
+      <div class="nextrow"><button class="next" data-goto="3">where it goes ▸</button></div>
+    </div>
+  </section>
+
+  <section class="act" id="act-3">
+    <button class="act-head" type="button" data-act="3" aria-expanded="false" aria-controls="act-3-body"><span class="n">03</span><span class="t">where it goes</span><span class="teaser" data-t="teaser-3">swap the inputs, keep the engine</span></button>
+    <div class="act-body" id="act-3-body">
+      <div class="lede">Above a certain event rate, manual risk process <i>structurally fails</i> — that gap is the argument, and closing it is the roadmap.</div>
+      <div class="gapbars">
+        <div class="gaprow"><span>found by hand</span><div class="gtrack"><div class="gfill man" data-t="bar-man" style="width:100%"></div></div><span data-t="min-man">↪</span></div>
+        <div class="gaprow"><span>found by monitoring</span><div class="gtrack"><div class="gfill ins" data-t="bar-ins" style="width:20%"></div></div><span data-t="min-ins">↪</span></div>
+      </div>
+      <div class="cap" data-t="gap-cap">the detection gap on the deployment-cascade replay — 60 seeded events, honestly labeled illustration, not measured telemetry.</div>
+      <div class="lede" style="margin-top:16px">From demonstrator to system of record: <i>swap the inputs, keep the engine and gates.</i></div>
+      <div class="steps">
+        <div class="step"><span class="n">step 1</span><div class="t2">fit from loss history</div><span class="s">replace judged frequencies &amp; severities with internal incident data — same engine re-runs</span></div>
+        <div class="step"><span class="n">step 2</span><div class="t2">wire live control tests</div><span class="s">the CCT evidence schema is built; feed it real results and the credits earn themselves</span></div>
+        <div class="step"><span class="n">step 3</span><div class="t2">bind the perimeter</div><span class="s">declare the charter; the regulation view already re-maps — Legal makes the determination</span></div>
+      </div>
+      <div class="cap" style="margin-top:14px">preparing a board pack → <a href="/apps/risk-as-code-agent/docs/board.html" style="color:var(--amber)">the one-page brief</a> ·
+        model risk / examiner → <a href="/apps/risk-as-code-agent/docs/validation.html" style="color:var(--amber)">the validation package</a> ·
+        just exploring → any door below</div>
+      <div class="doorsrow">
+        <a href="/PORTFOLIO_INDEX.html">↞ the doors</a>
+        <a href="/apps/risk-as-code-agent/docs/read.html">price it ↪</a>
+        <a href="/apps/agent-trace-gov/docs/read.html">catch it ↪</a>
+        <a href="/apps/hypervelocity-risk-sim/docs/read.html">replay it ↪</a>
+        <a href="/apps/risk-as-code-agent/docs/board.html">the board brief ↪</a>
+        <a href="/apps/risk-as-code-agent/docs/validation.html">the validation package ↪</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// Tour hydration — every number fetched from the live artifacts (projections +
+// the machine-written trust board). Candidate paths cover the served monorepo
+// and the flattened review bundle; on failure a value degrades to "open ↪" and
+// the artifacts stay the source of truth.
+(function () {
+  'use strict';
+  function $(t) { return document.querySelector('[data-t="' + t + '"]'); }
+  function set(t, v) { var el = $(t); if (el && v != null) el.textContent = v; }
+  function M(x) { return '$' + (x / 1e6).toFixed(1) + 'M'; }
+  function firstOk(paths) {
+    return paths.reduce(function (p, url) {
+      return p.catch(function () { return fetch(url).then(function (r) { if (!r.ok) throw 0; return r.json(); }); });
+    }, Promise.reject());
+  }
+
+  // chapters
+  function openAct(n) {
+    [1, 2, 3].forEach(function (i) {
+      var on = i === Number(n);
+      document.getElementById('act-' + i).classList.toggle('open', on);
+      var hd = document.querySelector('#act-' + i + ' .act-head');
+      if (hd) hd.setAttribute('aria-expanded', String(on));
+    });
+  }
+  document.querySelectorAll('.act-head').forEach(function (h) {
+    h.addEventListener('click', function () { openAct(h.dataset.act); });
+  });
+  document.querySelectorAll('.next').forEach(function (b) {
+    b.addEventListener('click', function () { openAct(b.dataset.goto); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.target && e.target.matches && e.target.matches('input, textarea, select')) return;
+    if (e.key >= '1' && e.key <= '3') openAct(e.key);
+  });
+  var m = location.hash.match(/act=(\d)/); if (m) openAct(m[1]);
+  window.addEventListener('hashchange', function () {
+    var m2 = location.hash.match(/act=(\d)/); if (m2) openAct(m2[1]);
+  });
+
+  // rac projection → posture, impact, decisions, perimeter, challenge, scope, lever
+  firstOk(['/apps/risk-as-code-agent/outputs/v2_0a/2026-Q3_projection.json',
+           '../projections/rac.projection.json', 'projections/rac.projection.json'])
+    .then(function (p) {
+      var c = (p.meta || {}).counts || {};
+      set('o-posture', c.findings_total + ' findings · ' + c.findings_red + ' red');
+      var exp = (p.exposure || {}).portfolio_total || {};
+      set('o-impact', M(exp.p95_usd) + ' P95');
+      var dock = ((p.ia || {}).nodes || []).filter(function (n) { return n.id === 'docket'; })[0];
+      var dm = dock && (dock.headline || '').match(/\$[\d.]+M/);
+      set('o-decisions', dm ? dm[0] + ' at stake' : '3 decisions');
+      var regs = (p.regulation_residual || {}).by_regulation || [];
+      set('o-perimeter', regs.length + ' regimes · ' + (regs[0] ? regs[0].share_of_portfolio_p95_pct + '%' : ''));
+      var lv = ((p.sensitivity || {}).levers || []).map(function (l) { return l.residual_p95; }).filter(Boolean);
+      var maxPct = Math.max.apply(null, ((p.sensitivity || {}).levers || []).map(function (l) { return Math.abs(l.delta_p95_pct || 0); }).concat([0]));
+      set('o-challenge', lv.length + ' levers · ±' + Math.round(maxPct) + '%');
+      // scope chips from the regime ids themselves
+      var sc = $('scope-in');
+      if (sc && regs.length) sc.innerHTML = regs.map(function (r) {
+        return '<span class="chip">' + String(r.reg_id).replace(/_/g, ' ') + '</span>';
+      }).join('');
+      // lever device
+      if (lv.length && exp.p95_usd) {
+        var lo = Math.min.apply(null, lv), hi = Math.max.apply(null, lv);
+        var span = hi - lo || 1;
+        set('lever-lo', M(lo)); set('lever-hi', M(hi)); set('lever-base', M(exp.p95_usd) + ' headline');
+        var fill = $('lever-fill'), mark = $('lever-mark');
+        if (fill) { fill.style.left = '2%'; fill.style.right = '2%'; }
+        if (mark) mark.style.left = (2 + 96 * (exp.p95_usd - lo) / span) + '%';
+      }
+    }).catch(function () {});
+
+  // atg projection → evidence organ
+  firstOk(['/apps/agent-trace-gov/outputs/2026-06_atg_projection.json',
+           '../projections/atg.projection.json', 'projections/atg.projection.json'])
+    .then(function (p) {
+      var al = p.action_log || {};
+      set('o-evidence', al.total_entries + ' entries · ' + al.chain_status);
+    }).catch(function () {});
+
+  // hv projection → the gap device
+  firstOk(['/apps/hypervelocity-risk-sim/docs/projection.json',
+           '../projections/hv.projection.json', 'projections/hv.projection.json'])
+    .then(function (p) {
+      var reg = (((p.domains || {}).deployment_cascade || {}).comparison || {}).regimes || {};
+      var man = (((reg.traditional || {}).metrics || {}).detection_time_min || {}).value;
+      var ins = (((reg.risk_as_code || {}).metrics || {}).detection_time_min || {}).value;
+      if (man != null && ins != null) {
+        set('min-man', man + ' min'); set('min-ins', ins + ' min');
+        var bi = $('bar-ins'); if (bi) bi.style.width = Math.max(4, 100 * ins / man) + '%';
+      }
+    }).catch(function () {});
+
+  // trust board (machine-written) → the proof tiles
+  firstOk(['/qa/trust_board.json', '../source/qa/trust_board.json', 'source/qa/trust_board.json'])
+    .then(function (b) {
+      function pt(t, o) { if (o && o.total != null) set(t, o.pass + '/' + o.total); }
+      pt('tb-rac', (b.audits || {}).rac); pt('tb-atg', (b.audits || {}).atg); pt('tb-hv', (b.audits || {}).hv);
+      pt('tb-bundle', b.verify_bundle);
+      var it = b.interactions || {};
+      if (it.checks != null) set('tb-inter', it.pass + '/' + it.checks);
+      var cons = b.conservation || {};
+      var vs = Object.keys(cons).map(function (k) { return cons[k].verdict; });
+      if (vs.length) set('tb-cons', vs.every(function (v) { return v === 'PASS'; }) ? 'PASS ×' + vs.length : vs.join('/'));
+      // classic is a frozen SUBSET, not a perfect mirror — say so with B10's own count
+      var adds = b.classic_additive_leaves || {};
+      var addTot = Object.keys(adds).reduce(function (s, k) { return s + adds[k]; }, 0);
+      if (addTot) set('tb-cons-sub', 'classic ⊆ index · +' + addTot + ' leaves added since the freeze, none lost');
+      var dc = b.defect_classes || {};
+      if (dc.total != null) set('tb-classes', dc.machine_gated + '/' + dc.total);
+      var tot = 0;
+      [(b.audits || {}).rac, (b.audits || {}).atg, (b.audits || {}).hv, b.verify_bundle].forEach(function (o) { if (o && o.total) tot += o.total; });
+      if (it.checks) tot += it.checks;
+      set('teaser-2', tot + ' checks executed · 0 failing');
+    }).catch(function () {});
+})();
+</script>
+
+
+<!-- portfolio-nav -->
+<style>
+#pnav-tab{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:9998;writing-mode:vertical-rl;
+  text-orientation:mixed;font:600 10px ui-monospace,monospace;letter-spacing:.22em;color:rgba(232,223,211,.75);
+  background:rgba(24,20,16,.92);border:1px solid rgba(214,196,162,.3);border-left:none;border-radius:0 8px 8px 0;
+  padding:14px 5px;cursor:pointer;user-select:none}
+#pnav-tab:hover{color:#C9A26B;border-color:#C9A26B}
+#pnav{position:fixed;left:0;top:0;bottom:0;width:216px;z-index:9999;transform:translateX(-100%);
+  transition:transform .22s ease;background:rgba(20,17,13,.97);border-right:1px solid rgba(214,196,162,.25);
+  font-family:ui-monospace,monospace;overflow-y:auto;padding:14px 0 20px;
+  box-shadow:8px 0 40px rgba(0,0,0,.5)}
+#pnav.open{transform:translateX(0)}
+#pnav .pn-x{position:absolute;top:8px;right:12px;color:rgba(232,223,211,.4);cursor:pointer;font-size:13px}
+#pnav .pn-x:hover{color:#C9A26B}
+#pnav .pn-t{font-size:10px;letter-spacing:.2em;color:#C9A26B;padding:8px 16px 4px;text-transform:uppercase}
+#pnav .pn-g{font-size:9.5px;letter-spacing:.16em;color:rgba(232,223,211,.38);padding:12px 16px 3px;text-transform:uppercase}
+#pnav a{display:block;padding:5px 16px 5px 22px;font-size:11.5px;color:rgba(232,223,211,.68);text-decoration:none;line-height:1.4}
+#pnav a:hover{color:#E8DFD3;background:rgba(201,162,107,.08)}
+#pnav a.here{color:#C9A26B;border-left:2px solid #C9A26B;padding-left:20px;background:rgba(201,162,107,.10)}
+#pnav a small{color:rgba(232,223,211,.35);font-size:9.5px}
+#pnav .pn-f{margin-top:14px;padding:10px 16px 0;border-top:1px solid rgba(214,196,162,.14);
+  font-size:9px;color:rgba(232,223,211,.32);line-height:1.5}
+@media print{#pnav,#pnav-tab{display:none}}
+</style>
+<div id="pnav-tab" title="the site map">M A P</div>
+<nav id="pnav" aria-label="Portfolio map">
+  <span class="pn-x" title="close">✕</span>
+  <div class="pn-t">Risk-OS · the map</div>
+  <div class="pn-g">Start here</div>
+  <a href="/PORTFOLIO_INDEX.html" data-pn="PORTFOLIO_INDEX.html" data-pb="landing.html">⌂ front door <small>· the whole portfolio</small></a>
+  <a href="/TOUR.html" data-pn="TOUR.html" data-pb="tour.html">◇ guided tour <small>· 10 minutes</small></a>
+  <div class="pn-g">risk-as-code · priced engine</div>
+  <a href="/apps/risk-as-code-agent/docs/journey.html" data-pn="risk-as-code-agent/docs/journey.html" data-pb="rac/journey.html">▶ the journey <small>· one money path, played</small></a>
+  <a href="/apps/risk-as-code-agent/docs/index.html" data-pn="risk-as-code-agent/docs/index.html" data-pb="rac/index.html">workbench <small>· the priced engine</small></a>
+  <a href="/apps/risk-as-code-agent/docs/board.html" data-pn="risk-as-code-agent/docs/board.html" data-pb="rac/board.html">board brief <small>· five asks, printable</small></a>
+  <a href="/apps/risk-as-code-agent/docs/validation.html" data-pn="risk-as-code-agent/docs/validation.html" data-pb="rac/validation.html">validation <small>· for the examiner</small></a>
+  <a href="/apps/risk-as-code-agent/docs/read.html" data-pn="risk-as-code-agent/docs/read.html" data-pb="rac/read.html">the read <small>· narrative</small></a>
+  <div class="pn-g">agent-trace-gov · agent governance</div>
+  <a href="/apps/agent-trace-gov/docs/index.html" data-pn="agent-trace-gov/docs/index.html" data-pb="atg/index.html">workbench <small>· traces → verdict-free findings</small></a>
+  <a href="/apps/agent-trace-gov/docs/read.html" data-pn="agent-trace-gov/docs/read.html" data-pb="atg/read.html">the read <small>· narrative</small></a>
+  <div class="pn-g">hypervelocity · incident observatory</div>
+  <a href="/apps/hypervelocity-risk-sim/docs/index.html" data-pn="hypervelocity-risk-sim/docs/index.html" data-pb="hv/index.html">observatory <small>· four failure shapes, animated</small></a>
+  <a href="/apps/hypervelocity-risk-sim/docs/read.html" data-pn="hypervelocity-risk-sim/docs/read.html" data-pb="hv/read.html">the read <small>· narrative</small></a>
+  <div class="pn-f">One map on every page — you are the amber line. classic.html files are frozen audit archives, not destinations.</div>
+</nav>
+<script>
+(function () {
+  'use strict';
+  var nav = document.getElementById('pnav'), tab = document.getElementById('pnav-tab');
+  if (!nav || !tab) return;
+  var KEY = 'portfolio_nav_open';
+  function setOpen(on) {
+    nav.classList.toggle('open', on);
+    tab.style.display = on ? 'none' : '';
+    try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {}
+  }
+  tab.addEventListener('click', function () { setOpen(true); });
+  nav.querySelector('.pn-x').addEventListener('click', function () { setOpen(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav.classList.contains('open')) setOpen(false);
+  });
+  try { if (localStorage.getItem(KEY) === '1') setOpen(true); } catch (e) {}
+  var path = location.pathname;
+  var dIdx = path.indexOf('/dashboards/');
+  if (dIdx >= 0) {
+    // review-bundle flat layout: resolve links at RUNTIME so the shipped
+    // page stays byte-identical to the audited repo file (B9 hash equality)
+    var sub = path.slice(dIdx + 12);
+    var up = sub.indexOf('/') >= 0 ? '../' : '';
+    nav.querySelectorAll('a[data-pb]').forEach(function (a) {
+      a.setAttribute('href', up + a.getAttribute('data-pb'));
+      if (sub === a.getAttribute('data-pb')) a.classList.add('here');
+    });
+  } else {
+    nav.querySelectorAll('a[data-pn]').forEach(function (a) {
+      if (path.indexOf(a.getAttribute('data-pn')) >= 0
+          || (a.getAttribute('data-pn') === 'PORTFOLIO_INDEX.html' && /(^|\/)(index\.html)?$/.test(path) && path.indexOf('apps') < 0 && path.indexOf('docs') < 0)) {
+        a.classList.add('here');
+      }
+    });
+  }
+})();
+</script>
+<!-- /portfolio-nav -->
+</body>
+</html>

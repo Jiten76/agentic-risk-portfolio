@@ -1,0 +1,64 @@
+{
+  "note": "machine-written by scripts/cut_trust_board.py \u2014 every count below is the RESULT of executing the named gate, never typed. Re-run after rebuilds.",
+  "audits": {
+    "rac": {
+      "pass": 123,
+      "fail": 0,
+      "total": 123
+    },
+    "atg": {
+      "pass": 76,
+      "fail": 0,
+      "total": 76
+    },
+    "hv": {
+      "pass": 35,
+      "fail": 0,
+      "total": 35
+    }
+  },
+  "verify_bundle": {
+    "pass": 26,
+    "fail": 0,
+    "total": 26
+  },
+  "classic_additive_leaves": {
+    "rac": 210,
+    "atg": 4,
+    "hv": 24
+  },
+  "gate_falsification": {
+    "caught": 7,
+    "trials": 7,
+    "note": "planted defects (zeroed gamma, stale note, broken attribution sum, out-of-range share, inflated chooser benefit, invented chooser owner) must FAIL their gate; clean run must PASS"
+  },
+  "interactions": {
+    "checks": 166,
+    "pass": 166,
+    "fail": 0,
+    "note": "complete per-check evidence in rows_by_page; re-execute with scripts/interaction_matrix_runner.js"
+  },
+  "conservation": {
+    "rac": {
+      "verdict": "PASS",
+      "run_at": "2026-07-22"
+    },
+    "atg": {
+      "verdict": "PASS",
+      "run_at": "2026-07-20"
+    },
+    "hv": {
+      "verdict": "PASS",
+      "run_at": "2026-07-21"
+    }
+  },
+  "numeric_baseline": {
+    "rac": 2176,
+    "atg": 94,
+    "hv": 1149
+  },
+  "defect_classes": {
+    "total": 19,
+    "machine_gated": 17
+  }
+}

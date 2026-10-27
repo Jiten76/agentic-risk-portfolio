@@ -1,0 +1,271 @@
+{
+  "version": "1.1",
+  "description": "Action types and risk events for the agent governance pipeline. Risk events carry incident_reference + framework_source_url for audit defensibility. See SOURCES.md.",
+  "grounding_note": "Incidents and framework citations are public, defensible references — not claims about prevention. Customers calibrate severity and alerting thresholds locally.",
+  "action_types": [
+    {
+      "id": "data_read",
+      "name": "Data Read",
+      "risk_level": "low",
+      "requires_consent_check": false,
+      "pii_scan_required": true
+    },
+    {
+      "id": "data_write",
+      "name": "Data Write",
+      "risk_level": "medium",
+      "requires_consent_check": true,
+      "pii_scan_required": true
+    },
+    {
+      "id": "external_api_call",
+      "name": "External API Call",
+      "risk_level": "high",
+      "requires_consent_check": true,
+      "pii_scan_required": true
+    },
+    {
+      "id": "model_inference",
+      "name": "Model Inference",
+      "risk_level": "medium",
+      "requires_consent_check": false,
+      "pii_scan_required": true
+    },
+    {
+      "id": "tool_execution",
+      "name": "Tool Execution",
+      "risk_level": "high",
+      "requires_consent_check": false,
+      "pii_scan_required": false
+    },
+    {
+      "id": "agent_delegation",
+      "name": "Agent Delegation",
+      "risk_level": "high",
+      "requires_consent_check": false,
+      "pii_scan_required": false
+    },
+    {
+      "id": "human_handoff",
+      "name": "Human Handoff",
+      "risk_level": "low",
+      "requires_consent_check": false,
+      "pii_scan_required": false
+    },
+    {
+      "id": "decision",
+      "name": "Automated Decision",
+      "risk_level": "critical",
+      "requires_consent_check": true,
+      "pii_scan_required": true
+    }
+  ],
+  "risk_events": [
+    {
+      "id": "RE-01",
+      "name": "PII Detected in Agent Output",
+      "auto_redact": true,
+      "alert_required": true,
+      "framework": "GDPR Art. 5; CCPA §1798.100",
+      "framework_source_url": "https://gdpr-info.eu/art-5-gdpr/",
+      "incident_reference": [
+        {
+          "name": "ChatGPT — Redis bug exposed conversation titles and payment metadata",
+          "date": "2023-03-20",
+          "summary": "Request-cancellation race in redis-py exposed chat titles and partial payment data for ~1.2% of ChatGPT Plus subscribers. Canonical 'shared cache + agent output' PII-leak class.",
+          "url": "https://openai.com/index/march-20-chatgpt-outage/"
+        },
+        {
+          "name": "Samsung — semiconductor source code pasted into ChatGPT",
+          "date": "2023-04-30",
+          "summary": "Three separate engineer-driven leaks of proprietary semiconductor source code and meeting transcripts to ChatGPT within 20 days. Samsung banned generative-AI tools company-wide on 2023-05-01.",
+          "url": "https://techcrunch.com/2023/05/02/samsung-bans-use-of-generative-ai-tools-like-chatgpt-after-april-internal-data-leak/"
+        }
+      ],
+      "severity_default": "high"
+    },
+    {
+      "id": "RE-02",
+      "name": "Consent Record Missing",
+      "auto_redact": false,
+      "alert_required": true,
+      "framework": "GDPR Art. 6(1)(a); CCPA §1798.120",
+      "framework_source_url": "https://gdpr-info.eu/art-6-gdpr/",
+      "incident_reference": [
+        {
+          "name": "Meta — Irish DPC €390M fine for Article 6 violation",
+          "date": "2023-01-04",
+          "summary": "Irish Data Protection Commission fined Meta €210M (Facebook) + €180M (Instagram) for relying on 'contract' legal basis to process personal data for behavioural advertising without valid consent. Canonical 'consent assumed not captured' GDPR case.",
+          "url": "https://www.dataprotection.ie/en/news-media/data-protection-commission-announces-decisions-meta-irelands-facebook-and-instagram-services"
+        }
+      ],
+      "severity_default": "high"
+    },
+    {
+      "id": "RE-03",
+      "name": "Unauthorized External Data Flow",
+      "auto_redact": false,
+      "alert_required": true,
+      "framework": "NIST CSF 1.1 PR.DS-5 (data-leak protection)",
+      "framework_source_url": "https://www.nist.gov/cyberframework",
+      "incident_reference": [
+        {
+          "name": "Capital One — SSRF to AWS metadata service",
+          "date": "2019-07-19",
+          "summary": "WAF misconfiguration allowed SSRF; attacker reached EC2 instance metadata service and exfiltrated ~106M records to external infrastructure. $80M OCC fine; consent order specifically cited absent egress controls.",
+          "url": "https://www.occ.treas.gov/news-issuances/news-releases/2020/nr-occ-2020-101.html"
+        },
+        {
+          "name": "Samsung — proprietary code to external LLM endpoint",
+          "date": "2023-04-30",
+          "summary": "Engineer-initiated paste of proprietary semiconductor code to a third-party model service — the canonical agent-era external-flow violation (the destination is a model API, not a competitor).",
+          "url": "https://techcrunch.com/2023/05/02/samsung-bans-use-of-generative-ai-tools-like-chatgpt-after-april-internal-data-leak/"
+        }
+      ],
+      "severity_default": "critical"
+    },
+    {
+      "id": "RE-04",
+      "name": "Agent Scope Exceeded",
+      "auto_redact": false,
+      "alert_required": true,
+      "framework": "NIST AI RMF GOVERN-1",
+      "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "incident_reference": [
+        {
+          "name": "CVE-2025-49596 — MCP Inspector RCE (CVSS 9.4)",
+          "date": "2025-06-01",
+          "summary": "Unauthenticated MCP Inspector instances allowed arbitrary command execution — an agent-tooling 'open scope' failure exposed to network.",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-49596"
+        },
+        {
+          "name": "Tool-mutation / rug-pull pattern (Simon Willison)",
+          "date": "2025-04-09",
+          "summary": "MCP tool definitions can mutate after install; a tool approved on Day 1 can be re-pointed by Day 7 with no re-approval. The scope a user authorized is not the scope the tool ends up exercising.",
+          "url": "https://simonwillison.net/2025/Apr/9/mcp-prompt-injection/"
+        }
+      ],
+      "severity_default": "high"
+    },
+    {
+      "id": "RE-05",
+      "name": "Low-Confidence Automated Decision",
+      "auto_redact": false,
+      "alert_required": false,
+      "framework": "NIST AI RMF MEASURE-2",
+      "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "incident_reference": [
+        {
+          "name": "Moffatt v. Air Canada — airline liable for chatbot hallucination",
+          "date": "2024-02-14",
+          "summary": "BC Civil Resolution Tribunal held Air Canada liable for chatbot-invented bereavement-refund policy ($812.02). Court rejected airline's 'separate legal entity' defence — companies own their agents' decisions. The first agent-confidence ruling that bit a deployer.",
+          "url": "https://decisions.civilresolutionbc.ca/crt/sd/en/item/525448/index.do"
+        },
+        {
+          "name": "Zillow Offers — model drift in production",
+          "date": "2021-11-02",
+          "summary": "iBuying model overpaid for inventory in a volatile market; Zillow wound down Offers with a $304M write-down and ~25% workforce reduction. Confidence intervals existed; they did not surface to a decision veto in time.",
+          "url": "https://www.sec.gov/Archives/edgar/data/1617640/000161764021000067/zillowgroup-shareholderletter.htm"
+        }
+      ],
+      "severity_default": "medium"
+    },
+    {
+      "id": "RE-06",
+      "name": "Data Lineage Break",
+      "auto_redact": false,
+      "alert_required": false,
+      "framework": "ISO/IEC 27001:2022 A.8.13 (Information backup)",
+      "framework_source_url": "https://www.iso.org/standard/27001",
+      "incident_reference": [
+        {
+          "name": "Atlassian Cloud — 14-day partial outage",
+          "date": "2022-04-04",
+          "summary": "Maintenance script deleted ~775 customer sites; recovery took up to 14 days for some tenants because per-tenant restore tooling and lineage between operational and backup state did not exist.",
+          "url": "https://www.atlassian.com/engineering/post-incident-review-april-2022-outage"
+        }
+      ],
+      "severity_default": "medium"
+    },
+    {
+      "id": "RE-07",
+      "name": "Excessive Data Retention by Agent",
+      "auto_redact": false,
+      "alert_required": false,
+      "framework": "GDPR Art. 5(e) (storage limitation)",
+      "framework_source_url": "https://gdpr-info.eu/art-5-gdpr/",
+      "incident_reference": [
+        {
+          "name": "Amazon — CNPD €746M fine (Luxembourg)",
+          "date": "2021-07-30",
+          "summary": "Largest GDPR fine to date at issuance; Luxembourg DPA found Amazon's personal-data processing did not comply with GDPR rules, including retention and lawful-basis concerns.",
+          "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872421000020/amzn-20210630.htm"
+        }
+      ],
+      "severity_default": "medium"
+    },
+    {
+      "id": "RE-08",
+      "name": "Multi-Agent Loop Detected",
+      "auto_redact": false,
+      "alert_required": false,
+      "framework": "NIST AI RMF MANAGE-2",
+      "framework_source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "incident_reference": [
+        {
+          "name": "MCPTox benchmark — agent vulnerability to tool-output prompt injection",
+          "date": "2025-08-01",
+          "summary": "Benchmark tested 20 LLM agents against 45 real MCP servers; most agents were vulnerable to prompt-injection-driven action loops via tool descriptions and outputs. Loops are the failure mode; injection is the trigger.",
+          "url": "https://www.practical-devsecops.com/mcp-security-guide/"
+        }
+      ],
+      "severity_default": "low"
+    }
+  ],
+  "compliance_frameworks": [
+    {
+      "name": "GDPR",
+      "url": "https://gdpr-info.eu/"
+    },
+    {
+      "name": "CCPA",
+      "url": "https://oag.ca.gov/privacy/ccpa"
+    },
+    {
+      "name": "NIST CSF 2.0",
+      "url": "https://www.nist.gov/cyberframework"
+    },
+    {
+      "name": "NIST AI RMF 1.0",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+    },
+    {
+      "name": "NIST AI 600-1 (GenAI Profile)",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+    },
+    {
+      "name": "ISO/IEC 27001:2022",
+      "url": "https://www.iso.org/standard/27001"
+    },
+    {
+      "name": "SOC 2 Type II",
+      "url": "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2"
+    },
+    {
+      "name": "EU AI Act (Reg. 2024/1689)",
+      "url": "https://artificialintelligenceact.eu"
+    }
+  ],
+  "target_classes": {
+    "_note": "r56 consequence-driven severity: effectful_tools are tools whose execution ACTS on the world (funds movement, credit inquiry, outbound customer comms); record_stores are books-and-records-shaped sinks whose write integrity the 17a-4 preservation obligation cares about. The classifier derives severity from these classes + the trace's own fields; severity_default is the class floor, rendered only in the pattern precedent register.",
+    "effectful_tools": [
+      "payment_disbursement",
+      "credit_bureau_api",
+      "alert_dispatcher"
+    ],
+    "record_stores": [
+      "internal_ledger",
+      "kyc_results"
+    ]
+  }
+}

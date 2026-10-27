@@ -1,0 +1,437 @@
+# Risk Patterns (RP-01..RP-12) — canonical taxonomy for agentic-risk-portfolio.
+# Consumed by: risk-pattern-review skill, risk-as-code-agent, oscal-bindings.
+# Edit here; downstream artefacts are derived.
+
+version: 1
+schema:
+  enforcement_candidates: [kyverno, opa-conftest, manual]
+  severity: [low, medium, high, critical]
+  trigger_match: any   # a pattern is "touched" if ANY trigger glob/regex matches a changed file
+
+patterns:
+
+  - id: RP-01
+    name: Agent identity & authentication
+    summary: Agents must present verifiable, rotated identities before participating in A2A or tool calls.
+    description: >
+      Covers signed agent cards, SPIFFE-style workload identity, and the trust
+      anchors that A2A relies on. Unsigned or long-lived agent cards collapse
+      every downstream control because the calling principal can no longer be
+      attributed.
+    regulatory_refs: [DORA Art.9, EBA-GL-ICT 3.4.4, NYDFS 500.7]
+    triggers:
+      paths:
+        - "packages/a2a-cards/**"
+        - "**/agent-card*.json"
+        - "**/.well-known/agent.json"
+        - "apps/agent-trace-gov/**/identity/**"
+      content_patterns:
+        - "(?i)agent[_-]?card"
+        - "spiffe://"
+    enforcement_candidates: [kyverno, opa-conftest, manual]
+    enforcement_links:
+      kyverno: packages/policies/kyverno/rp-01-agent-identity.yaml
+      opa_conftest: packages/policies/opa/rp-01-agent-identity.rego
+    severity_default: high
+    controls:
+      - nist: IA-9
+        internal: CTRL-RP01-01
+        description: Service-to-service identification — every agent card MUST be signed by the org root.
+      - nist: IA-5(2)
+        internal: CTRL-RP01-02
+        description: Identity credential rotation — agent card TTL ≤ 90 days, automated reissue.
+      - nist: IA-2(5)
+        internal: CTRL-RP01-03
+        description: Group authentication — agent role claims bound to identity, not derived from prompt.
+
+  - id: RP-02
+    name: Tool & capability authorization
+    summary: Least-privilege grants for tools, MCP servers, and Claude Code permissions.
+    description: >
+      The blast radius of an agent equals the union of its tool grants. This
+      pattern catches over-broad allowlists, wildcard permissions, and tools
+      mounted with ambient credentials.
+    regulatory_refs: [SR 11-7 §V, DORA Art.9(4)(c)]
+    triggers:
+      paths:
+        - "**/.claude/settings*.json"
+        - "**/mcp.json"
+        - "**/tools/**"
+        - "**/*.tool.yaml"
+        - "**/agent_tools*"
+      content_patterns:
+        - "\"permissions\""
+        - "(?i)allow.*\\*"
+        - "Bash\\(.*\\*.*\\)"
+    enforcement_candidates: [opa-conftest, manual]
+    enforcement_links:
+      kyverno: null
+      opa_conftest: packages/policies/opa/rp-02-tool-authz.rego
+    severity_default: high
+    controls:
+      - nist: AC-6
+        internal: CTRL-RP02-01
+        description: Least privilege — no wildcard tool grants without a documented exception.
+      - nist: AC-3(7)
+        internal: CTRL-RP02-02
+        description: Role-based access — tool grants scoped per agent role, not per agent instance.
+      - nist: AC-24
+        internal: CTRL-RP02-03
+        description: Access-control decisions — tool authorisation evaluated at call time, not bake time.
+
+  - id: RP-03
+    name: Data egress & exfiltration
+    summary: Controls on agent-mediated data flowing out of the trust boundary.
+    description: >
+      Any control surface where an agent can ship data outward — outbound HTTP,
+      tool responses copied to logs, embeddings sent to third-party indices.
+      In FS this is the highest-frequency finding from regulators in agentic POCs.
+    regulatory_refs: [GDPR Art.32, BCBS 239 P3, DORA Art.9(2)]
+    triggers:
+      paths:
+        - "**/egress*"
+        - "**/*allowlist*"
+        - "**/network*policy*.yaml"
+        - "**/outbound*"
+        - "apps/*/src/**/http_client*"
+      content_patterns:
+        - "(?i)egress"
+        - "https?://(?!localhost|127\\.0\\.0\\.1)"
+        - "NetworkPolicy"
+    enforcement_candidates: [kyverno, opa-conftest, manual]
+    enforcement_links:
+      kyverno: packages/policies/kyverno/rp-03-data-egress.yaml
+      opa_conftest: packages/policies/opa/rp-03-data-egress.rego
+    severity_default: critical
+    controls:
+      - nist: SC-7(5)
+        internal: CTRL-RP03-01
+        description: Boundary protection deny-by-default — egress allowlists explicit per agent.
+      - nist: AC-4
+        internal: CTRL-RP03-02
+        description: Information flow enforcement — data classification tags honoured in tool outputs.
+      - nist: SI-4(18)
+        internal: CTRL-RP03-03
+        description: Outbound communications traffic — anomalous egress monitored against baselines.
+
+  - id: RP-04
+    name: Prompt injection & instruction hijack
+    summary: Untrusted content overriding agent instructions or tool selection.
+    description: >
+      Indirect prompt injection through retrieved documents, tool outputs,
+      and user content. Largely undetectable by static policy — this RP is
+      almost always manual review against pattern playbooks.
+    regulatory_refs: [SR 11-7 §V (model risk), PRA SS1/23 §3]
+    triggers:
+      paths:
+        - "**/prompts/**"
+        - "**/*.prompt"
+        - "**/system*prompt*"
+        - "apps/*/src/**/agent*.{py,ts,tsx}"
+        - "**/rag/**"
+      content_patterns:
+        - "(?i)system[_-]?prompt"
+        - "(?i)ignore (previous|prior) instructions"
+        - "(?i)<\\|.*\\|>"
+    enforcement_candidates: [opa-conftest, manual]
+    enforcement_links:
+      kyverno: null
+      opa_conftest: packages/policies/opa/rp-04-prompt-injection.rego
+    severity_default: high
+    controls:
+      - nist: SI-10
+        internal: CTRL-RP04-01
+        description: Input validation — untrusted content delimited and tagged before model exposure.
+      - nist: SI-3
+        internal: CTRL-RP04-02
+        description: Malicious-code-equivalent protection — output filtering for tool-call hijack patterns.
+      - nist: SI-7(15)
+        internal: CTRL-RP04-03
+        description: Code authentication — system prompts hash-pinned and verified at load.
+
+  - id: RP-05
+    name: Model supply chain integrity
+    summary: Provenance, signing, and approval gates for model weights and fine-tunes.
+    description: >
+      Covers base model selection, fine-tune artefacts, LoRA adapters, and
+      embedding models. A drop-in weight swap is a code-equivalent change and
+      should be gated like one.
+    regulatory_refs: [SR 11-7 §IV, DORA Art.28, EU AI Act Art.15]
+    triggers:
+      paths:
+        - "**/models/**"
+        - "**/*.gguf"
+        - "**/*.safetensors"
+        - "**/Modelfile"
+        - "**/finetune*"
+        - "**/training/**"
+      content_patterns:
+        - "(?i)model[_-]?id"
+        - "(?i)checkpoint"
+    enforcement_candidates: [opa-conftest, manual]
+    enforcement_links:
+      kyverno: null
+      opa_conftest: packages/policies/opa/rp-05-model-supply-chain.rego
+    severity_default: high
+    controls:
+      - nist: SR-4(3)
+        internal: CTRL-RP05-01
+        description: Provenance — model artefacts traced to an approved source with signed manifest.
+      - nist: SR-11
+        internal: CTRL-RP05-02
+        description: Component authenticity — weights verified against published hashes pre-load.
+      - nist: SA-12
+        internal: CTRL-RP05-03
+        description: Supply chain protection — model registry behind change-managed approval workflow.
+
+  - id: RP-06
+    name: Container & workload integrity
+    summary: Image provenance, signing, SBOM coverage, and pinned digests.
+    description: >
+      Standard cloud-native supply chain hygiene as it applies to agent
+      runtimes. Unsigned or floating-tag images are the most common Kyverno
+      finding in this repo's target estate.
+    regulatory_refs: [DORA Art.9(2), FFIEC IT-Handbook OPS]
+    triggers:
+      paths:
+        - "**/Dockerfile"
+        - "**/*.dockerfile"
+        - "**/.dockerignore"
+        - "**/cosign*"
+        - "**/sbom*"
+        - "infra/helm/**"
+      content_patterns:
+        - "FROM .*:latest"
+        - "FROM [^@]+$"   # tag without digest pin
+    enforcement_candidates: [kyverno]
+    enforcement_links:
+      kyverno: packages/policies/kyverno/rp-06-container-integrity.yaml
+      opa_conftest: null
+    severity_default: high
+    controls:
+      - nist: CM-5(3)
+        internal: CTRL-RP06-01
+        description: Signed components — images verified by cosign at admission.
+      - nist: CM-14
+        internal: CTRL-RP06-02
+        description: Signed software — digest-pinned references, no floating tags.
+      - nist: SR-4(4)
+        internal: CTRL-RP06-03
+        description: SBOM provenance — SPDX/CycloneDX SBOM attached and verified.
+
+  - id: RP-07
+    name: Kubernetes admission & runtime policy
+    summary: Pod security, hostPath, privileged escalation, and admission baselines.
+    description: >
+      Workload-level controls for the K8s estate that hosts agent runtimes
+      (apps/hypervelocity-risk-sim is the primary consumer). Owns the
+      Restricted PSS baseline plus repo-specific overlays.
+    regulatory_refs: [DORA Art.9, FFIEC IT-Handbook ARC]
+    triggers:
+      paths:
+        - "infra/**"
+        - "apps/*/k8s/**"
+        - "apps/*/helm/**"
+        - "**/values.yaml"
+        - "**/*.deploy.yaml"
+      content_patterns:
+        - "privileged: true"
+        - "hostPath:"
+        - "runAsUser: 0"
+    enforcement_candidates: [kyverno]
+    enforcement_links:
+      kyverno: packages/policies/kyverno/rp-07-k8s-admission.yaml
+      opa_conftest: null
+    severity_default: critical
+    controls:
+      - nist: CM-7(2)
+        internal: CTRL-RP07-01
+        description: Least functionality — Pod Security Restricted profile enforced.
+      - nist: AC-6(10)
+        internal: CTRL-RP07-02
+        description: Privileged-account constraint — no privileged or hostPath pods without exception.
+      - nist: SC-39
+        internal: CTRL-RP07-03
+        description: Process isolation — non-root, read-only root FS, dropped capabilities.
+
+  - id: RP-08
+    name: IAM & secrets management
+    summary: Cloud-IAM least privilege and secret material handling.
+    description: >
+      Covers Terraform IAM, *.iam.json policies, KMS posture, and any
+      hardcoded secret material. opa-conftest is the primary gate; Kyverno
+      backstops at admission for in-cluster Secret resources.
+    regulatory_refs: [NYDFS 500.7, DORA Art.9(4), SOX ITGC-A]
+    triggers:
+      paths:
+        - "iam/**"
+        - "**/*.iam.json"
+        - "terraform/**"
+        - "**/*.tf"
+        - "**/*.tfvars"
+        - "**/secret*"
+      content_patterns:
+        - "\"Action\": \"\\*\""
+        - "(?i)aws_secret_access_key"
+        - "(?i)BEGIN (RSA |EC )?PRIVATE KEY"
+    enforcement_candidates: [opa-conftest, kyverno, manual]
+    enforcement_links:
+      kyverno: packages/policies/kyverno/rp-08-iam-secrets.yaml
+      opa_conftest: packages/policies/opa/rp-08-iam-secrets.rego
+    severity_default: critical
+    controls:
+      - nist: AC-6
+        internal: CTRL-RP08-01
+        description: Least privilege — no Action="*" or Resource="*" without conditional scope.
+      - nist: IA-5(7)
+        internal: CTRL-RP08-02
+        description: No embedded credentials — secrets sourced from a vault, never committed.
+      - nist: SC-12
+        internal: CTRL-RP08-03
+        description: Cryptographic key establishment — KMS-managed CMKs with rotation enabled.
+
+  - id: RP-09
+    name: Audit trail & non-repudiation
+    summary: OTel trace coverage, OSCAL evidence binding, and A2A trace propagation.
+    description: >
+      Without a stitched trace from user → agent → tool → downstream system,
+      no incident can be reconstructed and no OSCAL assessment-result is
+      defensible. This RP enforces the evidence backbone the rest of the
+      portfolio depends on.
+    regulatory_refs: [BCBS 239 P3/P6, DORA Art.10, SOX ITGC-D]
+    triggers:
+      paths:
+        - "packages/oscal-bindings/**"
+        - "apps/agent-trace-gov/**"
+        - "**/otel*"
+        - "**/tracing*"
+        - "**/audit*"
+      content_patterns:
+        - "(?i)opentelemetry"
+        - "(?i)trace[_-]?id"
+    enforcement_candidates: [opa-conftest, manual]
+    enforcement_links:
+      kyverno: null
+      opa_conftest: packages/policies/opa/rp-09-audit-trail.rego
+    severity_default: high
+    controls:
+      - nist: AU-3(1)
+        internal: CTRL-RP09-01
+        description: Additional audit content — agent_id, tool_name, parent trace_id mandatory in spans.
+      - nist: AU-10
+        internal: CTRL-RP09-02
+        description: Non-repudiation — agent decisions signed and bound to OSCAL assessment-result.
+      - nist: AU-12
+        internal: CTRL-RP09-03
+        description: Audit record generation — coverage gate ≥ 95% of tool-call paths instrumented.
+
+  - id: RP-10
+    name: Change management & deploy gating
+    summary: GitOps approvals, ArgoCD sync policy, and CI/CD gating around agent releases.
+    description: >
+      Treats an agent (prompts + tools + model + weights) as a single
+      deployable unit and gates it through GitOps with the same controls
+      applied to traditional services.
+    regulatory_refs: [SOX ITGC-C, DORA Art.16, FFIEC IT-Handbook MGT]
+    triggers:
+      paths:
+        - "infra/argocd/**"
+        - "**/.github/workflows/**"
+        - "**/Application.yaml"
+        - "**/argocd*"
+      content_patterns:
+        - "automated:"
+        - "selfHeal: true"
+        - "syncPolicy:"
+    enforcement_candidates: [kyverno, opa-conftest, manual]
+    enforcement_links:
+      kyverno: packages/policies/kyverno/rp-10-change-management.yaml
+      opa_conftest: packages/policies/opa/rp-10-change-management.rego
+    severity_default: high
+    controls:
+      - nist: CM-3(2)
+        internal: CTRL-RP10-01
+        description: Tested/approved changes — production sync requires PR approval + green CI.
+      - nist: CM-4
+        internal: CTRL-RP10-02
+        description: Impact analysis — agent-card or tool-grant changes flagged for 2LoD review.
+      - nist: SA-10
+        internal: CTRL-RP10-03
+        description: Developer configuration management — automated sync disabled on prod overlays.
+
+  - id: RP-11
+    name: A2A protocol & cross-framework agent communication
+    summary: Signed agent cards, MCP/A2A version compatibility, identity federation, and faithful tool-call propagation across agent frameworks.
+    description: >
+      Covers agent-to-agent (A2A) protocol conformance, MCP/A2A version drift
+      between caller and callee, federated agent identity across frameworks
+      (LangGraph, CrewAI, Claude Agent SDK, etc.), and faithful propagation of
+      tool-call context, scopes, and trace identity across framework
+      boundaries. A break in any of these silently degrades attribution and
+      authorisation guarantees end-to-end.
+    regulatory_refs: [DORA Art.9, EBA-GL-ICT 3.4.4, NIST SP 800-207]
+    triggers:
+      paths:
+        - "packages/a2a-cards/**"
+        - "**/.well-known/agent.json"
+        - "**/agent-card*.json"
+        - "**/mcp.json"
+        - "apps/*/src/**/a2a*"
+        - "apps/*/src/**/cross_framework*"
+      content_patterns:
+        - "(?i)\\ba2a\\b"
+        - "(?i)agent[_-]?card"
+        - "(?i)mcp[_-]?version"
+        - "(?i)protocol[_-]?version"
+    enforcement_candidates: [opa-conftest, manual]
+    enforcement_links:
+      kyverno: null
+      opa_conftest: packages/policies/opa/rp-11-a2a-protocol.rego
+    severity_default: high
+    controls:
+      - nist: IA-9
+        internal: CTRL-RP11-01
+        description: Service identification — agent cards signed by org root and validated on every A2A handshake.
+      - nist: SC-23
+        internal: CTRL-RP11-02
+        description: Session authenticity — MCP/A2A protocol versions negotiated and pinned; drift fails closed.
+      - nist: IA-8(2)
+        internal: CTRL-RP11-03
+        description: Federated identity — cross-framework calls carry federated principal claims, not framework-local identity.
+      - nist: AU-10(2)
+        internal: CTRL-RP11-04
+        description: Identity binding — tool-call context (scopes, trace_id, principal) propagated faithfully across framework boundaries.
+
+  - id: RP-12
+    name: Third-party & vendor agent risk
+    summary: External A2A endpoints, remote MCP servers, and outbound model-API dependencies.
+    description: >
+      Trust-boundary controls for any agent we did not build: vendor MCP
+      servers, partner A2A endpoints, hosted model APIs. Onboarding
+      questionnaire + signed card + traffic confinement.
+    regulatory_refs: [DORA Art.28–30, EBA-GL-Outsourcing, OCC 2013-29]
+    triggers:
+      paths:
+        - "**/mcp.json"
+        - "**/external_agents*"
+        - "**/vendor*"
+        - "**/.well-known/agent.json"
+      content_patterns:
+        - "https?://(?!localhost|.*\\.internal)"
+        - "(?i)vendor"
+        - "(?i)third[_-]?party"
+    enforcement_candidates: [opa-conftest, manual]
+    enforcement_links:
+      kyverno: null
+      opa_conftest: packages/policies/opa/rp-12-vendor-agent.rego
+    severity_default: high
+    controls:
+      - nist: SR-6
+        internal: CTRL-RP12-01
+        description: Supplier assessment — vendor agents pass onboarding due-diligence before allowlist.
+      - nist: SA-9(2)
+        internal: CTRL-RP12-02
+        description: External system services — interface, data, and identity contract documented.
+      - nist: CA-3(6)
+        internal: CTRL-RP12-03
+        description: Information exchange — outbound traffic to vendor agents pinned and monitored.

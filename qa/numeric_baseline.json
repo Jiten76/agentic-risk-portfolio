@@ -1,0 +1,19 @@
+{
+  "note": "cross-build numeric anchor \u2014 B11 compares the shipped pages against this. If numbers deliberately change, re-run scripts/cut_numeric_baseline.py in the SAME commit; a mismatch at verify time means silent drift.",
+  "rac": {
+    "leaf_multiset_sha256": "3d01df2f533599fde8d930f8b65b3226b2471a7f0d8582f16719cf34084d710f",
+    "leaf_count": 2176
+  },
+  "atg": {
+    "leaf_multiset_sha256": "7ff685bd14a82f8df3291c777b01ba4f6fccc1cce4f5a793eb1853c82e0df021",
+    "leaf_count": 94
+  },
+  "hv": {
+    "leaf_multiset_sha256": "7747a0e37675698ae117906e5b45da32baf441f4aa47873e7aed62e917692a97",
+    "leaf_count": 1149
+  },
+  "human_anchor": {
+    "rac_residual_p95_usd": 98080000,
+    "register_findings": 25
+  }
+}
